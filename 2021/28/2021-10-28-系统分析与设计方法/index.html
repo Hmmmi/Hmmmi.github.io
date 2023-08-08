@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>系统分析与设计方法 | Hmmmi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+    <link rel="icon" href="/avatar-default.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+  
+  <meta name="description" content="以信息系统整个生命周期的角度考虑系统相关问题，包括系统的种类、分析、设计、实现和运维，着重关注系统的分析和设计。从三个总目标出发——知识、业务和通信，从参与者和业务过程两个角度，用结构化的方式分析信息系统生命周期里的构件。涵盖软件工程中的分析和设计概念，可作为SE总括性的后置学习内容，但复习时可以先前置复习，达到眉毛胡子一把抓的效果 :)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统分析与设计方法">
+<meta property="og:url" content="https://hmmmi.github.io/2021/28/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hmmmi">
+<meta property="og:description" content="以信息系统整个生命周期的角度考虑系统相关问题，包括系统的种类、分析、设计、实现和运维，着重关注系统的分析和设计。从三个总目标出发——知识、业务和通信，从参与者和业务过程两个角度，用结构化的方式分析信息系统生命周期里的构件。涵盖软件工程中的分析和设计概念，可作为SE总括性的后置学习内容，但复习时可以先前置复习，达到眉毛胡子一把抓的效果 :)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029084536369.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029094839091.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029154918652.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029194738894.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029202738894.jpg">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029202738895.jpg">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030092047100.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030115048526.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030131751025.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/use-case.jpg">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030132744686.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/ERPic.jpg">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030132829578.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/18006234-e62df2d452a67e73.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/18006234-1dec6894e83531a1.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030164510408.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031142142538.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031203548324.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031203723028.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031211101391.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211101105142676.png">
+<meta property="article:published_time" content="2021-10-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-01T05:01:06.816Z">
+<meta property="article:author" content="Hmmmi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hmmmi.github.io/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029084536369.png"><meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="wrapper">
+    <header id="header">
+  <h1 id="title">
+    <a href="/">Hmmmi</a>
+  </h1>
+  <nav>
+    
+    
+      
+      <a class="nav-link" href="/">Home</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" href="/archives">Archives</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/hmmmi">GitHub</a>
+    
+    
+  </nav>
+</header>
+
+    <div id="content">
+      <article id="post-2021-10-28-系统分析与设计方法" class="article article-type-post" itemprop="blogPost" itemscope>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 class="article-title" itemprop="headline name">
+      系统分析与设计方法
+    </h2>
+  
+
+
+        <div class="article-meta">
+          <time class="article-date" datetime="2021-10-27T16:00:00.000Z" itemprop="datePublished">October 28, 2021</time>
+
+          
+            × <span class="article-word-count">7.8k words</span>
+            
+            × <span class="article-time-to-read">27 minutes</span>
+            
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="01-系统开发项目环境"><a href="#01-系统开发项目环境" class="headerlink" title="01 - 系统开发项目环境"></a>01 - 系统开发项目环境</h1><p>整体描述，包括1) 系统参与者；2) 信息系统构件；及 3) 项目管理和过程管理办法。</p>
+<br/>
+
+<h2 id="1-1-系统分析和设计方法的环境"><a href="#1-1-系统分析和设计方法的环境" class="headerlink" title="1-1 系统分析和设计方法的环境"></a>1-1 系统分析和设计方法的环境</h2><p><strong>关注点</strong>： 1) 信息系统类型，2) 系统参与者，3) 系统的驱动力及 4) 系统的开发过程。</p>
+<p><br/><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029084536369.png" alt="image-20211029084536369"></p>
+<br/>
+
+<p><strong>系统的定义</strong> ：由许多可以交互的构件组成，构件一起工作实现系统参与者所要求的结果。</p>
+<p><strong>常见信息系统（Information System, IS）分类</strong> ：</p>
+<ul>
+<li>事务处理系统 - <u><strong>处理</strong></u>企业<u><strong>事务</strong></u>，如订单、即使卡片、支付和预定。 |  <u><strong><em>数据 -&gt; 事务</em></strong></u></li>
+<li>管理信息系统 - 使用事务<u><strong>数据产生</strong></u>管理者管理企业所需的<u><strong>信息</strong></u>。 |  <em><u><strong>数据 -&gt; 管理信息</strong></u></em></li>
+<li>决策支持系统 - 辅助决策人员决策。 |  <em><u><strong>数据 -&gt; 决策信息</strong></u></em></li>
+<li>主管信息系统 - 专门按照主管特殊信息需求进行裁剪，为企业指定规划、评估效益。 |  <em><u><strong>数据 -&gt; 规划评估</strong></u></em></li>
+<li>专家系统 - 捕捉并加工专家/决策者的<u><strong>知识</strong></u>，并模拟那些专家的“<u><strong>思想</strong></u>”。 |  <em><u><strong>知识 -&gt; 思想</strong></u></em></li>
+<li>通信和协作系统 - 提高人与人之间的通信协作水平。 |  <em><u><strong>数据流动</strong></u></em></li>
+<li>办公自动化系统 - OA 改进人与<strong>工作流</strong>之间的关系。 |  <em><u><strong>工作流</strong></u></em></li>
+</ul>
+<h3 id="1-1-1-系统关联人员"><a href="#1-1-1-系统关联人员" class="headerlink" title="1-1-1 系统关联人员"></a>1-1-1 系统关联人员</h3><ul>
+<li>系统所有者 - 为构造和运营的系统付费。视角： <strong><em>开销和收益</em></strong> </li>
+<li>系统用户 - 确定系统业务需求和预期。视角： <strong><em>系统功能</em></strong> <ul>
+<li>系统内部（占大多数）- 办事员/服务人员、技术人员/专业人员、主管、经理。</li>
+<li>系统外部 - 顾客、供应商、合作伙伴、雇员。</li>
+</ul>
+</li>
+<li>设计人员 - 将业务需求转换为可行的技术方案。视角：实现的<u>**<em>可行性**</em></u>。<ul>
+<li>数据库管理员、Web架构师、图形艺术师、安全专家、技术专家。</li>
+</ul>
+</li>
+<li>构造人员 - 构建、部署、维护和运营。视角：实际软硬件，<u>**<em>技术逻辑**</em></u>。<ul>
+<li>系统程序员、应用程序员、数据库程序员、网络管理员、安全管理员、Web站点管理员、软件集成员。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>系统分析员 - 既懂业务又懂计算机技术，将<u>**<em>业务知识转换成 IS 的规格说明**</em></u>。<ul>
+<li>可以分散于各个职能部门和主管部门；也可成为专门的小型部门。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>外部服务提供者 - 任何一个关联人员的角色都可以由内部工作人员/外部工作人员充当。<ul>
+<li>咨询顾问、技术工程师、销售工程师、系统顾问、签约程序员和系统集成人员等。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>项目经理 - 团队领导，整体把控。</li>
+</ul>
+<h3 id="1-1-2-现代信息系统的驱动力"><a href="#1-1-2-现代信息系统的驱动力" class="headerlink" title="1-1-2 现代信息系统的驱动力"></a>1-1-2 现代信息系统的驱动力</h3><h4 id="1-1-2-1-业务驱动"><a href="#1-1-2-1-业务驱动" class="headerlink" title="1-1-2-1 业务驱动"></a>1-1-2-1 业务驱动</h4><p>业务驱动关系企业发展趋势。</p>
+<p>Ex. 经济全球化；电子商务和电子业务；安全和隐私；协作与合作经营；知识产权管理；持续改进（业务升级）；全面质量管理；业务过程重构。</p>
+<h4 id="1-1-2-2-技术驱动"><a href="#1-1-2-2-技术驱动" class="headerlink" title="1-1-2-2 技术驱动"></a>1-1-2-2 技术驱动</h4><p>信息技术的进步也助力于IS的发展。</p>
+<p>Ex. 网络和因特网（5G, Wifi6）；对象技术；协作技术；企业应用软件等</p>
+<h3 id="1-1-3-系统开发过程"><a href="#1-1-3-系统开发过程" class="headerlink" title="1-1-3 系统开发过程"></a>1-1-3 系统开发过程</h3><p>即项目管理和过程管理。</p>
+<ul>
+<li>系统启动 - 确定<strong>问题</strong>/问题陈述 和 项目<strong>计划</strong>。<ul>
+<li>确定问题 及 技术方案</li>
+<li>确定范围、目标、进度和预算</li>
+</ul>
+</li>
+<li>系统分析 - 业务问题方案的<strong>需求、预期和优先级</strong>。<ul>
+<li>交付需求规格说明书</li>
+</ul>
+</li>
+<li>系统设计 - 实现业务需求的方案的技术蓝图和规格说明<ul>
+<li>实现系统所需的技术和环境</li>
+<li>系统的架构/体系结构</li>
+</ul>
+</li>
+<li>系统实现 - 按照技术体系结构和规格说明，实现方案<ul>
+<li>编码、测试、部署、运维……</li>
+</ul>
+</li>
+</ul>
+<br/>
+
+<h2 id="1-2-信息系统构件"><a href="#1-2-信息系统构件" class="headerlink" title="1-2 信息系统构件"></a>1-2 信息系统构件</h2><p><strong>关注点</strong>：从架构角度看待信息系统；信息系统的三个目标——知识、过程、通信。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029094839091.png" alt="image-20211029094839091"></p>
+<p><strong>注</strong>：构件间相互链接；不同类型构件中，底层（技术）构件支撑上层（业务）构件，业务为技术提供方向。</p>
+<br/>
+
+<h3 id="1-2-1-“知识”构件"><a href="#1-2-1-“知识”构件" class="headerlink" title="1-2-1 “知识”构件"></a>1-2-1 “知识”构件</h3><p><strong>目标</strong>：<u><strong>提高业务知识</strong></u>。 数据 -&gt; 信息 -&gt; 知识 -&gt; 公司实现任务目标。</p>
+<ul>
+<li><strong>信息范围和构想</strong> | 系统所有者 - 【<u>粗线条的蓝图轮廓</u>】<ul>
+<li>关心整体，忽略细节。只关心业务知识，有助于决策、实现组织的任务、目的和目标，提高竞争力。</li>
+<li>业务知识：业务实体 - 业务规则</li>
+</ul>
+</li>
+<li><strong>业务数据需求</strong> | 系统用户 - 【<u>蓝图的效用</u>】<ul>
+<li>数据属性</li>
+<li>维护数据的精确业务规则</li>
+</ul>
+</li>
+<li><strong>数据库设计</strong> | 设计人员 - 【<u>资源布局和规划</u>】<ul>
+<li>使用数据库存储业务数据及分析计算得到的业务知识</li>
+<li>数据需求转换为数据库设计</li>
+</ul>
+</li>
+<li><strong>数据库方案</strong> | 构造人员 - 【<u>绘制细节、技术</u>】<ul>
+<li>离DBMS最近</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-2-“过程”构件"><a href="#1-2-2-“过程”构件" class="headerlink" title="1-2-2 “过程”构件"></a>1-2-2 “过程”构件</h3><p><strong>目标</strong>：改进提升业务和服务过程。业务过程保证信息系统预期的实现，即系统的工作。</p>
+<ul>
+<li><strong>功能范围和构想</strong> | 系统所有者<ul>
+<li>整体业务功能</li>
+</ul>
+</li>
+<li><strong>业务过程需求</strong> | 系统用户<ul>
+<li>策略：执行某个业务过程时必须遵守的规则</li>
+<li>规程：执行业务过程遵守的精确步骤</li>
+</ul>
+</li>
+<li><strong>业务过程设计/软件设计</strong> | 设计人员<ul>
+<li>输出：软件规格说明书</li>
+<li>实现系统用户的业务过程需求</li>
+<li>提供用于同构造人员交流软件设计的足够细节和一致性</li>
+</ul>
+</li>
+<li><strong>商用软件包/定制应用程序</strong> | 构造人员<ul>
+<li>使用编程语言、软件开发环境 描述 业务过程</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-3-“通信”构件"><a href="#1-2-3-“通信”构件" class="headerlink" title="1-2-3 “通信”构件"></a>1-2-3 “通信”构件</h3><p><strong>目标</strong>：改进雇员与其他部门之间的企业内部通信和协作。提供给系统用户的有效通信接口 + 提供同其他信息系统的有效接口。</p>
+<ul>
+<li><strong>通信范围和构想</strong> | 系统所有者<ul>
+<li>新系统为哪些部门、用户/客户/外企提供接口？</li>
+<li>新系统与其他信息系统接口？</li>
+<li>用户/系统在企业内外部分布情况？</li>
+</ul>
+</li>
+<li><strong>业务接口需求</strong> | 系统用户<ul>
+<li>信息系统的输入和输出</li>
+<li>数据录入或表示方式、风格、操作</li>
+</ul>
+</li>
+<li><strong>接口设计</strong> | 设计人员<ul>
+<li>交互方式</li>
+<li>一致性、兼容性、容错性、完整性</li>
+</ul>
+</li>
+<li><strong>接口方案</strong> | 构造人员<ul>
+<li>构造、安装、测试</li>
+<li>*中间件</li>
+</ul>
+</li>
+</ul>
+<br/>
+
+<h2 id="1-3-信息系统开发"><a href="#1-3-信息系统开发" class="headerlink" title="1-3 信息系统开发"></a>1-3 信息系统开发</h2><p><strong>关注点</strong>：系统的生命周期（转换和报废），系统开发方法以及系统的质量管理和评估（CMM标准）。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029154918652.png" alt="image-20211029154918652"></p>
+<br/>
+
+<p>使用一致的系统开发过程能够 <strong>1) 提高效率</strong>，管理层可在项目间调动资源；<strong>2) 产生一致性文档</strong>，便于维护，减少了维护系统的生命周期费用；<strong>3) 形成相对统一</strong>可量化的<strong>质量评估标准</strong>。</p>
+<h3 id="1-3-1-能力成熟度模型-CMM"><a href="#1-3-1-能力成熟度模型-CMM" class="headerlink" title="1-3-1 能力成熟度模型 CMM"></a>1-3-1 能力成熟度模型 CMM</h3><p>能力成熟度模型（Capability Maturity Model, CMM）用来评估组织的信息系统<strong>开发</strong>以及<strong>管理过程</strong>和<strong>产品的成熟度</strong>等级的框架，共五个等级。其中每个等级都是下一等级的先决条件。</p>
+<ul>
+<li>第一级——初始级（混乱状态）<ul>
+<li>系统开发项目无规定过程可遵循</li>
+<li>每个开发团队都使用自己的工具和方法</li>
+<li>项目成败主要取决于项目团队的技能和经验</li>
+</ul>
+</li>
+<li>第二级——可重复级<ul>
+<li>已建立项目管理过程和实践来跟踪项目费用、进度和功能</li>
+<li>总使用<u><strong>某个固定系统开发过程</strong></u>，但项目与项目间可能不同</li>
+<li>项目成败仍取决于项目团队的技能和经验</li>
+</ul>
+</li>
+<li>第三级——已定义级<ul>
+<li>组织开发/购买了<u><strong>标准的系统开发过程</strong></u>，集成到组织的信息系统/服务部门中</li>
+<li>所有项目都会产生一致且高质量的文档和交付成果</li>
+<li>开发过程稳定、可预测、可重复</li>
+</ul>
+</li>
+<li>第四级——已管理级<ul>
+<li>组织建立了<u><strong>可度量的质量和生产率目标</strong></u></li>
+<li>收集度量数据，分析并<u><strong>提高项目管理水平</strong></u></li>
+<li>管理层更加主动应对系统开发问题</li>
+</ul>
+</li>
+<li>第五级——优化级<ul>
+<li>标准化的系统开发过程被<u><strong>连续地监督和改进</strong></u></li>
+<li>吸取经验教训及时调整优化</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-2-系统的生命周期"><a href="#1-3-2-系统的生命周期" class="headerlink" title="1-3-2 系统的生命周期"></a>1-3-2 系统的生命周期</h3><table>
+<thead>
+<tr>
+<th align="center">开发阶段</th>
+<th align="center"></th>
+<th align="center">运维阶段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">生命周期阶段</td>
+<td align="center">—  转换  —&gt;</td>
+<td align="center">生命周期阶段</td>
+</tr>
+<tr>
+<td align="center">系统开发</td>
+<td align="center"></td>
+<td align="center">系统运行和维护</td>
+</tr>
+<tr>
+<td align="center">使用系统开发方法</td>
+<td align="center">&lt;—  报废  —</td>
+<td align="center">使用系统选择的信息技术</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-3-系统的开发方法"><a href="#1-3-3-系统的开发方法" class="headerlink" title="1-3-3 系统的开发方法"></a>1-3-3 系统的开发方法</h3><p>一些例子：结构化快速应用开发（Architected RAD）、动态系统开发方法（DSDM）、联合应用开发（JAD）、信息工程（IE）、快速应用开发（RAD）、Rational 统一开放过程（RUP）、结构化分析和设计、极限编程（XP）等</p>
+<h4 id="1-3-3-1-基本原理"><a href="#1-3-3-1-基本原理" class="headerlink" title="1-3-3-1 基本原理"></a>1-3-3-1 基本原理</h4><ol>
+<li>让系统用户参与</li>
+<li>使用一套问题解决步骤</li>
+<li>确立开发阶段和开发活动</li>
+<li>在开发过程中记录文档</li>
+<li>建立标准</li>
+<li>管理开发过程和项目</li>
+<li>将信息系统作为重要的投资看待</li>
+<li>不怕项目撤销和返工</li>
+<li>分而治之</li>
+<li>设计系统考虑扩展和变化</li>
+</ol>
+<h4 id="1-3-3-2-系统开发过程"><a href="#1-3-3-2-系统开发过程" class="headerlink" title="1-3-3-2 系统开发过程"></a>1-3-3-2 系统开发过程</h4><h5 id="①-项目确定-PIECES问题解决框架"><a href="#①-项目确定-PIECES问题解决框架" class="headerlink" title="① 项目确定 - PIECES问题解决框架"></a>① 项目确定 - PIECES问题解决框架</h5><ul>
+<li>P - Performance 改进性能的需要</li>
+<li>I - Information 改进信息和数据的需要</li>
+<li>E - Economics 改进经济、控制成本和增加收益的需要</li>
+<li>C - Control 改进控制或安全的需要</li>
+<li>E - Efficiency 改进人与过程的效率需要</li>
+<li>S - Service 改进对客户、供应商、合作伙伴、雇员的服务的需要</li>
+</ul>
+<h5 id="②-项目阶段"><a href="#②-项目阶段" class="headerlink" title="② 项目阶段"></a>② 项目阶段</h5><ul>
+<li>项目启动<ul>
+<li>范围定义 - 确定问题 及 问题/项目的约束条件【发布 <u><strong>工作任务说明</strong></u>（开发合约/协议）】</li>
+<li>问题分析 - 对问题的全面理解，项目的复杂程度 项目进度【发布 <u><strong>系统改进目标</strong></u>】</li>
+</ul>
+</li>
+<li>系统分析<ul>
+<li>需求分析 - 确定业务需求及其优先级【发布 <u><strong>业务需求说明</strong></u>】</li>
+<li>逻辑设计 - 将需求转化为系统模型，验证需求一致性、完整性【发布 <u><strong>逻辑设计模型和规格说明</strong></u>】<ul>
+<li>逻辑数据模型；逻辑过程模型；逻辑接口模型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>决策分析 - 确定候选方案、分析可行性并推荐合适方案【发布 <u><strong>应用架构</strong></u>】</li>
+<li>系统设计<ul>
+<li>物理设计和集成 - 类比数据库设计中的物理设计【发布 <u><strong>物理设计模型和规格说明、设计原型、重新设计的业务流程</strong></u>】<ul>
+<li>数据库的物理设计指 数据库<u>存储结构和存储路径</u>的设计</li>
+</ul>
+</li>
+<li>构建和测试 - 以上述设计为蓝本构建并测试系统组件【发布 <u><strong>系统功能 + 最终文档</strong></u>】<ul>
+<li>帮助系统、培训手册、帮助中心支持、生产控制指令</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>系统实现<ul>
+<li>– （同上） 构建和测试</li>
+<li>安装和发布 - 将系统从开发环境安装到运行环境中【发布 <u><strong>系统 + 培训手册 + 生产控制手册</strong></u>】</li>
+<li>运行和维护 - </li>
+</ul>
+</li>
+</ul>
+<h5 id="③-跨生命周期活动"><a href="#③-跨生命周期活动" class="headerlink" title="③ 跨生命周期活动"></a>③ 跨生命周期活动</h5><ul>
+<li>调查研究 - 贯穿于 决策分析、设计、构建和测试及安装发布等各个阶段</li>
+<li>记录文档和演示汇报 - 复用 及 项目返工</li>
+<li>可行性分析 - 技术可行性、运行可行性、经济可行性、进度可行性和风险可行性等</li>
+<li>项目管理和过程管理</li>
+</ul>
+<h5 id="④-顺序开发和迭代开发-【软件工程】中详述"><a href="#④-顺序开发和迭代开发-【软件工程】中详述" class="headerlink" title="④ 顺序开发和迭代开发 - 【软件工程】中详述"></a>④ 顺序开发和迭代开发 - 【软件工程】中详述</h5><ul>
+<li>顺序开发 - 瀑布开发方法（瀑布模型）</li>
+<li>迭代开发 - 增量开发过程</li>
+</ul>
+<h2 id="1-4-项目管理"><a href="#1-4-项目管理" class="headerlink" title="1-4 项目管理"></a>1-4 项目管理</h2><p>项目管理技能在信息技术界有很大需求，是系统开发的自然拓展。</p>
+<p><strong>关注点</strong>：区别<strong>项目管理</strong>和<strong>过程管理</strong>；项目管理<strong>基本功能</strong>及<u>项目经理基本能力</u>；项目管理基本工具（<strong>PERT图</strong>和<strong>甘特图</strong>）。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029194738894.png" alt="image-20211029194738894"></p>
+<br/>
+
+<h3 id="1-4-1-项目管理-vs-过程管理"><a href="#1-4-1-项目管理-vs-过程管理" class="headerlink" title="1-4-1 项目管理 vs 过程管理"></a>1-4-1 项目管理 vs 过程管理</h3><p><strong>项目</strong>（Project）是一个（临时的）唯一的、复杂的和关联的具有统一目标或目的并且必须在特定时间里、预算内、按照规格说明要求完成的活动序列。</p>
+<p><strong>项目管理</strong>（Project Management）是在指定时间内用最少的费用开发可接受的系统的管理过程，内容包括确定范围、计划、人员安排、组织、指导和控制。</p>
+<p><strong>过程管理</strong>（Process Management）是持续记录、管理和改进系统开发过程的活动。</p>
+<h3 id="1-4-2-项目管理知识体系"><a href="#1-4-2-项目管理知识体系" class="headerlink" title="1-4-2 项目管理知识体系"></a>1-4-2 项目管理知识体系</h3><p>项目管理学会发表了项目管理知识体系（Project Management Body of Knowledge, PMBOK），用于职业项目经理的教育和认证。</p>
+<h4 id="1-4-2-1-项目经理能力"><a href="#1-4-2-1-项目经理能力" class="headerlink" title="1-4-2-1 项目经理能力"></a>1-4-2-1 项目经理能力</h4><ul>
+<li><strong>业务能力</strong>：熟悉业务，保持同业务伙伴的关系，保证质量  |  业务经验</li>
+<li><strong>问题解决能力</strong>：主动性，信息收集，分析思维，理论思维  |  业务经验</li>
+<li><strong>影响能力</strong>：了解人际关系、组织，预测结果的能力，充分利用影响力  |  业务经验</li>
+<li><strong>管理者能力</strong>：激励他人，交流技能，促进他人发展  |  业务经验 + 项目经验</li>
+<li><strong>自我管理能力</strong>：自信，管理压力，关心信誉，灵活性  |  业务经验</li>
+</ul>
+<h4 id="1-4-2-2-项目管理职能"><a href="#1-4-2-2-项目管理职能" class="headerlink" title="1-4-2-2 项目管理职能"></a>1-4-2-2 项目管理职能</h4><ul>
+<li><em>确定范围</em> - 确定项目的边界</li>
+<li><em>计划</em> - 计划项目所需的任务</li>
+<li><em>估算</em> - 时间（重叠？）、人力、物力、财力</li>
+<li><em>调度</em> - 项目进度表</li>
+<li><em>组织</em> - 分配合适的角色、职责，汇报工作</li>
+<li><em>指导</em> - 人员管理能力，协调、协商、激励、忠告、赞赏和奖励</li>
+<li><em>控制</em> - 监督和报告项目进展，目标、进度、费用，及时调整</li>
+<li><em>项目总结</em> - 总结经验教训</li>
+</ul>
+<h4 id="1-4-2-3-工具技术-PERT-amp-Gantt图"><a href="#1-4-2-3-工具技术-PERT-amp-Gantt图" class="headerlink" title="1-4-2-3 工具技术 - PERT&amp;Gantt图"></a>1-4-2-3 工具技术 - PERT&amp;Gantt图</h4><p><strong>PERT（项目评估于评审技术，Project Evaluation and Review Technique）图</strong>是一种图形化的网络模型，描述一个项目中<u>任务之间的关系</u>。用来在任务被调度前弄清项目<u><strong>任务之间的依赖关系</strong></u>。</p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029202738894.jpg" alt="image-20211029202738894"></p>
+<p><strong>Gantt图</strong>是一种简单的水平条形图，以一个日历为基准描述项目任务。可以清楚显示<u><strong>重叠任务</strong></u>，即可以同时执行的任务。简洁——容易学习、阅读、制作和使用。</p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211029202738895.jpg" alt="image-20211029202738895.jpg"></p>
+<h3 id="1-4-3-项目管理生命周期"><a href="#1-4-3-项目管理生命周期" class="headerlink" title="1-4-3 项目管理生命周期"></a>1-4-3 项目管理生命周期</h3><h4 id="1-4-3-1-协商范围"><a href="#1-4-3-1-协商范围" class="headerlink" title="1-4-3-1 协商范围"></a>1-4-3-1 协商范围</h4><p>定义项目的边界——明确业务边界，需要研究、分析、设计、构造、实现并最终得到改进。</p>
+<p>协商——产品、质量、时间、费用、资源。</p>
+<h4 id="1-4-3-2-确定任务"><a href="#1-4-3-2-确定任务" class="headerlink" title="1-4-3-2 确定任务"></a>1-4-3-2 确定任务</h4><p><strong>工作分解结构</strong>（Work Breakdown Structure, WBS）将项目层次化地分解成开发阶段、开发活动和开发任务。在WBS中包含特殊任务——<strong>里程碑</strong>，用来标识项目开发期间主要交付成果地完成或结束的时间。</p>
+<h4 id="1-4-3-3-估计任务工期"><a href="#1-4-3-3-估计任务工期" class="headerlink" title="1-4-3-3 估计任务工期"></a>1-4-3-3 估计任务工期</h4><p>给定详细程度合适的工作分解结构，PM必须估计每个开发任务的工期。</p>
+<h4 id="1-4-3-4-说明任务之间的依赖关系"><a href="#1-4-3-4-说明任务之间的依赖关系" class="headerlink" title="1-4-3-4 说明任务之间的依赖关系"></a>1-4-3-4 说明任务之间的依赖关系</h4><p>里程碑几乎总有几个前导任务。项目的调度——<u><strong>正向调度</strong></u>、<u><strong>反向调度</strong></u>。</p>
+<ul>
+<li><strong>正向调度</strong>建立项目开始日期，然后从这个日期开始向前安排进度。</li>
+<li><strong>反向进度</strong>建立项目最后期限，然后从这个日期开始向后安排进度。</li>
+</ul>
+<h4 id="1-4-3-5-分配资源"><a href="#1-4-3-5-分配资源" class="headerlink" title="1-4-3-5 分配资源"></a>1-4-3-5 分配资源</h4><p>资源分配——人、服务、工具和设备、供应和材料、经费。</p>
+<h4 id="1-4-3-6-指导团队工作"><a href="#1-4-3-6-指导团队工作" class="headerlink" title="1-4-3-6 指导团队工作"></a>1-4-3-6 指导团队工作</h4><p>呃(⊙﹏⊙)，给项目领导的十条提示：</p>
+<ol>
+<li>保持一致；2) 提供支持；3) 不要给出你做不到的承诺；4) 公开表扬，私下批评；5) 掌握士气；6) 设置现实的最后期限；7) 设定可见的目标；8) 解释并说明，而不仅仅是做；9) 不要依赖差不多的[状态报告]；10) 鼓励良好的团队精神。</li>
+</ol>
+<h4 id="1-4-3-7-监督和控制进展"><a href="#1-4-3-7-监督和控制进展" class="headerlink" title="1-4-3-7 监督和控制进展"></a>1-4-3-7 监督和控制进展</h4><p>监督进展是否符合范围、进度和预算。必须汇报进展情况，需要时调整范围、进度和资源。</p>
+<ul>
+<li><p>变更管理——保护项目经理和团队不因范围变化而导致进度延后和预算超支困扰。</p>
+</li>
+<li><p>预期管理——预期管理矩阵</p>
+<ul>
+<li><table>
+<thead>
+<tr>
+<th align="left">成果度量 \ 优先权</th>
+<th>最大或最小</th>
+<th>受限</th>
+<th>可接受</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>费用</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><strong>进度</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><strong>范围 or/and 质量</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p>进度调整——<u><strong>关键路径</strong></u>分析。</p>
+</li>
+</ul>
+<h4 id="1-4-3-8-评估项目结果和经验"><a href="#1-4-3-8-评估项目结果和经验" class="headerlink" title="1-4-3-8 评估项目结果和经验"></a>1-4-3-8 评估项目结果和经验</h4><ul>
+<li>最终产品是否满足用户·预期or超过用户预期</li>
+<li>项目是否符合进度要求</li>
+<li>项目是否在预算范围内</li>
+</ul>
+<br/>
+
+<br/>
+
+<h1 id="02-系统分析方法"><a href="#02-系统分析方法" class="headerlink" title="02 - 系统分析方法"></a>02 - 系统分析方法</h1><p><strong>系统分析</strong>（System Analysis）是一种<u>问题解决技术</u>，将一个系统分解成各个组成部分，研究各个部分如何工作、交互，以实现其系统目标。</p>
+<p>系统分析阶段是一个项目中的关键阶段，需要分析现有业务系统，理解其中的问题，定义改进目标，并确定后续技术方案必须实现的详细业务需求。</p>
+<p><strong>分析过程</strong>：<u>分析业务</u> —&gt; <u>确定问题</u> —&gt; 定<u>目标</u>/业务<u>需求</u>。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030092047100.png" alt="image-20211030092047100"></p>
+<br/>
+
+<p><strong>分析方法</strong>：结构化分析、信息工程、获取原型 和 面向对象分析。</p>
+<p><strong>参与人员</strong>：系统所有者；系统用户；PM；系统分析员。</p>
+<p><strong>涵盖内容</strong>：<u>范围定义；问题分析；需求分析；</u>【系统分析】（逻辑设计；）<u>决策分析</u>【系统分析向系统设计转换】。</p>
+<ul>
+<li>范围定义阶段（2-3天）<ul>
+<li>列出问题和机会</li>
+<li>协商初步范围</li>
+<li>评估项目价值</li>
+<li>计划项目进度表和预算</li>
+<li>汇报项目计划</li>
+<li><strong>交付成果</strong>：<u>项目章程</u>（定义了项目范围、计划、方法学、标准等内容） - 项目的第一个里程碑</li>
+</ul>
+</li>
+<li>问题分析阶段<ul>
+<li>研究问题领域</li>
+<li>分析问题和机会</li>
+<li>分析业务过程</li>
+<li>制定系统改进目标</li>
+<li>修改项目计划</li>
+<li>汇报调查结果和建议</li>
+</ul>
+</li>
+</ul>
+<br/>
+
+<h2 id="2-1-需求获取"><a href="#2-1-需求获取" class="headerlink" title="2-1 需求获取"></a>2-1 需求获取</h2><p>系统分析员确定、分析和理解系统需求的过程和技术。</p>
+<p><strong>主要内容</strong>：(⊙﹏⊙) 功能需求（必须实现的功能） + 非功能（性能）需求（具备的质量/属性）。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030115048526.png" alt="image-20211030115048526"></p>
+<br/>
+
+<p><strong>联合需求计划</strong>（Joint Requirements Planning, JRP）是一个过程，其中高度结构化的小组会议被用来分析问题并定义需求。</p>
+<h3 id="2-1-1-获取过程"><a href="#2-1-1-获取过程" class="headerlink" title="2-1-1 获取过程"></a>2-1-1 获取过程</h3><ul>
+<li>发现和分析问题</li>
+<li>获取需求</li>
+<li>归档和分析需求</li>
+<li>需求管理</li>
+</ul>
+<br/>
+
+<h2 id="2-2-模型驱动分析"><a href="#2-2-模型驱动分析" class="headerlink" title="2-2 模型驱动分析"></a>2-2 模型驱动分析</h2><p>结构化分析、信息工程、面向对象分析</p>
+<h3 id="2-2-0-基于用例建模"><a href="#2-2-0-基于用例建模" class="headerlink" title="2-2-0 基于用例建模"></a>2-2-0 基于用例建模</h3><p><strong>用例建模</strong>（Use-Case Modeling）描述系统与外部其他系统以及用户之间交互的图像。即描述了谁使用系统，以何种方式与系统交互。</p>
+<p>促进了<strong>以用户为中心的开发</strong>办法。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030131751025.png" alt="image-20211030131751025"></p>
+<br/>
+
+<p><strong>示例</strong>：</p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/use-case.jpg" alt="img"></p>
+<h3 id="2-2-1-数据建模和分析"><a href="#2-2-1-数据建模和分析" class="headerlink" title="2-2-1 数据建模和分析"></a>2-2-1 数据建模和分析</h3><p><strong>数据建模</strong>是一种为<u>数据库</u>定义<u>业务需求</u>的技术。或称数据库建模。</p>
+<p><strong>目标</strong>：为数据库实现提供基础。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030132744686.png" alt="image-20211030132744686"></p>
+<br/>
+
+<p>具体操作为<strong>实体关系图</strong>（Entity Relationship Diagram, ERD），按照数据描述的实体和关系来刻画数据。</p>
+<p><strong>示例</strong>：</p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/ERPic.jpg"></p>
+<h4 id="2-2-1-1-数据模型标准"><a href="#2-2-1-1-数据模型标准" class="headerlink" title="2-2-1-1 数据模型标准"></a>2-2-1-1 数据模型标准</h4><ul>
+<li>简单</li>
+<li>无冗余</li>
+<li>可扩展</li>
+</ul>
+<p><strong>数据分析</strong>是用来改进一个数据模型的技术。</p>
+<h4 id="2-2-1-2-第一二三范式"><a href="#2-2-1-2-第一二三范式" class="headerlink" title="2-2-1-2 第一二三范式"></a>2-2-1-2 第一二三范式</h4><h5 id="①-1NF-每个字段都是单一属性"><a href="#①-1NF-每个字段都是单一属性" class="headerlink" title="① 1NF - 每个字段都是单一属性"></a>① 1NF - 每个字段都是单一属性</h5><h5 id="②-2NF-非主键字段都依赖主键"><a href="#②-2NF-非主键字段都依赖主键" class="headerlink" title="② 2NF - 非主键字段都依赖主键"></a>② 2NF - 非主键字段都依赖主键</h5><h5 id="③-3NF-非主键字段不相互依赖"><a href="#③-3NF-非主键字段不相互依赖" class="headerlink" title="③ 3NF - 非主键字段不相互依赖"></a>③ 3NF - 非主键字段不相互依赖</h5><h3 id="2-2-2-过程建模"><a href="#2-2-2-过程建模" class="headerlink" title="2-2-2 过程建模"></a>2-2-2 过程建模</h3><p><strong>关注点</strong>：定义系统建模；区分逻辑系统模型和物理系统模型；绘制数据流图。</p>
+<p><strong>逻辑模型</strong>（Logical Model）描述了系统<u>是什么</u>/<u>做什么</u>的非技术的图形化表示。</p>
+<p><strong>物理模型</strong>（Physical Model）展示系统<u>是什么</u>和<u>做什么</u>及<u>如何实现</u>的图形化表示。</p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030132829578.png" alt="image-20211030132829578"></p>
+<h4 id="2-2-2-1-数据流图"><a href="#2-2-2-1-数据流图" class="headerlink" title="2-2-2-1 数据流图"></a>2-2-2-1 数据流图</h4><p><strong>数据流图</strong>（Data Flow Diagram, DFD）用来描述<u>通过系统的数据流</u>及<u>系统实施的工作或处理过程</u>的工具。</p>
+<p><strong>示例</strong>：</p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/18006234-e62df2d452a67e73.png" alt="img"></p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/18006234-1dec6894e83531a1.png" alt="img"></p>
+<h3 id="2-2-3-基于UML面向对象分析和建模"><a href="#2-2-3-基于UML面向对象分析和建模" class="headerlink" title="2-2-3 基于UML面向对象分析和建模"></a>2-2-3 基于UML面向对象分析和建模</h3><p><strong>统一建模语言</strong>（Unified Modeling Language, UML）是一套使用对象说明描述软件系统的建模规则/语言。</p>
+<p><strong>面写对象分析</strong>（Object-Oriented Analysis, OOA）用于 1) 研究现有对象；2) 定义各种新对象和修改的对象。</p>
+<p>*【软件工程】中详述。</p>
+<br/>
+
+<h2 id="2-3-决策分析"><a href="#2-3-决策分析" class="headerlink" title="2-3 决策分析"></a>2-3 决策分析</h2><p>确定候选方案并分析 —&gt; 推荐最佳方案</p>
+<p><strong>交付成果和里程碑</strong>：能够实现各阶段确定业务需求的<u><strong>系统方案建议</strong></u>。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211030164510408.png" alt="image-20211030164514211"></p>
+<br/>
+
+<ul>
+<li>确定候选方案</li>
+<li>分析候选方案</li>
+<li>修改项目计划</li>
+<li>推荐最佳方案</li>
+</ul>
+<h3 id="2-3-1-可行性分析和系统方案建议"><a href="#2-3-1-可行性分析和系统方案建议" class="headerlink" title="2-3-1 可行性分析和系统方案建议"></a>2-3-1 可行性分析和系统方案建议</h3><p><strong>可行性</strong>是组织将要开发的信息系统的价值或实用性的度量。</p>
+<p><strong>关注点</strong>：可行性评价准则，包括运行可行性、技术可行性、进度可行性和经济可行性。</p>
+<p>可行性的六个准则：</p>
+<ul>
+<li>运行可行性</li>
+<li>文化/政治可行性</li>
+<li>技术可行性</li>
+<li>进度可行性</li>
+<li>经济可行性</li>
+<li>法律可行性</li>
+</ul>
+<br/>
+
+<br/>
+
+<h1 id="03-系统设计方法"><a href="#03-系统设计方法" class="headerlink" title="03 - 系统设计方法"></a>03 - 系统设计方法</h1><p>系统设计包括准备基于计算机的<u><strong>详细规格说明</strong></u>，该规格说明实现了系统分析和系统原型构造期间说明的需求。</p>
+<p>系统设计包括<u>配置</u>、<u>获取</u>和<u>设计</u>与<u>集成</u>阶段。</p>
+<p>★ <strong>系统分析</strong>关注业务问题，<strong>系统设计</strong>专注于系统的技术性/实现方面。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031142142538.png" alt="image-20211031142142538"></p>
+<br/>
+
+<p><strong>系统设计方法</strong>：</p>
+<p><strong>模型驱动设计</strong>强调通过绘制图形化系统模型描述新系统的技术或实现。</p>
+<ul>
+<li>结构化设计 - 面向过程<ul>
+<li>自顶向下；模块 高内聚低耦合。</li>
+</ul>
+</li>
+<li>信息工程 - 数据为中心<ul>
+<li>模型驱动，数据为主，过程敏感</li>
+</ul>
+</li>
+<li>原型化 - 用户参与<ul>
+<li>设计出一个只有界面的系统原型</li>
+</ul>
+</li>
+<li>面向对象设计<ul>
+<li>尽可能消除“数据”和“过程”内容的分离</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-1-应用架构和建模"><a href="#3-1-应用架构和建模" class="headerlink" title="3-1 应用架构和建模"></a>3-1 应用架构和建模</h2><p><strong>应用架构</strong>按照数据、过程、接口和网络组件定义了一个、多个或者多有信息系统使用/用于系统构造的技术。</p>
+<p><strong>关注点</strong>：物理过程模型；包括各种将知识、过程和通信分布到一个分布式计算环境中的技术；物理数据流图。</p>
+<p><strong>物理DFD</strong>  vs  <strong>逻辑DFD</strong></p>
+<h3 id="3-1-1-信息技术架构"><a href="#3-1-1-信息技术架构" class="headerlink" title="3-1-1 信息技术架构"></a>3-1-1 信息技术架构</h3><p>信息系统框架为理解IT架构提供了一个合适的框架。</p>
+<ul>
+<li><strong>分布式系统</strong></li>
+<li>集中式（少用）（通常是大型主机）</li>
+</ul>
+<p>架构策略</p>
+<ul>
+<li>企业应用架构策略</li>
+<li>战术应用策略</li>
+</ul>
+<p>建模信息系统应用架构</p>
+<ul>
+<li>绘制物理数据流图</li>
+<li>概要计划<ul>
+<li>根据逻辑数据模型/逻辑过程模型以创建一个概要计划</li>
+</ul>
+</li>
+<li>网络架构</li>
+<li>数据分布和技术确定</li>
+<li>过程分布和技术确定</li>
+<li>人/机边界</li>
+</ul>
+<br/>
+
+<h2 id="3-2-数据库设计"><a href="#3-2-数据库设计" class="headerlink" title="3-2 数据库设计"></a>3-2 数据库设计</h2><p><strong>目标</strong>：数据的有效存储、修改和访问；数据可靠性；数据库可适应性和可扩展性；满足业务需求。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031203548324.png" alt="image-20211031203548324"></p>
+<br/>
+
+<ul>
+<li>数据库模式 - 数据库的物理模型/蓝图<ul>
+<li>每个基本实体、关联实体 和 弱实体 都被实现成一个表</li>
+<li>超类/子类实体表示统一（非必要填默认）</li>
+<li>评价并说明访问完整性约束</li>
+</ul>
+</li>
+<li>数据完整性和访问完整性<ul>
+<li>键完整性</li>
+<li>域完整性（合适控制每个字段有合法值）</li>
+<li>访问完整性</li>
+</ul>
+</li>
+<li>角色 - 外键</li>
+<li>数据库分布和复制<ul>
+<li><strong>集中</strong>  部署在单个服务器上</li>
+<li><strong>水平分布</strong>  每个表（或表中的整个行）分配到不同的数据库服务器和地点。<ul>
+<li>需要综合多个站点数据的管理分析</li>
+<li>将数据重新整合不易</li>
+</ul>
+</li>
+<li><strong>垂直分布</strong>  在多个地点物理重复整个表<ul>
+<li>协调对复制表和记录的修改，维护完整性</li>
+<li>高性能、可访问性好</li>
+<li>增加数据完整性的复杂度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据库原型</li>
+<li>规划数据库容量</li>
+<li>数据库结构生成</li>
+</ul>
+<br/>
+
+<h2 id="3-3-接口设计"><a href="#3-3-接口设计" class="headerlink" title="3-3 接口设计"></a>3-3 接口设计</h2><p><strong>关注点</strong>：设计计算机<u><strong>输入</strong></u> / <u><strong>输出</strong></u>及<u><strong>用户界面</strong></u>。</p>
+<br/>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031203723028.png" alt="image-20211031203723028"></p>
+<br/>
+
+<h3 id="3-3-1-输入-输出设计"><a href="#3-3-1-输入-输出设计" class="headerlink" title="3-3-1 输入/输出设计"></a>3-3-1 输入/输出设计</h3><p>信息系统  &lt;—-&gt;  人</p>
+<p>信息系统  &lt;—-&gt;  信息系统</p>
+<h4 id="3-3-1-1-数据收集、录入和处理"><a href="#3-3-1-1-数据收集、录入和处理" class="headerlink" title="3-3-1-1 数据收集、录入和处理"></a>3-3-1-1 数据收集、录入和处理</h4><ul>
+<li><strong>数据收集</strong>  新数据的标识和获取</li>
+<li><strong>数据录入</strong>  把源数据和文档翻译成计算机可读格式</li>
+<li><strong>数据处理</strong><ul>
+<li>批处理 - 对某对象进行批量的处理</li>
+<li>联机处理 - 信息从产生地输入系统，处理结果送到需要信息的地点</li>
+<li>远程批处理 - 数据成批次收集不立即处理</li>
+</ul>
+</li>
+<li>输入方法和实现<ul>
+<li>键盘；鼠标；触摸屏；声音；光标；电磁；生物识别</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-1-2-输出分类及受众"><a href="#3-3-1-2-输出分类及受众" class="headerlink" title="3-3-1-2 输出分类及受众"></a>3-3-1-2 输出分类及受众</h4><ul>
+<li>内部输出 | 面向内部系统所有者和组织内的系统用户<ul>
+<li>详细报告 - 基本不过滤的信息</li>
+<li>总结报告 - 管理人员</li>
+<li>例外报告 - 作为信息显示给管理人员之前过滤数据</li>
+</ul>
+</li>
+<li>外部输出 | 面向客户、供应商、合作伙伴和政府部门<ul>
+<li>总结 / 报告业务事务</li>
+<li>回转输出 | 最终重新进入系统作为输入的外部输出</li>
+</ul>
+</li>
+</ul>
+<p><strong>输出方法</strong>：打印输出；屏幕输出；销售点（Point-Of-Sale, POS）终端；多媒体；电子邮件；超链接；微缩胶片。</p>
+<h3 id="3-3-2-用户界面设计"><a href="#3-3-2-用户界面设计" class="headerlink" title="3-3-2 用户界面设计"></a>3-3-2 用户界面设计</h3><p>将输入设计与输出设计集成为一个完整的用户界面。</p>
+<p>用户界面为用户提供友好的使用方式，用户通过用户界面同应用程序打交道，处理输入、获得输出。</p>
+<h4 id="3-3-2-1-涉及内容"><a href="#3-3-2-1-涉及内容" class="headerlink" title="3-3-2-1 涉及内容"></a>3-3-2-1 涉及内容</h4><ul>
+<li>计算机用户类型<ul>
+<li>专家用户</li>
+<li>初学者用户</li>
+</ul>
+</li>
+<li>人的因素<ul>
+<li>理解用户及其任务</li>
+<li>用户参与</li>
+<li>在实际用户中测试</li>
+<li>迭代设计</li>
+</ul>
+</li>
+<li>人类工程学<ul>
+<li>系统总明确下一步内容</li>
+<li>屏幕应被规格化显示</li>
+<li>提示设计及时间</li>
+<li>默认值</li>
+<li>容错性/提示错误</li>
+</ul>
+</li>
+<li>对话语气和词汇</li>
+</ul>
+<h4 id="3-3-2-2-涉及技术"><a href="#3-3-2-2-涉及技术" class="headerlink" title="3-3-2-2 涉及技术"></a>3-3-2-2 涉及技术</h4><ul>
+<li>操作系统和Web浏览器</li>
+<li>显示器</li>
+<li>键盘和触屏设备</li>
+</ul>
+<h4 id="3-3-2-3-风格"><a href="#3-3-2-3-风格" class="headerlink" title="3-3-2-3 风格"></a>3-3-2-3 风格</h4><ul>
+<li>窗口和框</li>
+<li>基于菜单的界面</li>
+<li>基于指令的界面</li>
+<li>QA对话</li>
+<li>特殊考虑</li>
+</ul>
+<h3 id="3-3-3-原型化"><a href="#3-3-3-原型化" class="headerlink" title="3-3-3 原型化"></a>3-3-3 原型化</h3><p>使用原型化工具设计输入输出的形式和方法，例如 Access，Axure Axure RP。</p>
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211031211101391.png" alt="image-20211031211101391"></p>
+<br/>
+
+<h2 id="3-4-面向对象设计和建模"><a href="#3-4-面向对象设计和建模" class="headerlink" title="3-4 面向对象设计和建模"></a>3-4 面向对象设计和建模</h2><p><strong>关注点</strong>：区分实体类、接口类、控制类、持续类和系统类；理解依赖关系和导航关系；理解对象；时序图、状态图；设计模式。</p>
+<h3 id="3-4-1-面向对象设计"><a href="#3-4-1-面向对象设计" class="headerlink" title="3-4-1 面向对象设计"></a>3-4-1 面向对象设计</h3><p><strong>面向对象设计</strong>（Object-Oriented Design, OOD）用协作的对象、对象的属性和方法说明软件解决方案的一种方式，其目标是说明系统的对象和消息。</p>
+<p><strong>类和对象</strong></p>
+<ul>
+<li>实体类 | 通常对应现实生活中的实体<ul>
+<li>描述不同实体不同实例的信息（属性）</li>
+<li>封装维护其信息或属性的行为（方法）</li>
+</ul>
+</li>
+<li>接口类 | 描述<u>用户</u>直接同<u>系统</u>交互的用例功能</li>
+<li>控制类 | 与实体类通信，并处理消息</li>
+<li>★ 持续类 | 将读写数据库功能独立到持续类（数据访问类）<ul>
+<li>实体类中立；复用性高</li>
+</ul>
+</li>
+<li>★ 系统类 | 将其他对象从操作系统相关功能独立分开</li>
+</ul>
+<p>*总结：高内聚、低耦合</p>
+<p><strong>设计关系</strong></p>
+<p>关联关系、聚合关系、泛化/特化关系</p>
+<ul>
+<li>依赖关系<ul>
+<li>一个类中的变化会影响另一个类</li>
+<li>支持一持久类和临时类之间的关系</li>
+</ul>
+</li>
+<li>导航能力<ul>
+<li>一个类向另一个类发送消息</li>
+</ul>
+</li>
+</ul>
+<p><strong>属性和方法的可见性</strong></p>
+<ul>
+<li>公开 public</li>
+<li>保护 protect | 自己和其子类</li>
+<li>私有 private</li>
+</ul>
+<h3 id="3-4-2-设计过程"><a href="#3-4-2-设计过程" class="headerlink" title="3-4-2 设计过程"></a>3-4-2 设计过程</h3><ol>
+<li>对用例模型交易精炼反映实现环境</li>
+<li>建模支持用例情境的对象交互、行为和状态</li>
+<li>修改对象模型以反映现实环境</li>
+</ol>
+<h3 id="3-4-3-设计模式"><a href="#3-4-3-设计模式" class="headerlink" title="3-4-3 设计模式"></a>3-4-3 设计模式</h3><p>面向对象开发人员通过使用<strong>设计模式</strong>寻求复用机会。</p>
+<table>
+<thead>
+<tr>
+<th>创建型</th>
+<th>结构型</th>
+<th>行为型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>抽象工厂（Abstract Factor）</td>
+<td>适配器（Adapter）</td>
+<td>责任链（Chain of Responsibility）</td>
+</tr>
+<tr>
+<td>构造器（Builder）</td>
+<td>桥接（Bridge）</td>
+<td>命令（Command）</td>
+</tr>
+<tr>
+<td>工厂方法（Factory Method）</td>
+<td>组合（Composite）</td>
+<td>轻量（Flyweight）</td>
+</tr>
+<tr>
+<td>原型（Prototype）</td>
+<td>装饰（Decorator）</td>
+<td>解释器（Interpreter）</td>
+</tr>
+<tr>
+<td>单例（Singleton）</td>
+<td>外观（Facade）</td>
+<td>迭代（Iterator）</td>
+</tr>
+<tr>
+<td></td>
+<td>代理（Proxy）</td>
+<td>中介（Mediator）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>纪念（Memento）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>观察者（Observe）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>状态（State）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>策略（Strategy）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>模板方法（Template Method）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>访问者（Visitor）</td>
+</tr>
+</tbody></table>
+<br/>
+
+<br/>
+
+<h1 id="04-系统实现和运维"><a href="#04-系统实现和运维" class="headerlink" title="04 - 系统实现和运维"></a>04 - 系统实现和运维</h1><p>系统开发的最后阶段，系统运行后的后续支持活动。</p>
+<ul>
+<li>从物理设计说明构造系统以及构造后的系统投入实现的过程</li>
+<li>对应用系统的四类系统支持</li>
+</ul>
+<br>
+
+<p><img src="/imgForArc/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95-assets/image-20211101105142676.png" alt="image-20211101105142676"></p>
+<br/>
+
+<h2 id="4-1-系统构造和实现"><a href="#4-1-系统构造和实现" class="headerlink" title="4-1 系统构造和实现"></a>4-1 系统构造和实现</h2><p><strong>关注点</strong>：</p>
+<p><strong>系统构造</strong>是系统组件开发、安装和测试。<strong>系统实现</strong>是交付系统投入运行。</p>
+<h3 id="4-1-1-构造阶段"><a href="#4-1-1-构造阶段" class="headerlink" title="4-1-1 构造阶段"></a>4-1-1 构造阶段</h3><ul>
+<li>构建和测试网络</li>
+<li>构建和测试数据库</li>
+<li>安装和测试新软件包</li>
+<li>编写和测试新程序<ul>
+<li>设计系统分析员、设计人员、构造人员</li>
+<li>备份主程序员、程序资料员、程序员和专家</li>
+<li>测试<ul>
+<li>模块测试</li>
+<li>单元测试</li>
+<li>系统测试</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-1-2-实现阶段"><a href="#4-1-2-实现阶段" class="headerlink" title="4-1-2 实现阶段"></a>4-1-2 实现阶段</h3><ul>
+<li>进行系统测试<ul>
+<li>软件包、定制程序  任何包含新系统的现有程序都必须测试确保能够一起工作</li>
+</ul>
+</li>
+<li>准备转换计划<ul>
+<li>突然切入</li>
+<li>并行转换</li>
+<li>位置转换</li>
+<li>分阶段转换</li>
+</ul>
+</li>
+<li>安装数据库</li>
+<li>培训用户</li>
+<li>转换新系统</li>
+</ul>
+<br/>
+
+<h2 id="4-2-系统运行和支持"><a href="#4-2-系统运行和支持" class="headerlink" title="4-2 系统运行和支持"></a>4-2 系统运行和支持</h2><p>系统运行是个持续性的活动，在这个过程中系统运行直至被替换。</p>
+<h3 id="4-2-1-系统运行和支持的上下文"><a href="#4-2-1-系统运行和支持的上下文" class="headerlink" title="4-2-1 系统运行和支持的上下文"></a>4-2-1 系统运行和支持的上下文</h3><p>所有的系统知识和系统的工作组件对于其不断地运行和支持都很重要。</p>
+<h4 id="4-2-1-1-三类数据存储"><a href="#4-2-1-1-三类数据存储" class="headerlink" title="4-2-1-1 三类数据存储"></a>4-2-1-1 三类数据存储</h4><ul>
+<li>资料库 - 存储积累的系统知识——系统模型、详细说明和其他任何系统开发期间积累的文档</li>
+<li>程序库 - 存储所有应用程序，源代码在系统生命周期中维护</li>
+<li>业务数据 - 由生产应用系统创建和维护的所有实际业务数据（常规文件、关系数据库、数据仓库和对象数据库）</li>
+</ul>
+<h4 id="4-2-1-2-四类支持活动"><a href="#4-2-1-2-四类支持活动" class="headerlink" title="4-2-1-2 四类支持活动"></a>4-2-1-2 四类支持活动</h4><ul>
+<li>程序维护 - 测试期间未发现的软件缺陷/错误</li>
+<li>系统恢复 - 系统失效可能导致程序崩溃或数据损失<ul>
+<li>任务错误、硬件错误、软件错误</li>
+</ul>
+</li>
+<li>技术支持 - 培训手册/说明文档 以外的额外帮助</li>
+<li>系统改进 - 新的业务问题、业务需求、技术问题、技术需求</li>
+</ul>
+<p>【完】</p>
+
+      
+    </div>
+    
+    
+    <div class="article-category">
+      
+        <b>Categories:</b>
+        <a class="article-category-link" href="/categories/Software-Engineering/">Software Engineering</a>
+      
+      
+      
+    </div>
+    
+    
+  </div>
+</article>
+
+  
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2021/02/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          软件体系结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/25/2021-10-25-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          计算机组成原理
+        
+      </div>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+    </div>
+  </div>
+  
+
+
+
+
+<div id="settings-container">
+  <div id="dark-mode">dark</div>
+  <div id="sans-font">sans</div>
+</div>
+<script type="text/javascript">
+let d=document,r=d.documentElement.style,f=r.setProperty.bind(r),l=localStorage,s=l.getItem('s')||(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),n=l.getItem('n'),m=d.getElementById("dark-mode"),b=()=>{f('--bg-color','#fafafa');f('--code-bg-color','#f4f4f4');f('--text-color','#212121');f('--secondary-color','#808080');f('--tertiary-color','#b0b0b0');f('--link-color','#b5c8cf');f('--link-hover-color','#618794');f('--link-bg-color','#dae4e7');f('--selection-color','#dae4e7');m.innerHTML="dark"},c=()=>{f('--bg-color','#212121');f('--code-bg-color','#292929');f('--text-color','#fff');f('--secondary-color','#c0c0c0');f('--tertiary-color','#6e6e6e');f('--link-color','#4d6b75');f('--link-hover-color','#96b1bb');f('--link-bg-color','#5d828e');f('--selection-color','#acc1c9');m.innerHTML="light"},o=d.getElementById("sans-font"),e=()=>{f('--body-stack','"Lora", "Georgia", "Times New Roman", serif');o.innerHTML="sans"},g=()=>{f('--body-stack','"Lato", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Verdana", sans-serif');o.innerHTML="serif"};m.onclick=()=>{if(s==2){s=1;l.setItem('s',s);c()}else{s=2;l.setItem('s',s);b()}};o.onclick=()=>{if(n==2){n=1;l.setItem('n',n);g()}else{n=2;l.setItem('n',n);e()}};if(!s){s=2;l.setItem('s',2)};if(s==1){c()};if(!n){n=2;l.setItem('n',2)};if(n==1){g()};
+</script>
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-195210058-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

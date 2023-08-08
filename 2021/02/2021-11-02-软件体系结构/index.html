@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>软件体系结构 | Hmmmi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+    <link rel="icon" href="/avatar-default.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+  
+  <meta name="description" content="软件体系结构是分析与设计之间的桥梁，系统分析与设计中关键的衔接部分，但着重设计。SA最大的目标是追求更大粒度的系统复用单元，以合适的抽象级别描述系统，进而形成了一些常见的体系风格。其中，基于构件的技术是SA中的核心内容，以构件为合适粒度的系统复用单元，能够使设计有规范和模式可寻，开发更加有规律。针对一些问题，不同的风格会形成不同的解决方案，而就算同一风格也能够对应不同的实际实现。对不同风格的分析和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件体系结构">
+<meta property="og:url" content="https://hmmmi.github.io/2021/02/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Hmmmi">
+<meta property="og:description" content="软件体系结构是分析与设计之间的桥梁，系统分析与设计中关键的衔接部分，但着重设计。SA最大的目标是追求更大粒度的系统复用单元，以合适的抽象级别描述系统，进而形成了一些常见的体系风格。其中，基于构件的技术是SA中的核心内容，以构件为合适粒度的系统复用单元，能够使设计有规范和模式可寻，开发更加有规律。针对一些问题，不同的风格会形成不同的解决方案，而就算同一风格也能够对应不同的实际实现。对不同风格的分析和">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102103312659.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102101458813.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102111434504.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102173714069.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102173109038.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211103111344908.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211103112559672.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104184113704.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104203036549.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104204856864.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104210037776.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104210256072.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104210519404.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104211755512.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104211824309.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105103239791.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105105209168.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105105523184.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105110642479.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105112428298.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105112503416.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105113955247.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105114014743.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120213531.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120600371.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120537553.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120919051.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105145011400.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105145458897.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105151343870.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105154224597.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105154701113.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105155444253.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105160932770.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105162234245.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105163607934.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105165121941.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105165520204.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105170317129.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106101208655.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106101925071.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106102844942.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104452244.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106105506791.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104604232.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104842346.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104916245.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106105344847.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106111052599.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106113801162.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106113502906.png">
+<meta property="article:published_time" content="2021-11-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-09T09:08:17.073Z">
+<meta property="article:author" content="Hmmmi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hmmmi.github.io/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102103312659.png"><meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="wrapper">
+    <header id="header">
+  <h1 id="title">
+    <a href="/">Hmmmi</a>
+  </h1>
+  <nav>
+    
+    
+      
+      <a class="nav-link" href="/">Home</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" href="/archives">Archives</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/hmmmi">GitHub</a>
+    
+    
+  </nav>
+</header>
+
+    <div id="content">
+      <article id="post-2021-11-02-软件体系结构" class="article article-type-post" itemprop="blogPost" itemscope>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 class="article-title" itemprop="headline name">
+      软件体系结构
+    </h2>
+  
+
+
+        <div class="article-meta">
+          <time class="article-date" datetime="2021-11-01T16:00:00.000Z" itemprop="datePublished">November 2, 2021</time>
+
+          
+            × <span class="article-word-count">10.8k words</span>
+            
+            × <span class="article-time-to-read">39 minutes</span>
+            
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="01-概述"><a href="#01-概述" class="headerlink" title="01 概述"></a>01 概述</h1><p><strong>软件体系结构</strong>（Sofrware Architecture）是分析与设计之间的桥梁，但着重设计理念和方法。体系结构模型显示了软件系统构件之间的连接关系。</p>
+<h2 id="1-1-目的意义"><a href="#1-1-目的意义" class="headerlink" title="1-1 目的意义"></a>1-1 目的意义</h2><p>其在<strong>软件生命周期</strong>（Waterfall Model, 瀑布模型）中的位置：</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102103312659.png" alt="image-20211102103312659"></p>
+<p>SA的<strong>目标</strong>：</p>
+<ul>
+<li>代表系统公共的高层次抽象<ul>
+<li>系统大部分相关人员将其作为一个互相理解的基础</li>
+<li>形成统一认识，互相交流</li>
+</ul>
+</li>
+<li>早期设计决策的体现<ul>
+<li>明确对系统实现的约束条件</li>
+<li>决定开发和维护的组织结构</li>
+<li>制约系统的质量属性、预测质量</li>
+<li>有助循序渐进的原型设计</li>
+<li>可以作为培训的基础</li>
+</ul>
+</li>
+<li>是<strong>可传递</strong>和<strong>可重复</strong>的模型</li>
+</ul>
+<h2 id="1-2-知识结构"><a href="#1-2-知识结构" class="headerlink" title="1-2 知识结构"></a>1-2 知识结构</h2><p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102101458813.png" alt="image-20211102101458813"></p>
+<h2 id="1-3-基于构件"><a href="#1-3-基于构件" class="headerlink" title="1-3 基于构件"></a>1-3 基于构件</h2><p>系统由<strong>构件的集合</strong>及它们间的<u>关系</u>组成，这样的系统可以成为更大的系统的组成元素。</p>
+<h3 id="1-3-1-基于构件的软件工程"><a href="#1-3-1-基于构件的软件工程" class="headerlink" title="1-3-1 基于构件的软件工程"></a>1-3-1 基于构件的软件工程</h3><p><strong>基于构件的软件工程</strong>（Component-Based Software Engneering）通过复用力度合适的构件，扩展、组装构件来构建软件系统。即 <strong>软件开发 = 构件开发 + 基于SA的构件组装</strong>。</p>
+<h4 id="1-3-1-1-复用的层次"><a href="#1-3-1-1-复用的层次" class="headerlink" title="1-3-1-1 复用的层次"></a>1-3-1-1 复用的层次</h4><ul>
+<li>代码（算法）复用</li>
+<li>设计复用</li>
+<li>分析与测试的复用</li>
+<li>……</li>
+</ul>
+<h4 id="1-3-1-2-构件技术"><a href="#1-3-1-2-构件技术" class="headerlink" title="1-3-1-2 构件技术"></a>1-3-1-2 构件技术</h4><p><strong>构件</strong>（Component）指语义完整、语法正确、有可复用价值的软件单元。</p>
+<ul>
+<li>结构上，是语义描述、通信接口、实现代码的复合体</li>
+<li>行为上，是有一定功能、独立工作、与其他构件配合协调工作的程序体</li>
+</ul>
+<p><strong>面向对象</strong>（Object Orientation, OO）技术达到类级重用（粒度太小）。</p>
+<p>现有成熟平台、产品和流派：CORBA、Java、.Net、Web服务……</p>
+<p><strong>组装、配置与部署</strong></p>
+<ul>
+<li>组装 - 适当修改构件互相连接</li>
+<li>配置 - 通过配置，同一构件可被多次部署，表现出不同的实例</li>
+</ul>
+<h3 id="1-3-2-编译器案例"><a href="#1-3-2-编译器案例" class="headerlink" title="1-3-2 编译器案例"></a>1-3-2 编译器案例</h3><p>编译器复合构件Compiler包括三个成员构件</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102111434504.png" alt="image-20211102111434504"></p>
+<ul>
+<li>语法分析器 Parser - 检查语法，构造语法树</li>
+<li>语义分析器 Semanticizer - 用语法树检查文本的语义正确性</li>
+<li>代码生成器 Code Generator - 便历语法树生成机器代码</li>
+</ul>
+<h4 id="1-3-2-1-语法分析器"><a href="#1-3-2-1-语法分析器" class="headerlink" title="1-3-2-1 语法分析器"></a>1-3-2-1 语法分析器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">component Parser is  &#x2F;&#x2F;语法分析器 </span><br><span class="line">	provides:        &#x2F;&#x2F;提供给外界的 </span><br><span class="line">		function Initialize() ; </span><br><span class="line">        function FileName() return String;    </span><br><span class="line">    requires:        &#x2F;&#x2F;外部需要的 </span><br><span class="line">        function Semantize(Tree) ; </span><br><span class="line">        function Generate(Tree) ; </span><br><span class="line">end component; </span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-2-2-语义分析器"><a href="#1-3-2-2-语义分析器" class="headerlink" title="1-3-2-2 语义分析器"></a>1-3-2-2 语义分析器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">component Semanticizer is &#x2F;&#x2F;语义分析器</span><br><span class="line">     provides:</span><br><span class="line">        function Semantize(Tree) ; </span><br><span class="line">        function Incremental-Semantize(Context:Tree; Addition:Tree) ; </span><br><span class="line">    requires: </span><br><span class="line">        function FileName() return String; </span><br><span class="line">end component;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-2-3-代码生成器和编译器"><a href="#1-3-2-3-代码生成器和编译器" class="headerlink" title="1-3-2-3 代码生成器和编译器"></a>1-3-2-3 代码生成器和编译器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">component CodeGenerator is &#x2F;&#x2F;代码生成器 </span><br><span class="line">    provides: </span><br><span class="line">        function Generate(Tree) ; </span><br><span class="line">    requires: </span><br><span class="line">        function Semantize(Context:Tree; Addition:Tree) ; </span><br><span class="line">end component; </span><br><span class="line"></span><br><span class="line">component Compiler is &#x2F;&#x2F;编译器</span><br><span class="line">    provides: </span><br><span class="line">        function Initialize() ; </span><br><span class="line">end component; </span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-2-4-构件间关系"><a href="#1-3-2-4-构件间关系" class="headerlink" title="1-3-2-4 构件间关系"></a>1-3-2-4 构件间关系</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">component body Compiler is </span><br><span class="line">    reference: </span><br><span class="line">        Parser，Semanticizer，CodeGenerator; </span><br><span class="line">    instance: </span><br><span class="line">        Parser P; Semanticizer S; CodeGenerator G; </span><br><span class="line">    connection: </span><br><span class="line">        P.Semantize to S.Semantize; </span><br><span class="line">        P.Generate to G.Generate; </span><br><span class="line">        S.FileName to P.FileName; </span><br><span class="line">        G.Semantize to S.Incremental-Semantize; </span><br><span class="line">    mapping: </span><br><span class="line">        Initialize to P.Initialize; </span><br><span class="line">end component;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-设计的层次"><a href="#1-4-设计的层次" class="headerlink" title="1-4 设计的层次"></a>1-4 设计的层次</h2><p><strong>层次化软件设计</strong>可在多个层次上设计系统，每一层处理不同的设计关注点。</p>
+<p>最少三层的软件设计层次</p>
+<ul>
+<li>体系结构级：系统性能与构件间的整体联系【构成元素是模块】</li>
+<li>代码级：算法和数据结构【构成元素是编程语言原语】</li>
+<li>执行级：包括存储器的映射，数据格式匹配，堆栈和寄存器的分配【构成元素是硬件支持的位模式】</li>
+</ul>
+<h2 id="1-5-其他相关"><a href="#1-5-其他相关" class="headerlink" title="1-5 其他相关"></a>1-5 其他相关</h2><h3 id="1-5-1-体系结构风格"><a href="#1-5-1-体系结构风格" class="headerlink" title="1-5-1 体系结构风格"></a>1-5-1 体系结构风格</h3><p>描述特定系统组织方式的<strong>惯用范例</strong>（反映众多系统共有的结构和语义）；独立于实际问题，强调通用组织结构，比如<strong>管道线</strong>，<strong>客户机-服务器</strong>等。</p>
+<h3 id="1-5-2-设计模式"><a href="#1-5-2-设计模式" class="headerlink" title="1-5-2 设计模式"></a>1-5-2 设计模式</h3><p><strong>程序/应用级别</strong>的复用。</p>
+<p>包含固有问题的解决方案；规范了<strong>小粒度</strong>的结构成分，独立于程序语言。强调直接复用的<strong>程序结构</strong>，处理系统设计/<strong>实现</strong>中特殊的重复出现的问题。</p>
+<h3 id="1-5-3-应用框架"><a href="#1-5-3-应用框架" class="headerlink" title="1-5-3 应用框架"></a>1-5-3 应用框架</h3><p><strong>系统级别</strong>的复用。</p>
+<p>可复用的设计构件，规定了应用的体系结构，阐明了整个设计，协作构件之间的依赖关系、责任分配和控制流程。表现为一组<strong>抽象类</strong>及<strong>实例</strong>间的协作方法。</p>
+<h2 id="1-6-设计原则"><a href="#1-6-设计原则" class="headerlink" title="1-6 设计原则"></a>1-6 设计原则</h2><ul>
+<li>抽象（集中主要特征，隐藏细节）</li>
+<li>分而治之（横向按层次分解问题或纵向分解后相互配合）</li>
+<li>封装和信息隐藏（留出统一形式的访问方式）</li>
+<li>模块化（划分软件为可独立访问的成分，支持重用）</li>
+<li>高内聚和低耦合（软件内关联紧，软件间关联松）</li>
+<li>关注点分离（分离（非）/关注点，适应关注点间的部分）</li>
+<li>策略和实现的分离（上下文相关的决策独立于执行算法）</li>
+<li>接口和实现的分离（信息隐蔽性，可维护性）</li>
+</ul>
+<br/>
+
+<h1 id="02-软件体系结构描述语言"><a href="#02-软件体系结构描述语言" class="headerlink" title="02 软件体系结构描述语言"></a>02 软件体系结构描述语言</h1><p>需要统一的形式化的描述</p>
+<ul>
+<li>系统架构师<ul>
+<li>在系统架构中找到共性特征</li>
+<li>在各个方案中作出原则性选择</li>
+<li>体系结构设计工具</li>
+</ul>
+</li>
+<li>结构约束</li>
+</ul>
+<h2 id="2-1-软件体系结构描述语言"><a href="#2-1-软件体系结构描述语言" class="headerlink" title="2-1 软件体系结构描述语言"></a>2-1 软件体系结构描述语言</h2><p><strong>软件体系结构描述语言</strong>（Architecture Description Language, ADL）关注粗粒度的软件体系结构元素（<strong>构件和连接件</strong>）及其整体的互连结构。</p>
+<p>是对体系结构进行验证、演化、分析的前提和基础。关注整个应用的高层结构。</p>
+<h3 id="2-1-1-ADL能力"><a href="#2-1-1-ADL能力" class="headerlink" title="2-1-1 ADL能力"></a>2-1-1 ADL能力</h3><ul>
+<li>构造能力 - 使用较小的独立体系结构元素建造大的软件系统</li>
+<li>抽象能力 - 不关心具体的实现细节</li>
+<li>复用能力 - 构件、连接件、SA都可复用</li>
+<li>组合能力 - 局部结构被描述，进而支持动态变化</li>
+<li>异构能力 - 不同SA描述关联存在</li>
+<li>分析推理能力 - 进行多种性能和功能上的推导</li>
+</ul>
+<h3 id="2-1-2-软件体系结构模型"><a href="#2-1-2-软件体系结构模型" class="headerlink" title="2-1-2 软件体系结构模型"></a>2-1-2 软件体系结构模型</h3><p>（Garlan &amp; Shaw模型）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SA &#x3D;  &#123;Components, Connectors, Constraints&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102173714069.png" alt="image-20211102173714069"></p>
+<p><strong>对比</strong>：</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211102173109038.png" alt="image-20211102173109038"></p>
+<h4 id="2-1-2-1-基本要素一-构件"><a href="#2-1-2-1-基本要素一-构件" class="headerlink" title="2-1-2-1 基本要素一 构件"></a>2-1-2-1 基本要素一 构件</h4><p>系统中主要的计算元素和数据存储。有独立功能可复用的模板单元。</p>
+<p>特点：1) 构件间相互独立（封装）；2) 通过接口（Interface）与外部环境交互；3) 接口由一组端口组成，每个端口为一个交互点；4) ADLs支持构件建模，描述其计算功能、结构特征。</p>
+<p><strong>不同构件类型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>部件类型</th>
+<th>部件支持的相互作用类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模块（Module）</td>
+<td>过程调用、数据共享</td>
+</tr>
+<tr>
+<td>对象（Object）</td>
+<td>方法调用</td>
+</tr>
+<tr>
+<td>过滤器（Filter）</td>
+<td>数据流</td>
+</tr>
+<tr>
+<td>过程（Process）</td>
+<td>消息传递、远程过程调用（RPC）、通讯协议、同步</td>
+</tr>
+<tr>
+<td>数据文件（Data File）</td>
+<td>读/写</td>
+</tr>
+<tr>
+<td>数据库（Database）</td>
+<td>模式（Schema）、查询语言</td>
+</tr>
+</tbody></table>
+<h4 id="2-1-2-2-基本要素二-连接件"><a href="#2-1-2-2-基本要素二-连接件" class="headerlink" title="2-1-2-2 基本要素二 连接件"></a>2-1-2-2 基本要素二 连接件</h4><p>表示构件间的交互。</p>
+<p>特点：1) 构件的粘合剂；2) 复杂情况由连接件实现构件交互；3) 有的连接件多于两个角色，如广播。</p>
+<ul>
+<li>可与构件不同，不与实现系统中的编译单元对应。</li>
+<li>可以是共享变量、表入口、缓冲区、SQL语句等；</li>
+<li>也可表达体系结构级复杂通信协议；</li>
+<li>通过构造连接器类型将这些协议系统化、抽象并复用。</li>
+</ul>
+<h4 id="2-1-2-3-基本要素三-配置"><a href="#2-1-2-3-基本要素三-配置" class="headerlink" title="2-1-2-3 基本要素三 配置"></a>2-1-2-3 基本要素三 配置</h4><p>构件与连接件之间的拓扑逻辑和约束。</p>
+<p>构件端口与连接件角色之间显式连接。关注：1) 构件是否正确连接；2) 接口是否匹配；3) 通讯是否正确。</p>
+<p>理想情况</p>
+<ul>
+<li>从配置中澄清系统结构</li>
+<li>不需研究组件与连接件就能使构建系统的各种参与者理解系统</li>
+<li>可用文本/图像</li>
+</ul>
+<h2 id="2-2-不同语言"><a href="#2-2-不同语言" class="headerlink" title="2-2 不同语言"></a>2-2 不同语言</h2><p>不同语言强调了体系结构的不同侧面。</p>
+<ul>
+<li>C2; 支持基于消息传递风格的用户界面系统描述</li>
+<li>UniCon; 支持异构的构件和连接类型并提供了关于体系结构的高层编译器</li>
+<li>Wright. 支持体系结构构件之间交互的说明分析</li>
+</ul>
+<h3 id="2-2-1-ACME"><a href="#2-2-1-ACME" class="headerlink" title="2-2-1 ACME"></a>2-2-1 ACME</h3><p>由卡耐基梅隆大学Garlan等人创建的一门体系结构描述语言。</p>
+<p>严格来说，ACME不是真正意义上的ADL，是一种体系结构变换语言，提供一种在不同ADL的体系结构规范描述之间实现变换的机制。</p>
+<p>支持从不同方面对体系结构进行描述 1) 结构；2) 属性；3) 约束；4) 类型和风格。</p>
+<h4 id="2-2-1-1-结构"><a href="#2-2-1-1-结构" class="headerlink" title="2-2-1-1 结构"></a>2-2-1-1 结构</h4><p>其中结构实体：1) 系统；2) 构件；3) 连接件；4) 端口；5) 角色；6) 表述；7) 表述映射。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211103111344908.png" alt="image-20211103111344908"></p>
+<p>示例，用ACME描述C/S体系结构范例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">System simple_CS &#x3D; &#123;</span><br><span class="line">	Component client &#x3D; &#123; Port sendRequest &#125;</span><br><span class="line">	Component server &#x3D; &#123; Port receiveRequest &#125;</span><br><span class="line">	Connector rpc &#x3D; &#123; Roles&#123;caller, callee&#125; &#125;</span><br><span class="line">	</span><br><span class="line">	Attachments : &#123;</span><br><span class="line">		client.sendRequest to rpc.caller;	</span><br><span class="line">		&#x2F;&#x2F;Client的发送请求端口绑定到rpc的caller角色</span><br><span class="line">		</span><br><span class="line">		server.receiveRequest to rpc.callee	</span><br><span class="line">		&#x2F;&#x2F;Server的接受请求端口绑定到rpc的callee角色</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>图形化描述：</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211103112559672.png" alt="image-20211103112559672"></p>
+<h4 id="2-2-1-2-属性"><a href="#2-2-1-2-属性" class="headerlink" title="2-2-1-2 属性"></a>2-2-1-2 属性</h4><p>ACME支持任意的属性列表对体系结构进行注释。</p>
+<p>构件通过接口规约定义了一组属性（功能/非功能属性）；连接件通过协议规约定义了一组属性（接口类型、事件发生顺序和对交互的承诺）。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">System simple_CS &#x3D; &#123;</span><br><span class="line">	Component client &#x3D; &#123; </span><br><span class="line">		Port sendRequest;</span><br><span class="line">		Properties &#123;</span><br><span class="line">			requestRate : float &#x3D; 17.0;</span><br><span class="line">			sourceCode : externalFile &#x3D; &quot;CODE-LIB&#x2F;client.c&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Component server &#x3D; &#123; </span><br><span class="line">		Port receiveRequest;</span><br><span class="line">		Properties &#123;</span><br><span class="line">			idempotent : boolean : true;</span><br><span class="line">			maxConcurrentClients : integer &#x3D; 1;</span><br><span class="line">			multithreaded : boolean &#x3D; false;</span><br><span class="line">			sourceCode : externalFile &#x3D; &quot;CODE-LIB&#x2F;server.c&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Connector rpc &#x3D; &#123; </span><br><span class="line">		Roles caller, callee;</span><br><span class="line">		Properties &#123;</span><br><span class="line">			synchronous : boolean &#x3D; true;</span><br><span class="line">			maxRoles : integer &#x3D; 2;</span><br><span class="line">			protocol : WrightSpec &#x3D; &quot;...&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Attachments : &#123;</span><br><span class="line">		client.sendRequest to rpc.caller;</span><br><span class="line">		server.receiveRequest to rpc.callee	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-UML"><a href="#2-2-2-UML" class="headerlink" title="2-2-2 UML"></a>2-2-2 UML</h3><p>以统一建模语言UML从不同侧面（视点、视图、模型）描述系统的结构。</p>
+<ul>
+<li>功能模型（用例图）</li>
+<li>静态模型（类、构件、组合结构图）</li>
+<li>动态模型（时序、通信、活动图）</li>
+<li>配置模型（配置图）</li>
+</ul>
+<p>【软工】中详述</p>
+<h2 id="2-3-4-1视图模型"><a href="#2-3-4-1视图模型" class="headerlink" title="2-3 4+1视图模型"></a>2-3 4+1视图模型</h2><p>描述系统的高级抽象为中心，不关心具体的建模细节，划分了<strong>体系结构建模</strong>和<strong>传统软件结构</strong>的界限。</p>
+<ul>
+<li>逻辑视图 | 最终用户 - 系统的功能需求</li>
+<li>开发视图 | 编程人员 - 软件模块的组织和管理</li>
+<li>过程视图 | 系统集成人员 - 系统运行特征、非功能需求</li>
+<li>物理视图 | 系统工程人员 - 把软件映射到物理硬件上</li>
+</ul>
+<p><strong>Rational Unified Process</strong></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104184113704.png" alt="image-20211104184113704"></p>
+<br/>
+
+<h1 id="03-体系结构风格"><a href="#03-体系结构风格" class="headerlink" title="03 体系结构风格"></a>03 体系结构风格</h1><p>新的软件开发要求构件技术。</p>
+<p>从面向对象到基于构件的软件生产：</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104203036549.png" alt="image-20211104203036549"></p>
+<h2 id="3-1-核心模型"><a href="#3-1-核心模型" class="headerlink" title="3-1 核心模型"></a>3-1 核心模型</h2><p>软件体系结构核心模型：</p>
+<ul>
+<li>构件 - 粒度合适的可复用单元</li>
+<li>连接件 - 构件间的交互</li>
+<li>配置 - 构件和连接件拓扑逻辑和限制</li>
+<li>端口</li>
+<li>角色</li>
+</ul>
+<h3 id="3-1-1-公共框架-组成成分"><a href="#3-1-1-公共框架-组成成分" class="headerlink" title="3-1-1 公共框架/组成成分"></a>3-1-1 公共框架/组成成分</h3><p>公共框架：构件 + 连接件。</p>
+<p>一个体系结构风格定义了构件和连接件的<strong>符号集</strong>，及其如何组合的<strong>约束集合</strong>。</p>
+<h3 id="3-1-2-选择原则"><a href="#3-1-2-选择原则" class="headerlink" title="3-1-2 选择原则"></a>3-1-2 选择原则</h3><p>特定风格给出了软件系统的特定组织模式，设计者容易识别哪种风格适于解决哪种问题。</p>
+<ul>
+<li>构件和连接件的类型</li>
+<li>构件间的控制如何被共享和传递</li>
+<li>数据如何被共享</li>
+<li>数据和控制是如何交互的</li>
+<li>优缺点</li>
+<li>特性</li>
+</ul>
+<h2 id="3-2-通用风格"><a href="#3-2-通用风格" class="headerlink" title="3-2 通用风格"></a>3-2 通用风格</h2><p>通用风格解决一些典型问题。</p>
+<p>通用体系结构风格表：</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104204856864.png" alt="image-20211104204856864"></p>
+<ul>
+<li>高级别问题分解（High Level Decomposition）<ul>
+<li>管道过滤器（Pipes &amp; Filters）</li>
+<li>分层系统（）</li>
+<li>黑板知识库（Blackboard）</li>
+<li>面向对象（OO）</li>
+</ul>
+</li>
+<li>独立组件和分布式系统（Independent Components）<ul>
+<li>事件驱动（Event Systems）</li>
+<li>中间层经纪人（Broker）</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-1-管道过滤器风格"><a href="#3-2-1-管道过滤器风格" class="headerlink" title="3-2-1 管道过滤器风格"></a>3-2-1 管道过滤器风格</h3><p>每一处理步骤由一个<strong>过滤器</strong>（构件）完成，这些过滤器由携带数据的<strong>管道</strong>（连接件）连接起来。</p>
+<ul>
+<li>过滤器Filters - 从输入源读入一个数据流，并从输出池写出另一数据流</li>
+<li>管道Pipes - 把一个过滤器的输出传送到另一过滤器作为输入</li>
+</ul>
+<p>通过不同组合方式连接过滤器可以提供处理数据的不同方式。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104210037776.png" alt="image-20211104210037776"></p>
+<p><strong>可解决的问题</strong></p>
+<ul>
+<li>自然分为几个步骤（一系列独立的增量计算/转换）</li>
+<li>可能需要重组步骤</li>
+<li>不连续步骤不共享信息/状态</li>
+</ul>
+<p><strong>范例</strong>（编译器）</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104210256072.png" alt="image-20211104210256072"></p>
+<h3 id="3-2-2-面向对象风格"><a href="#3-2-2-面向对象风格" class="headerlink" title="3-2-2 面向对象风格"></a>3-2-2 面向对象风格</h3><p>对现实世界的自然建模方法。1) 封装；2) 继承；3) 重用。对象是构件实例。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104210519404.png" alt="image-20211104210519404"></p>
+<ul>
+<li>数据的表示和相关操作被封装为抽象数据类型</li>
+<li>抽象数据类型只有封装的特点，没有继承的特点</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>和现实世界有对应关系</li>
+<li>隐藏实现细节，可在不影响客户的前提下改变实现细节</li>
+<li>内部表达的保护</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>对象之间交互需要知道彼此的标识</li>
+<li>多个对象对同一资源的访问（访问控制）</li>
+</ul>
+<h3 id="3-2-3-分层系统"><a href="#3-2-3-分层系统" class="headerlink" title="3-2-3 分层系统"></a>3-2-3 分层系统</h3><p><strong>构件</strong></p>
+<ul>
+<li>组织为层次结构</li>
+<li>内（下）层对外（上）层提供服务</li>
+<li>外（上）层是内（下）层客户</li>
+<li>相邻可见</li>
+</ul>
+<p><strong>连接件</strong></p>
+<p>层次间的协议，规定了层次间的交互方式。</p>
+<p><strong>特性</strong></p>
+<p>抽象，依赖性本地化，可交换替代性，重用性。</p>
+<p><strong>可解决的问题</strong></p>
+<ul>
+<li>系统有不同层次的抽象层</li>
+<li>请求向下（内）传递，通知向上（外）传递</li>
+<li>层间有稳定的界面</li>
+</ul>
+<p><strong>范例</strong></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104211755512.png" alt="image-20211104211755512"></p>
+<p><strong>分层通信协议</strong></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211104211824309.png" alt="image-20211104211824309"></p>
+<h3 id="3-2-4-仓库系统及知识库"><a href="#3-2-4-仓库系统及知识库" class="headerlink" title="3-2-4 仓库系统及知识库"></a>3-2-4 仓库系统及知识库</h3><p>在仓库风格中，两种构件：<strong>中央数据结构说</strong>明当前状态，<strong>独立构件集合</strong>对中央数据单元进行操作。仓库与构件间的相互作用在系统中会有很大的变化。</p>
+<p>两种控制策略：1) 输入数据流中的事务指令触发；2) 中央数据结构的当前状态。</p>
+<h4 id="3-2-4-1-黑板知识库"><a href="#3-2-4-1-黑板知识库" class="headerlink" title="3-2-4-1 黑板知识库"></a>3-2-4-1 黑板知识库</h4><p>用一个<strong>中央黑板</strong>数据结构用来描述对一个问题的不完全解决方案。</p>
+<p>一些独立的<strong>知识源</strong>可以分别针对问题的某部分进行求解。1) 只同黑板通信；2) 对该不完全解决方案可读/建议修改；3) 通过一个控制组件完成（监视黑板状态）</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105103239791.png" alt="image-20211105103239791"></p>
+<p><strong>可解决的问题</strong></p>
+<ul>
+<li>对复杂数据解释（信号处理、语音识别）</li>
+<li>不知道对某问题有决定性的解决性方案</li>
+<li>对问题不同部分可能需要不同代表性的解决框架</li>
+<li>对不同的问题解决者，可能没有组合它们贡献的固定策略</li>
+<li>可能需要和不确定的知识打交道</li>
+</ul>
+<h4 id="3-2-4-2-范例"><a href="#3-2-4-2-范例" class="headerlink" title="3-2-4-2 范例"></a>3-2-4-2 范例</h4><p>语音识别：</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105105209168.png" alt="image-20211105105209168"></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105105523184.png" alt="image-20211105105523184"></p>
+<p><strong>优点</strong></p>
+<ul>
+<li>有限范围内容易实现不同的问题解决者和诱导启发式的控制方法</li>
+<li>知识源可重用，规模上伸缩性好</li>
+<li>系统在有限范围内可容忍不可靠的问题解决者</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>测试困难</li>
+<li>难以保障最佳解决方案</li>
+<li>控制策略通常需要启发诱导</li>
+<li>计算开销大</li>
+<li>并行处理可行（同步/锁机制引入）</li>
+</ul>
+<h3 id="3-2-5-独立组件"><a href="#3-2-5-独立组件" class="headerlink" title="3-2-5 独立组件"></a>3-2-5 独立组件</h3><p>两种：1) 通信进程（Communicating Processes）；2) 事件驱动。</p>
+<h4 id="3-2-5-1-通信进程"><a href="#3-2-5-1-通信进程" class="headerlink" title="3-2-5-1 通信进程"></a>3-2-5-1 通信进程</h4><p>消息在命名的参与者间传播。</p>
+<p><strong>构件</strong>：独立进程</p>
+<p><strong>连接件</strong>：消息传递（点对点，同步或异步；RPC）</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105110642479.png" alt="image-20211105110642479"></p>
+<h4 id="3-2-5-2-事件驱动"><a href="#3-2-5-2-事件驱动" class="headerlink" title="3-2-5-2 事件驱动"></a>3-2-5-2 事件驱动</h4><p>未命名的参与者间<strong>隐式调用</strong>。</p>
+<p>不直接调用一个过程，而是发布或广播一个或多个事件，构件通过注册与事件关联的进程表示对该事件的兴趣。</p>
+<p>事件发布者不知道哪些构件会受到事件的影响。</p>
+<p><strong>构件</strong>：对象/进程</p>
+<p><strong>连接件</strong>：事件-过程的绑定</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105112428298.png" alt="image-20211105112428298"></p>
+<p><strong>显式调用 vs 隐式调用</strong></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105112503416.png" alt="image-20211105112503416"></p>
+<p><strong>优点</strong></p>
+<ul>
+<li>计算和协作分开</li>
+<li>系统维护和重用<ul>
+<li>无静态和固定对象名字的依赖</li>
+<li>系统重用（注册事件引入新构件）和演化（不改变接口构件替代/升级）和集成容易</li>
+</ul>
+</li>
+<li>可并行调用</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>构件放弃了自身对系统计算的控制</li>
+<li>数据交换：通过事件交互数据的系统需要依赖共享缓冲区，整体性能和资源管理可能会成为问题</li>
+<li>正确性检验：需要考虑发布事件时事件激发的上下文</li>
+<li>需要一个关注事件的机制，事件，注册，策略调度</li>
+<li>间接通信意味着一些性能的损失</li>
+</ul>
+<p><strong>案例</strong></p>
+<ul>
+<li>DSMS中数据一致性约束的实现</li>
+<li>程序调试工具中变量监视器对变量值的刷新</li>
+<li>IDE中自动语法检查</li>
+<li>天气预报手机短信</li>
+</ul>
+<p>联系Android中事件处理机制！</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105113955247.png" alt="image-20211105113955247"></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105114014743.png" alt="image-20211105114014743"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Class myListener implements ActionListener &#123;</span><br><span class="line">	</span><br><span class="line">    actionPerformed(ActionEvent e)  &#123; </span><br><span class="line">        </span><br><span class="line">        <span class="comment">// code to handle the event</span></span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">Button b = <span class="keyword">new</span> Button();</span><br><span class="line">b.addActionListener(<span class="keyword">new</span> myListener());</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-分布式系统"><a href="#3-3-分布式系统" class="headerlink" title="3-3 分布式系统"></a>3-3 分布式系统</h2><p>分布式系统是多个处理机通过通信线路互联而构成的松散耦合的系统。</p>
+<ul>
+<li>分布性。结点分布松散耦合</li>
+<li>自治性。结点内自主控制</li>
+<li>并行性。大任务划分成小任务在不同结点上运行</li>
+<li>全局性。单一的、全局的进程通信机制</li>
+</ul>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120213531.png" alt="image-20211105120213531"></p>
+<p><strong>主要类型</strong></p>
+<ul>
+<li>C/S<ul>
+<li>面向服务的体系结构Service-Oriented Architecture</li>
+</ul>
+</li>
+<li>Broker<ul>
+<li>CORBA</li>
+</ul>
+</li>
+<li>P2P</li>
+</ul>
+<p><strong>示例</strong></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120600371.png" alt="image-20211105120600371"></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120537553.png" alt="image-20211105120537553"></p>
+<h3 id="3-3-1-Client-Server"><a href="#3-3-1-Client-Server" class="headerlink" title="3-3-1 Client/Server"></a>3-3-1 Client/Server</h3><p>构件 1) 客户机；2) 服务器；3) 网络。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105120919051.png" alt="image-20211105120919051"></p>
+<h4 id="3-3-1-1-胖客户机（二层C-S）"><a href="#3-3-1-1-胖客户机（二层C-S）" class="headerlink" title="3-3-1-1 胖客户机（二层C/S）"></a>3-3-1-1 胖客户机（二层C/S）</h4><p>服务器（后台）负责数据管理，客户机（前台）负责用户的交互任务。</p>
+<p>第一层：用户界面</p>
+<p>第二层：数据库管理服务</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105145011400.png" alt="image-20211105145011400"></p>
+<h4 id="3-3-1-2-瘦客户机（三层C-S）"><a href="#3-3-1-2-瘦客户机（三层C-S）" class="headerlink" title="3-3-1-2 瘦客户机（三层C/S）"></a>3-3-1-2 瘦客户机（三层C/S）</h4><p>两层C/S是以局域网为中心且以单一服务器为主，难以扩展到Internet。</p>
+<p>三层C/S增加了一个中间层的应用服务器，包含了所有的业务逻辑，而客户机只是表示层，所以也称为“瘦客户机”。</p>
+<p>第一层：用户界面</p>
+<p>第二层：中间层Broker（应用服务器）</p>
+<p>第三层：数据库管理服务</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105145458897.png" alt="image-20211105145458897"></p>
+<h4 id="3-3-1-3-Broker"><a href="#3-3-1-3-Broker" class="headerlink" title="3-3-1-3 Broker"></a>3-3-1-3 Broker</h4><p>通过远程服务调用分离客户机与服务器。集中处理某一业务逻辑，提高灵活性、可维护性、重用性、可扩展性。</p>
+<p><strong>典型范例</strong></p>
+<ul>
+<li>多代理系统（Multi-Agent Systems）通常是通过Brokers（JADE）来协调的</li>
+<li>Brokers是基于高级的通讯协议（FIPA-ACL）来提供传递消息的标准机制</li>
+<li>CORBA （3.5章节）也用到Brokers：Object Request Broker (ORB)</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>位置透明，C和S不需知道彼此具体位置，通过拥有唯一标识的代理进行</li>
+<li>Broker容易被调整、适应新的业务需求</li>
+<li>隔离表示层和数据层，未授权的用户难以绕过并非法访问数据<ul>
+<li>提供了安全管理和控制机制</li>
+</ul>
+</li>
+<li>逻辑功能上划分明确，各层可并行开发</li>
+<li>组件关联关系容易被调整</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>容错性差</li>
+<li>效率有限</li>
+<li>测试困难</li>
+</ul>
+<h3 id="3-3-2-Browser-Server"><a href="#3-3-2-Browser-Server" class="headerlink" title="3-3-2 Browser/Server"></a>3-3-2 Browser/Server</h3><p>三层应用结构的一种实现方式。</p>
+<p>下图缺Web Server &lt;–&gt;DB部分</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105151343870.png" alt="image-20211105151343870"></p>
+<ul>
+<li>数据库服务器</li>
+<li>应用程序以网页的形式存放于Web服务器上</li>
+<li>系统安装、维护全在服务端完成</li>
+<li>相对C/S更好提高业务覆盖范围</li>
+</ul>
+<p><strong>优点</strong></p>
+<ul>
+<li>Information hiding 信息隐藏  //Web浏览器和服务器共同工作，他们之间信息隐藏、模块化</li>
+<li>Abstraction 抽象  //浏览器几乎都以同样的方式工作</li>
+<li>Encapsulation 封装  //数据和程序 与 用户 分离</li>
+<li>Concurrency 并发  //允许多位用户同时请求对同一页面的浏览</li>
+</ul>
+<h2 id="3-4-过程控制"><a href="#3-4-过程控制" class="headerlink" title="3-4 过程控制"></a>3-4 过程控制</h2><p>持续运行的系统用于过程控制。<strong>范例</strong>：温度控制器。</p>
+<p>控制环路中 1) 具有某些构件；2) 构件间保持特殊关系。</p>
+<p><strong>过程变量</strong></p>
+<p>过程变量是可以度量的过程属性，可通过传感器获得的值。</p>
+<p><strong>被控变量</strong></p>
+<p>必须被系统控制的过程变量。</p>
+<p><strong>设定点</strong></p>
+<p>被控变量的目标值。</p>
+<p><strong>目标</strong></p>
+<p>把被控变量维持到或接近于目标值。</p>
+<h3 id="3-4-1-开环系统"><a href="#3-4-1-开环系统" class="headerlink" title="3-4-1 开环系统"></a>3-4-1 开环系统</h3><p>不用关于过程变量的信息来调整系统。</p>
+<p>几乎<u>不适合于真实世界的物理过程</u>。</p>
+<h3 id="3-4-2-闭环系统"><a href="#3-4-2-闭环系统" class="headerlink" title="3-4-2 闭环系统"></a>3-4-2 闭环系统</h3><p>用关于过程变量的信息来操控过程变量。</p>
+<p><strong>范例</strong>：反馈控制系统</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105154224597.png" alt="image-20211105154224597"></p>
+<p><strong>核心部分</strong></p>
+<ul>
+<li>计算元素<ul>
+<li>过程定义（过程变量改变机制）</li>
+<li>控制算法</li>
+</ul>
+</li>
+<li>数据元素</li>
+<li>控制环路方案</li>
+</ul>
+<h2 id="3-5-异构体系结构"><a href="#3-5-异构体系结构" class="headerlink" title="3-5 异构体系结构"></a>3-5 异构体系结构</h2><p>很难用同一种风格或模式创建一个复杂系统，通常<strong>用几种风格组合而成</strong>。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105154701113.png" alt="image-20211105154701113"></p>
+<br/>
+
+<h1 id="04-案例研究-移动机器人"><a href="#04-案例研究-移动机器人" class="headerlink" title="04 案例研究 - 移动机器人"></a>04 案例研究 - 移动机器人</h1><p><strong>从需求到体系结构选择到实现</strong></p>
+<ul>
+<li>从给定需求规格说明，可建立许多可能的体系结构</li>
+<li>从一个给定的体系结构描述，可以得到许多的系统实现</li>
+</ul>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105155444253.png" alt="image-20211105155444253"></p>
+<p><strong>问自己 (￣﹏￣；)</strong></p>
+<p>ROS（Robot Operating System）是哪种风格？</p>
+<h2 id="4-1-需求获取-分析"><a href="#4-1-需求获取-分析" class="headerlink" title="4-1 需求获取/分析"></a>4-1 需求获取/分析</h2><p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105160932770.png" alt="image-20211105160932770"></p>
+<p>构建一个系统来操作移动机器人，以处理外部传感器和传动装置，且相应速度和工作环境中的系统行为相匹配。</p>
+<p><strong>软件功能</strong></p>
+<ul>
+<li>采集从外部传感器发送的输入信号</li>
+<li>操作车轮和其他可移动零件的运动</li>
+<li>规划未来的移动路线</li>
+</ul>
+<p><strong>其他因素</strong></p>
+<ul>
+<li><strong>障碍物</strong>可能会阻挡机器人的移动路线</li>
+<li>传感器的<strong>输入信号</strong>可能非常弱</li>
+<li>机器人的<strong>电力</strong>可能使用完</li>
+<li>机械的局限性可能会限制移动的<strong>精确性</strong></li>
+<li>机器人可能会处理<strong>有毒材料</strong></li>
+<li>不可预知的事件可能要求它具有<strong>快速响应</strong></li>
+<li>……</li>
+</ul>
+<p><strong>四项基本需求</strong></p>
+<ol>
+<li>该体系结构必须能协调有<strong>准备的行为和反应行为</strong><ul>
+<li>为完成指定目标（采集岩石标本）而采取的行动</li>
+<li>由环境引起的反应行为（如避开障碍）</li>
+</ul>
+</li>
+<li>该体系结构必须能<strong>处理不确定性</strong><ul>
+<li>应对矛盾的传感器读数或其他不完整、不可靠的信息</li>
+</ul>
+</li>
+<li>该体系结构必须能<strong>应对</strong>操作和环境中<strong>固有的危险</strong><ul>
+<li>通过容错、安全、性能等方面考虑</li>
+<li>保持机器人操作及其环境的完整性</li>
+<li>如电力下降、有毒气体、门意外打开时，不至于导致灾难</li>
+</ul>
+</li>
+<li>该体系结构必须能给予设计者<strong>灵活性</strong><ul>
+<li>任务改变时的重新配置</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-2-方案分析"><a href="#4-2-方案分析" class="headerlink" title="4-2 方案分析"></a>4-2 方案分析</h2><p><strong>考虑四种有代表的体系结构设计</strong></p>
+<ul>
+<li>Lozano的控制环路</li>
+<li>Elfes的分层组织结构</li>
+<li>Simmons的任务控制体系结构</li>
+<li>Shafer的黑板组织结构应用</li>
+</ul>
+<h3 id="4-2-1-控制环路（闭环）"><a href="#4-2-1-控制环路（闭环）" class="headerlink" title="4-2-1 控制环路（闭环）"></a>4-2-1 控制环路（闭环）</h3><p><strong>开环</strong> 用于大多数工业机器人，任务预先设定，无需更多考虑环境因素。</p>
+<p><strong>闭环</strong> 用于移动机器人，加入反馈机制。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105162234245.png" alt="image-20211105162234245"></p>
+<p><u>闭环范例更适合<strong>简单的机器人系统</strong>，该系统<strong>只处理很少的外部事件</strong>，且任务<strong>不需要复杂的分解</strong>。</u></p>
+<h4 id="4-2-1-1-行为和反应"><a href="#4-2-1-1-行为和反应" class="headerlink" title="4-2-1-1 行为和反应"></a>4-2-1-1 行为和反应</h4><p>闭环结构简单，机器人与外界的交互非常清晰。</p>
+<p>闭环总是假定环境的变化是连续的，且需要连续的反应（通过开关阀门逐渐控制温度、压力）；然而机器人需要经常面对完全不同的、不连续的事件，而<strong>在不同行为模式中转换</strong>（如在控制操纵器的运动和调整底座位置间做出选择来避免失去平衡）－闭环<strong>没有说明</strong>怎样处理这种模式转换。</p>
+<p>对于复杂性任务，控制环路并<strong>没有</strong>给出将软件<strong>分解成几个协作构件</strong>的方法（如机器狗需同时完成走路、踢球、射门这样综合性任务－细节的缺失）</p>
+<h4 id="4-2-1-2-不确定性"><a href="#4-2-1-2-不确定性" class="headerlink" title="4-2-1-2 不确定性"></a>4-2-1-2 不确定性</h4><p>对于不确定性，控制环路偏爱<strong>通过迭代来降低未知性</strong>。试探和错误处理程序通过动作和响应来消除每次循环中的可能性。</p>
+<p>但对于更细致的处理，没有提供一个<strong>基本循环来集成这些操作的框架</strong>，也没有提供委托独立实体进行操作的框架。</p>
+<h4 id="4-2-1-3-应对危险"><a href="#4-2-1-3-应对危险" class="headerlink" title="4-2-1-3 应对危险"></a>4-2-1-3 应对危险</h4><p>闭环范例<strong>提供对容错度和安全性的支持</strong>。</p>
+<p>因为它的结构简单，使得复制操作更加容易，并能<strong>减少系统中错误发生的几率</strong>。</p>
+<h4 id="4-2-1-4-灵活性"><a href="#4-2-1-4-灵活性" class="headerlink" title="4-2-1-4 灵活性"></a>4-2-1-4 灵活性</h4><p>主要构件（监视器、传感器、发动机）是彼此分开的，并能够被<strong>独立地替换</strong>。</p>
+<p>微小的修改必须在模块中进行，并且<strong>改动不会在体系结构的细节层次上反映出来</strong>。</p>
+<h3 id="4-2-2-分层体系结构"><a href="#4-2-2-分层体系结构" class="headerlink" title="4-2-2 分层体系结构"></a>4-2-2 分层体系结构</h3><p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105163607934.png" alt="image-20211105163607934"></p>
+<p>总体上提供了一个<strong>合理组织构架的框架</strong>，因为对不同层角色的描述是精确的。</p>
+<p>缺陷是当现实过程中牵扯到更深层次的细节时，这种模型通常会完全失效；<u>通信模式</u>不可能遵循这种体系结构所规定的层次结构。</p>
+<h4 id="4-2-2-1-行为和反应"><a href="#4-2-2-1-行为和反应" class="headerlink" title="4-2-2-1 行为和反应"></a>4-2-2-1 行为和反应</h4><p>定义更多的执行委托任务的构件，分层模型避开了一些控制环路方案面临的问题。</p>
+<p>分层模型<strong>专用于自动控制的机器人</strong>，所以它揭示了针对这种机器人所必须解决的问题（如传感器集成）；另外它定义了<strong>抽象层</strong>（机器人控制与导航）来指导设计；第4层现实世界建模和第7层全局计划有助于<strong>机器人整体行为</strong>的把握（有准备的和反应性的）。</p>
+<p>但是这种分层体系结构并<strong>不适合现行的数据和控制流模式</strong>：分层模型要求请求和服务必须在相邻的两层进行，现实中<strong>信息交换并不是直接</strong>的。</p>
+<h4 id="4-2-2-2-不确定性"><a href="#4-2-2-2-不确定性" class="headerlink" title="4-2-2-2 不确定性"></a>4-2-2-2 不确定性</h4><p><u>抽象层的存在满足了处理不确定性的需要</u>。</p>
+<p>通过在较高层加入可以用到的知识，使得在最低层中不确定的事物在较高层中会变得确定。比如外界模型中的上下文能够提供某些线索来消除相矛盾的传感器数据中的歧义</p>
+<h4 id="4-2-2-3-应对危险"><a href="#4-2-2-3-应对危险" class="headerlink" title="4-2-2-3 应对危险"></a>4-2-2-3 应对危险</h4><p>可以从不同角度分析数据和命令，将<strong>多个检查和平衡操作合并到系统中</strong>。</p>
+<p><strong>抽象机制满足了容错性和被动的安全性：你坚持什么都不做</strong>（联系抽象类便于理解）。</p>
+<p><strong>性能和主动安全性需要缩短通信路径</strong>：你必须去做某些事而不是避免做某些事。</p>
+<h4 id="4-2-2-4-灵活性"><a href="#4-2-2-4-灵活性" class="headerlink" title="4-2-2-4 灵活性"></a>4-2-2-4 灵活性</h4><p>层次间的依赖性使得<strong>构件的替换和添加更加困难</strong>。<strong>层次间复杂的关系</strong>使得解读每一次变化都会令人头疼。</p>
+<h3 id="4-2-3-隐式调用"><a href="#4-2-3-隐式调用" class="headerlink" title="4-2-3 隐式调用"></a>4-2-3 隐式调用</h3><p>内嵌于任务控制体系结构（Task-Control Architecture），已应用于众多移动机器人上，如漫步者<br>用隐式调用来协调任务间的交互。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105165121941.png" alt="image-20211105165121941"></p>
+<p>整体上提供了对机器人的<strong>任务协调的全面支持</strong>；功能强大，非常<u><strong>适合复杂的机器人项目</strong></u>。</p>
+<h4 id="4-2-3-1-行为和反应"><a href="#4-2-3-1-行为和反应" class="headerlink" title="4-2-3-1 行为和反应"></a>4-2-3-1 行为和反应</h4><p>一方面是<strong>任务树</strong>，另一方是<strong>异常、窃听、监控器</strong>，这些为有准备的动作（任务树）和响应行为（外部环境或事件触发的行为）提供了清晰的划分。</p>
+<p>多个任务可以在同一时刻<strong>并发处理</strong>，并且这些处理是相互独立的（左移和前移），其他两个模型不能明确地处理并发，这是和该模型的明显区别。</p>
+<h4 id="4-2-3-2-不确定性"><a href="#4-2-3-2-不确定性" class="headerlink" title="4-2-3-2 不确定性"></a>4-2-3-2 不确定性</h4><p><strong>解决不确定性不够清晰</strong>，如果存在不可估计的情况：</p>
+<ul>
+<li>会创建一个试验性的任务树</li>
+<li>如果任务树中基本假设被证明是错误的，那么异常处理程序会不断地修改它直到正确为止</li>
+</ul>
+<h4 id="4-2-3-3-应对危险"><a href="#4-2-3-3-应对危险" class="headerlink" title="4-2-3-3 应对危险"></a>4-2-3-3 应对危险</h4><p><strong>异常、窃听、监控器</strong>这些特点使其考虑了性能、安全性、容错性这些问题。</p>
+<p>还可以通过<strong>冗余来实现容错</strong>：为同一个信号注册多个处理者，如果一个处理者不可用，将请求发送给其他处理者可以继续提供服务。多个处理者并发地处理针对同一请求的多个事件，性能也会提高</p>
+<h4 id="4-2-3-4-灵活性"><a href="#4-2-3-4-灵活性" class="headerlink" title="4-2-3-4 灵活性"></a>4-2-3-4 灵活性</h4><p>隐式调用使得<strong>增量开发和构件的替换</strong>更为直接。在不影响现有构件的情况下，很容易在中心服务器<strong>注册新的</strong>处理者、异常、窃听器或监控器。</p>
+<h3 id="4-2-4-黑板体系结构"><a href="#4-2-4-黑板体系结构" class="headerlink" title="4-2-4 黑板体系结构"></a>4-2-4 黑板体系结构</h3><p><strong>构件</strong></p>
+<p>captain（指挥）：总监控器；map navigator（地图导航）：高层路线规划程序；lookout（监视）：为获取路标而监控环境的模块；pilot（驾驶）：底层的路线规划程序和发动机控制器。</p>
+<p>感知子系统：这个模块接收来自多个传感器的原始输入并将它们整合成一致的解释。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105165520204.png" alt="image-20211105165520204"></p>
+<p>整体上来说，基于数据库内容的隐式调用机制－黑板体系结构具有模拟任务协作的能力；满足了<strong>以灵活的方式协调和解决不确定性的需求</strong>；这些能力稍逊于基于任务控制体系结构的隐式调用相应的能力。</p>
+<h4 id="4-2-4-1-行为和反应"><a href="#4-2-4-1-行为和反应" class="headerlink" title="4-2-4-1 行为和反应"></a>4-2-4-1 行为和反应</h4><p>构件（感知子系统中的模块）通过黑板系统的共享知识库来进行通信，每个模块只对某种信息感兴趣。</p>
+<p>数据库可以立刻向这些模块发送它们需要的信息，或者当其他模块向数据库插入这些信息后，再向这些模块发送它们需要的信息。</p>
+<p>lookout可以监视某种地理特征，当感知子系统存储的图像与描述相匹配，数据库就会通知lookout，虽然有时构件间直接交互更自然，但控制流必须符合黑板的运行机制。</p>
+<h4 id="4-2-4-2-不确定性"><a href="#4-2-4-2-不确定性" class="headerlink" title="4-2-4-2 不确定性"></a>4-2-4-2 不确定性</h4><p>黑板也是一种<strong>解决矛盾和不确定性情况</strong>的方式。</p>
+<p>所有的数据都保持在黑板数据库中，负责处理不确定性的模块通过在数据库中注册来获取必需的数据，如lookout需检测路标的距离或颜色等时，通过感知子系统协调来自不同的传感器输入，可解决不确定性和输入的矛盾。</p>
+<h4 id="4-2-4-3-应对危险"><a href="#4-2-4-3-应对危险" class="headerlink" title="4-2-4-3 应对危险"></a>4-2-4-3 应对危险</h4><p>通过黑板数据库进行通信<u>和通过隐式调用的中心消息服务器进行通信的方式非常相似</u>（对照：  黑板状态变化／消息事件触发）。</p>
+<p>定义了独立模块以观测数据库中意外事件或危险情况的信号，正是这些模块保证了反应速度、安全性、可靠性。</p>
+<h4 id="4-2-4-4-灵活性"><a href="#4-2-4-4-灵活性" class="headerlink" title="4-2-4-4 灵活性"></a>4-2-4-4 灵活性</h4><p>和隐式调用一样，黑板体系结构风格<strong>支持并发</strong>以及<strong>发送者和接受者分离</strong>，这样有利于维护。</p>
+<h3 id="4-2-5-方案比较"><a href="#4-2-5-方案比较" class="headerlink" title="4-2-5 方案比较"></a>4-2-5 方案比较</h3><p>各体系结构在控制方式、通信、构件特征等方面上的本质不同决定了它们满足需求的不同程度。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211105170317129.png" alt="image-20211105170317129"></p>
+<br/>
+
+<p>PS：ROS应该是黑板知识库风格，每个node是黑板知识库里的子模块，master也作为一个node。那么，黑板是啥呢？</p>
+<br/>
+
+<h1 id="05-分布式体系结构"><a href="#05-分布式体系结构" class="headerlink" title="05 分布式体系结构"></a>05 分布式体系结构</h1><p><strong>A distributed architecture</strong> is an architecture supporting the development of applications and services that can exploit a physical architecture consisting of <strong>multiple, autonomous processing elements</strong>. Those elements do not share primary memory but cooperate by sending messages over the network.</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106101208655.png" alt="image-20211106101208655"></p>
+<p><strong>流行的分布式体系结构</strong></p>
+<p>CORBA（OMG），J2EE（Sun），.Net（Microsoft）</p>
+<ul>
+<li>J2EE和.Net<ul>
+<li>分布式体系结构上所提供的开发平台支持事务完整性、消息传递、目录服务、安全、异常处理、远程访问</li>
+<li>开发人员只需集中精力在构件功能上，无需关心所有的底层技术基础</li>
+</ul>
+</li>
+<li>SOA（面向服务的体系结构）<ul>
+<li>将异构平台上的不同功能部件（服务）通过接口和规范整合在一起，实现了松耦合的分布式计算</li>
+</ul>
+</li>
+<li>3层/n层体系结构<ul>
+<li>提出了中间件，是分布式体系结构／分布式计算的基础</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-1-基于CORBA的分布式构件技术"><a href="#5-1-基于CORBA的分布式构件技术" class="headerlink" title="5-1 基于CORBA的分布式构件技术"></a>5-1 基于CORBA的分布式构件技术</h2><p><strong>对象请求代理</strong>（Object Request Broker, ORB）提供了CORBA基础架构说明。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106101925071.png" alt="image-20211106101925071"></p>
+<p>针对ORB，OMG（对象管理协会）进一步提出CORBA技术规范，主要内容包括1) 接口定义语言（Interface Definition Language, IDL）；2) 接口池（Interface Repository, IR）；3) 动态调用接口（Dynamic Invocation Interface, DII）；4) 对象适配器（Object Adapter, OA）。</p>
+<h3 id="5-1-1-定义的对象"><a href="#5-1-1-定义的对象" class="headerlink" title="5-1-1 定义的对象"></a>5-1-1 定义的对象</h3><h4 id="5-1-1-1-CORBA服务"><a href="#5-1-1-1-CORBA服务" class="headerlink" title="5-1-1-1 CORBA服务"></a>5-1-1-1 CORBA服务</h4><p><strong>CORBA Service</strong>提供实现对象的基本功能。为创建对象、对象访问控制、对象生命期控制、对象引用等提供了一套基本功能服务，是底层支持的必须服务。</p>
+<ul>
+<li>对象的命名服务</li>
+<li>对象交易服务</li>
+<li>持久对象服务（Persistent State Service）</li>
+</ul>
+<p>标准的CORBA Service：</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106102844942.png" alt="image-20211106102844942"></p>
+<h4 id="5-1-1-2-CORBA设备"><a href="#5-1-1-2-CORBA设备" class="headerlink" title="5-1-1-2 CORBA设备"></a>5-1-1-2 CORBA设备</h4><p><strong>CORBA Facility</strong>包括</p>
+<ul>
+<li>水平CORBA设备：各种工业部门中。针对<strong>所有类型CORBA应用的元素</strong>，<strong>不考虑设备使用的领域</strong>，包括了<strong>用户接口和系统管理设备</strong></li>
+<li>垂直CORBA设备：只在<strong>特殊垂直市场和工业中针对某些应用的功能</strong>，也称<strong>领域CORBA设备</strong>，如银行会计业中的分期付款、制造业中的自动化控制设备等</li>
+</ul>
+<h4 id="5-1-1-3-应用对象"><a href="#5-1-1-3-应用对象" class="headerlink" title="5-1-1-3 应用对象"></a>5-1-1-3 应用对象</h4><p><strong>Application Object</strong> 处于 OMA（对象管理体系）层次结构的最顶层。</p>
+<ul>
+<li>是符合OMA标准接口的应用程序、进程、类实例等</li>
+<li>可被独立定制，必须符合OMA标准接口</li>
+</ul>
+<p>OMA中的对象作为服务者被动态引用，以唯一标识提供服务，对象间交互通过ORB实现。</p>
+<h4 id="5-1-1-4-★ORB"><a href="#5-1-1-4-★ORB" class="headerlink" title="5-1-1-4  ★ORB"></a>5-1-1-4  ★ORB</h4><p>OMA的核心部分。</p>
+<p>应用对象在分布式对象系统中，以系统客户身份，通过ORB与系统中其他对象完成交互。</p>
+<p>Clients <strong>see only an object’s interface</strong>, never the implementation.</p>
+<p>To communicate, the <strong>request does not pass directly from client to object implementation</strong>.</p>
+<p>Instead <strong>every request</strong> is passed to the client’s local ORB, which manages it.</p>
+<h3 id="5-1-2-CORBA规范"><a href="#5-1-2-CORBA规范" class="headerlink" title="5-1-2 CORBA规范"></a>5-1-2 CORBA规范</h3><p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104452244.png" alt="image-20211106104452244"></p>
+<ul>
+<li>ORB</li>
+<li>IDL（接口定义语言）</li>
+<li>存根（Stub）</li>
+<li>框架（Skeleton）</li>
+<li>对象适配器（Object Adaptor）</li>
+<li>动态调用接口</li>
+</ul>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106105506791.png" alt="image-20211106105506791"></p>
+<h4 id="5-1-2-1-IDL"><a href="#5-1-2-1-IDL" class="headerlink" title="5-1-2-1 IDL"></a>5-1-2-1 IDL</h4><p>CORBA利用IDL统一地描述服务器对象（提供服务的对象）的接口，它本身是面向对象的；IDL语言是CORBA中定义的一种中性语言，不涉及对象的具体实现。</p>
+<p>CORBA定义了IDL语言到C，C++，Java等语言的映射，使开发商开发支持CORBA体系结构的产品。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104604232.png" alt="image-20211106104604232"></p>
+<p><strong>示例</strong></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104842346.png" alt="image-20211106104842346"></p>
+<p>IDL对对象接口定义，编译后的代码映射到具体编程语言，产生客户Stub和服务Skeleton。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106104916245.png" alt="image-20211106104916245"></p>
+<h4 id="5-1-2-2-存根和框架"><a href="#5-1-2-2-存根和框架" class="headerlink" title="5-1-2-2 存根和框架"></a>5-1-2-2 存根和框架</h4><p><strong>存根</strong>（Stub / <u>桩程序</u>）是客户端代码，客户应用程序通过桩向服务器应用程序发送请求。</p>
+<p><strong>框架</strong>（Skeleton）是服务端代码，将对象适配器转发的请求调度到对象实现上的适当操作的代码。</p>
+<h4 id="5-1-2-3-ORB"><a href="#5-1-2-3-ORB" class="headerlink" title="5-1-2-3 ORB"></a>5-1-2-3 ORB</h4><p>把客户请求传递给目标对象，并把目标对象的执行结果返回给请求客户。</p>
+<p><strong>位置透明</strong>：屏蔽了对象位置、对象实现、对象执行状态、对象通信机制和数据表示。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106105344847.png" alt="image-20211106105344847"></p>
+<h4 id="5-1-2-4-对象适配器"><a href="#5-1-2-4-对象适配器" class="headerlink" title="5-1-2-4 对象适配器"></a>5-1-2-4 对象适配器</h4><p>负责<strong>接收服务请求</strong>，完成<strong>实例化服务对象</strong>，向对象传送请求，为服务指定引用对象，提供运行环境；</p>
+<p><strong>给客户应用提供</strong>了一个假象（<strong>虚拟环境</strong>）：服务对象都是活动着的，随时等待客户应用发来请求。</p>
+<h3 id="5-1-3-平台无关性"><a href="#5-1-3-平台无关性" class="headerlink" title="5-1-3 平台无关性"></a>5-1-3 平台无关性</h3><p><strong>CORBA/分布式对象风格的平台无关性</strong></p>
+<ul>
+<li>CORBA引入了<strong>分布式对象风格</strong>（Distributed Objects Style）</li>
+<li>CORBA定义了一种<strong>面向对象的软件构造方法</strong>，使<strong>不同的应用</strong>可以<strong>共享</strong>由此构造出来的软件构件</li>
+<li>每个对象都将其内部操作细节<strong>封装</strong>起来，同时又向外界提供了精确定义的<strong>接口</strong>，从而降低了应用系统的复杂性，也降低了软件开发费用</li>
+<li>CORBA的平台无关性实现了<strong>对象的跨平台引用</strong>，开发人员可以在更大范围内选择最实用的对象加入到自己的应用系统之中</li>
+<li>CORBA的<strong>语言无关性</strong>使开发人员可以在更大范围内互相利用别人的编程技能和成果</li>
+</ul>
+<h3 id="5-1-4-CORBA特点"><a href="#5-1-4-CORBA特点" class="headerlink" title="5-1-4 CORBA特点"></a>5-1-4 CORBA特点</h3><ul>
+<li><strong>引入代理</strong>  ORB（Object Request Broker）对象请求代理<ul>
+<li>可重用、可移植、互操作</li>
+</ul>
+</li>
+<li><strong>位置透明</strong><ul>
+<li>客户与服务完全分离</li>
+</ul>
+</li>
+<li><strong>软总线机制</strong><ul>
+<li>平台无关性，接口规范</li>
+</ul>
+</li>
+<li><strong>面向对象</strong>的软件实现方法<ul>
+<li>封装，接口特性</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-2-基于服务的体系结构"><a href="#5-2-基于服务的体系结构" class="headerlink" title="5-2 基于服务的体系结构"></a>5-2 基于服务的体系结构</h2><p><strong>面向服务的体系结构</strong>（Service-Oriented Architecture, SOA）</p>
+<ul>
+<li>所有功能定义为独立的服务，服务间相互调用/组合</li>
+<li>服务明确接口，通过接口发布、发现、调用服务</li>
+<li>可设定服务顺序，形成业务流程</li>
+</ul>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106111052599.png" alt="image-20211106111052599"></p>
+<h3 id="5-2-1-SOA特点"><a href="#5-2-1-SOA特点" class="headerlink" title="5-2-1 SOA特点"></a>5-2-1 SOA特点</h3><ul>
+<li>面向对象的<strong>粒度级别在类级</strong>，是<strong>紧耦合</strong>的模型；对于重用，它的<strong>抽象级别较低</strong></li>
+<li><strong>构件通过内聚</strong>对象<strong>提高了粒度大小和抽象级别</strong></li>
+<li>面向对象的设计是实现构件技术的最佳方式，同样构件技术也是实现服务的最佳方式</li>
+<li>基于SOA的系统可用构件组装服务，也<u>可用面向对象的设计构建单个服务，但整体是面向服务的</u></li>
+</ul>
+<h3 id="5-2-2-服务"><a href="#5-2-2-服务" class="headerlink" title="5-2-2 服务"></a>5-2-2 服务</h3><ul>
+<li>服务是封装成用于业务流程的<strong>可重用构件</strong></li>
+<li>取决于业务流程，服务可以是细粒度的，也可以是粗粒度的</li>
+<li>企业可以将自己的服务<strong>向外</strong>发布到业务合作伙伴，也可以在组织<strong>内部</strong>发布服务</li>
+<li>服务可以由其它服务组合而成</li>
+</ul>
+<h4 id="5-2-2-1-服务消费者"><a href="#5-2-2-1-服务消费者" class="headerlink" title="5-2-2-1 服务消费者"></a>5-2-2-1 服务消费者</h4><p>可以是一个<strong>应用程序</strong>、一个<strong>软件模块</strong>或需要一个<strong>服务</strong>的另一个服务；向注册中心**<u>查询</u><strong>服务、</strong><u>绑定</u><strong>服务，根据接口契约</strong><u>执行服务</u>**。</p>
+<p><strong>发现操作</strong>：服务请求者定位服务，方法是查询服务注册中心来找到满足其标准的服务。</p>
+<h4 id="5-2-2-2-服务提供者"><a href="#5-2-2-2-服务提供者" class="headerlink" title="5-2-2-2 服务提供者"></a>5-2-2-2 服务提供者</h4><p>可通过网络寻址的实体，<strong>接受和执行</strong>来自消费的<strong>请求</strong>；将自己的服务和接口契约<strong>发布</strong>到服务注册中心。</p>
+<p><strong>绑定和调用操作</strong>：在检索完服务描述后，服务消费者继续根据服务描述中的信息来调用服务。</p>
+<h4 id="5-2-2-3-服务注册中心"><a href="#5-2-2-3-服务注册中心" class="headerlink" title="5-2-2-3 服务注册中心"></a>5-2-2-3 服务注册中心</h4><p><strong>服务发现</strong>的支持者；包含一个可用服务的<strong>存储库</strong>，允许感兴趣的服务消费者<strong>查找</strong>服务提供者<strong>接口</strong>。</p>
+<p><strong>发布操作</strong>：为了使服务可访问，需要发布服务描述以使服务消费者可以发现和调用它。</p>
+<h3 id="5-2-3-基于Web-Service的SOA实现"><a href="#5-2-3-基于Web-Service的SOA实现" class="headerlink" title="5-2-3 基于Web Service的SOA实现"></a>5-2-3 基于Web Service的SOA实现</h3><p>Web服务是实现SOA的最佳方式。</p>
+<p><strong>核心技术</strong></p>
+<ul>
+<li>XML（eXtensible Markup Language）：Web服务中信息描述和交换的标准方法</li>
+<li>SOAP（Simple Object Access Protocol）：为服务消费者和提供者之间的通信定义了基于XML格式的SOAP信封</li>
+<li>WSDL（Web Service Definition Language）：定义了服务接口，即服务做些什么，如何访问服务，服务位于何处</li>
+<li>UDDI （Universal Description Discovery and Integration）：提供了在Web上描述并发现服务的框架</li>
+</ul>
+<p><strong>协议及消息传递</strong></p>
+<ul>
+<li>Web Service中用SOAP进行协议与消息传递</li>
+<li>应用程序请求（封装在XML中）被放入SOAP信封中（也是XML），并从消费者发送到提供者，由提供者发回的响应也采用相同的格式</li>
+<li>它基于XML形式提供了一个用于在分散、分布环境中交换结构化和类型化信息的轻量级协议</li>
+<li>将成熟的基于HTTP的WEB技术与XML的灵活性和可扩展性组合在了一起</li>
+<li>解决了COM，CORBA的协同操作，实现了异构程序和平台间的互操作性</li>
+</ul>
+<p><strong>服务栈</strong></p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106113801162.png" alt="image-20211106113801162"></p>
+<h4 id="5-2-3-1-SOAP"><a href="#5-2-3-1-SOAP" class="headerlink" title="5-2-3-1 SOAP"></a>5-2-3-1 SOAP</h4><p>SOAP本身不定义任何应用语义，它只是定义了一种简单的机制，通过一个<strong>模块化的包装模型</strong>和对模块中特定格式编码的数据的<strong>重编码</strong>机制来表示应用语义，具有一定灵活性。</p>
+<p><img src="/imgForArc/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84-assets/image-20211106113502906.png" alt="image-20211106113502906"></p>
+<h5 id="①-信封（SOAP-Envelop）"><a href="#①-信封（SOAP-Envelop）" class="headerlink" title="① 信封（SOAP Envelop）"></a>① 信封（SOAP Envelop）</h5><p>它定义了一个整体的<strong>表示框架</strong>；表示<u>消息内容</u>、<u>处理者信息</u>、以及<u>处理选择</u>要求。</p>
+<h5 id="②-编码规则（SOAP-Encoding-Rules）"><a href="#②-编码规则（SOAP-Encoding-Rules）" class="headerlink" title="② 编码规则（SOAP Encoding Rules）"></a>② 编码规则（SOAP Encoding Rules）</h5><p>定义了一个<strong>数据的编序机制</strong>；通过这样一个编序机制来定义应用程序中需要使用的<strong>数据类型</strong>，并可用于交换由这些应用程序定义的数据类型所衍生的实例。</p>
+<h5 id="③-SOAP-RPC表示（SOAP-RPC-Representation）"><a href="#③-SOAP-RPC表示（SOAP-RPC-Representation）" class="headerlink" title="③ SOAP RPC表示（SOAP RPC Representation）"></a>③ SOAP RPC表示（SOAP RPC Representation）</h5><p>它定义了一个用于表示<strong>远程调用和响应的约定</strong>。</p>
+<h4 id="5-2-3-2-WSDL"><a href="#5-2-3-2-WSDL" class="headerlink" title="5-2-3-2 WSDL"></a>5-2-3-2 WSDL</h4><p><strong>Web服务描述语言</strong>（WSDL）</p>
+<ul>
+<li>用XML格式描述Web服务</li>
+<li>描述Web服务的三个属性<ul>
+<li>服务做些什么：服务提供的操作、方法</li>
+<li>服务位于何处：由特定协议决定的网络地址，如URL</li>
+<li>如何访问服务：访问服务操作的必要协议</li>
+</ul>
+</li>
+<li>通过WSDL分离了服务接口定义与服务实现，WSDL不包括任何服务实现的细节</li>
+</ul>
+<h4 id="5-2-3-3-UDDI"><a href="#5-2-3-3-UDDI" class="headerlink" title="5-2-3-3 UDDI"></a>5-2-3-3 UDDI</h4><p><strong>统一描述、发现和集成协议</strong>（UDDI）</p>
+<ul>
+<li>UDDI提供了在Web上描述并发现服务的框架，它为发布服务和发现服务定义了一个标准接口，这个接口是基于SOAP消息的</li>
+<li>服务注册中心是一种服务代理，所有UDDI服务注册信息都存储在服务注册中心，它是在UDDI上需要发现服务的请求者和发布服务的提供者之间的中介</li>
+<li>UDDI注册中心提供两种注册方式：公共UDDI注册中心（Public UDDI Registry）和私有UDDI注册中心（Private UDDI Registry）</li>
+</ul>
+<p>【完结】</p>
+
+      
+    </div>
+    
+    
+    <div class="article-category">
+      
+        <b>Categories:</b>
+        <a class="article-category-link" href="/categories/Software-Engineering/">Software Engineering</a>
+      
+      
+      
+    </div>
+    
+    
+  </div>
+</article>
+
+  
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2021/06/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          软件工程导论
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/28/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          系统分析与设计方法
+        
+      </div>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+    </div>
+  </div>
+  
+
+
+
+
+<div id="settings-container">
+  <div id="dark-mode">dark</div>
+  <div id="sans-font">sans</div>
+</div>
+<script type="text/javascript">
+let d=document,r=d.documentElement.style,f=r.setProperty.bind(r),l=localStorage,s=l.getItem('s')||(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),n=l.getItem('n'),m=d.getElementById("dark-mode"),b=()=>{f('--bg-color','#fafafa');f('--code-bg-color','#f4f4f4');f('--text-color','#212121');f('--secondary-color','#808080');f('--tertiary-color','#b0b0b0');f('--link-color','#b5c8cf');f('--link-hover-color','#618794');f('--link-bg-color','#dae4e7');f('--selection-color','#dae4e7');m.innerHTML="dark"},c=()=>{f('--bg-color','#212121');f('--code-bg-color','#292929');f('--text-color','#fff');f('--secondary-color','#c0c0c0');f('--tertiary-color','#6e6e6e');f('--link-color','#4d6b75');f('--link-hover-color','#96b1bb');f('--link-bg-color','#5d828e');f('--selection-color','#acc1c9');m.innerHTML="light"},o=d.getElementById("sans-font"),e=()=>{f('--body-stack','"Lora", "Georgia", "Times New Roman", serif');o.innerHTML="sans"},g=()=>{f('--body-stack','"Lato", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Verdana", sans-serif');o.innerHTML="serif"};m.onclick=()=>{if(s==2){s=1;l.setItem('s',s);c()}else{s=2;l.setItem('s',s);b()}};o.onclick=()=>{if(n==2){n=1;l.setItem('n',n);g()}else{n=2;l.setItem('n',n);e()}};if(!s){s=2;l.setItem('s',2)};if(s==1){c()};if(!n){n=2;l.setItem('n',2)};if(n==1){g()};
+</script>
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-195210058-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

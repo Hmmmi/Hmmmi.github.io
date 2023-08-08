@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机网络 | Hmmmi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+    <link rel="icon" href="/avatar-default.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+  
+  <meta name="description" content="网络使得计算机能够互联互通。分层模型使得计算机网络能够有序且方便地帮助计算机交流以及计算机网络的建立扩展和维护。1) 物理层关注的是数据信息实际在网络信道上的传输，包括信道复用技术和宽带接入技术；2) 数据链路层帮助控制数据在信道上的传输，链路层上的协议需要解决的三个问题——封装成帧、透明传输、差错检测，工作在此层的设备是网桥和交换机；3) 网络层主要是建立计算机之间的逻辑连接，关注IP协议及其相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="https://hmmmi.github.io/2021/14/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Hmmmi">
+<meta property="og:description" content="网络使得计算机能够互联互通。分层模型使得计算机网络能够有序且方便地帮助计算机交流以及计算机网络的建立扩展和维护。1) 物理层关注的是数据信息实际在网络信道上的传输，包括信道复用技术和宽带接入技术；2) 数据链路层帮助控制数据在信道上的传输，链路层上的协议需要解决的三个问题——封装成帧、透明传输、差错检测，工作在此层的设备是网桥和交换机；3) 网络层主要是建立计算机之间的逻辑连接，关注IP协议及其相">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115091618315.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115092657644.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115095733971.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115095848968.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115101042452.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115101247938.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115102537285.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115102357897.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115102709304.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115103729027.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104023218.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115105423484.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115105123484.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104428673.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104548034.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104623484.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115110710201.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115114419899.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115115425392.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115151408344.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115152055902.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115154808181.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115161811171.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115162115599.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115162318110.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115162609004.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115163041031.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115170016699.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173347245.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173021195.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173808921.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173832651.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115202722353.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115202020033.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115203546343.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115203702586.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115204201379.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116105540904.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116110905025.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116111236116.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116113607386.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116152254468.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116153822786.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116154525362.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116155408473.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116161308150.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116162039898.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116162502021.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116162916615.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116163424680.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116172212394.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173104927.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173206638.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173440863.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173539464.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173625667.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116183226742.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116184617882.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116192130208.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116192315709.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116192456785.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116193147951.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117092424075.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117095501031.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117100709205.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117101438464.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117105813331.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117114443790.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117115028239.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117115239622.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117115731354.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117121426414.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117122558230.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117153122164.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117153352148.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117153544570.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117155224348.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117155401437.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117174001073.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117211827932.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117211942650.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117213926641.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117215242387.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117220725811.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117221543922.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118091755180.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118092710632.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118100249421.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118100119166.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118103439366.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118104450677.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118115600984.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118120536482.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118120159383.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118120615406.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118143438564.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118144718476.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145104800.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145517772.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145659528.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145912263.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118150445921.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118150642371.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118151833046.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118154407021.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118154541934.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118160922109.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118201825370.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118215238106.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118215605643.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118220131327.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118220823333.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119095309778.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119095750520.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119100305077.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119101813004.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119102009903.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113405758.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113438476.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113514609.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113612721.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113701625.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119103405916.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119114306755.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119123223245.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119141935732.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119143315461.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119144221546.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119144843448.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119145110882.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119145526808.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119151040897.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119151756740.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119152556870.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119185528018.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119190005606.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119190130514.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119195140873.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119202505295-16373247063211.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119205038899.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119210028098.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119212030306.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119212233030.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119213255339.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119213614501.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119214350613.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119214651524.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119215335858.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120101712263.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120112032297.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120121418047.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120121629693.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120121954233.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120124349138.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120125820085.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120125921240.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120130529113.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120130706898.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120130807999.png">
+<meta property="article:published_time" content="2021-11-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-22T01:31:34.017Z">
+<meta property="article:author" content="Hmmmi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hmmmi.github.io/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115091618315.png"><meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="wrapper">
+    <header id="header">
+  <h1 id="title">
+    <a href="/">Hmmmi</a>
+  </h1>
+  <nav>
+    
+    
+      
+      <a class="nav-link" href="/">Home</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" href="/archives">Archives</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/hmmmi">GitHub</a>
+    
+    
+  </nav>
+</header>
+
+    <div id="content">
+      <article id="post-2021-11-14-计算机网络" class="article article-type-post" itemprop="blogPost" itemscope>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 class="article-title" itemprop="headline name">
+      计算机网络
+    </h2>
+  
+
+
+        <div class="article-meta">
+          <time class="article-date" datetime="2021-11-13T16:00:00.000Z" itemprop="datePublished">November 14, 2021</time>
+
+          
+            × <span class="article-word-count">15.8k words</span>
+            
+            × <span class="article-time-to-read">58 minutes</span>
+            
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="00-互联网"><a href="#00-互联网" class="headerlink" title="00 互联网"></a>00 互联网</h1><p>网络的功能：联通性；共享。网络（Network）由结点（Node）和连接结点的链路（Link）组成。</p>
+<p>互联网（Internet）是指“网络的网络”（Network of networks），连接在Internet上的计算机都称为主机（Host）。</p>
+<p><strong><u><mark>网络连接计算机，互联网连接网络。</mark></u></strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115091618315.png" alt="image-20211115091618315"></p>
+<h2 id="0-1-组成部分"><a href="#0-1-组成部分" class="headerlink" title="0-1 组成部分"></a>0-1 组成部分</h2><h3 id="0-1-1-ISP"><a href="#0-1-1-ISP" class="headerlink" title="0-1-1 ISP"></a>0-1-1 ISP</h3><p>因特网服务提供者（Internet Service Provider, ISP）</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115092657644.png" alt="image-20211115092657644"></p>
+<h3 id="0-1-2-WWW"><a href="#0-1-2-WWW" class="headerlink" title="0-1-2 WWW"></a>0-1-2 WWW</h3><p><strong>万维网</strong>   World Wide Web</p>
+<p>因特网的<strong>标准化</strong>工作：RFC文档，Request For Comments. 包含了关于Internet的几乎所有重要的文字资料。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115095733971.png" alt="image-20211115095733971"></p>
+<h3 id="0-1-3-拓扑结构"><a href="#0-1-3-拓扑结构" class="headerlink" title="0-1-3 拓扑结构"></a>0-1-3 拓扑结构</h3><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115095848968.png" alt="image-20211115095848968"></p>
+<p>边缘部分是用户直接使用（通信和资源共享），核心部分由网络和连接它们的路由器组成。</p>
+<h2 id="0-2-通信方式"><a href="#0-2-通信方式" class="headerlink" title="0-2 通信方式"></a>0-2 通信方式</h2><p>网络边缘端系统中运行程序的通讯。</p>
+<h3 id="0-2-1-C-S"><a href="#0-2-1-C-S" class="headerlink" title="0-2-1 C/S"></a>0-2-1 C/S</h3><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115101042452.png" alt="image-20211115101042452"></p>
+<h3 id="0-2-2-P2P"><a href="#0-2-2-P2P" class="headerlink" title="0-2-2 P2P"></a>0-2-2 P2P</h3><p>Peer to Peer. 对等连接。e.g. 迅雷。</p>
+<p>两主机通讯不区分服务请求方和提供方，双方都可以下载对方存储在硬盘中的共享文档。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115101247938.png" alt="image-20211115101247938"></p>
+<h2 id="0-3-核心部分"><a href="#0-3-核心部分" class="headerlink" title="0-3 核心部分"></a>0-3 核心部分</h2><p>在核心部分起特殊作用的是<strong>路由器</strong>（Router），是实现<strong>分组交换</strong>（Packet Switching）的关键构件。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115102537285.png" alt="image-20211115102537285"></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115102357897.png" alt="image-20211115102357897"></p>
+<h2 id="0-4-发展过程"><a href="#0-4-发展过程" class="headerlink" title="0-4 发展过程"></a>0-4 发展过程</h2><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115102709304.png" alt="image-20211115102709304"></p>
+<p><strong>几种不同类别的网络</strong></p>
+<ul>
+<li>WAN | 广域网 Wide Area Network</li>
+<li>LAN | 局域网 Local Area Network</li>
+<li>MAN | 城域网 Metropolitan Area Network</li>
+<li>PAN | 个人区域网 Personal Area Network</li>
+</ul>
+<h2 id="0-5-网络协议"><a href="#0-5-网络协议" class="headerlink" title="0-5 网络协议"></a>0-5 网络协议</h2><p>Network Protocol. 为进行网络中数据交换而建立的规则、标准或约定。</p>
+<h3 id="0-5-1-构成要素"><a href="#0-5-1-构成要素" class="headerlink" title="0-5-1 构成要素"></a>0-5-1 构成要素</h3><ul>
+<li>语法 | 数据/控制信息的 结构或格式</li>
+<li>语义 | 发出何种控制信息 完成何种动作/响应</li>
+<li>同步 | 事件实现顺序</li>
+</ul>
+<h3 id="0-5-2-划分层次"><a href="#0-5-2-划分层次" class="headerlink" title="0-5-2 划分层次"></a>0-5-2 划分层次</h3><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115103729027.png" alt="image-20211115103729027"></p>
+<p>各层次之间独立；灵活性好；结构上可分割；易于实现和维护；促进标准化工作。</p>
+<h4 id="①-五层"><a href="#①-五层" class="headerlink" title="① 五层"></a>① 五层</h4><p>物理层；数据链路层；网络层；运输层；应用层。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104023218.png" alt="image-20211115104023218"></p>
+<h4 id="②-七层"><a href="#②-七层" class="headerlink" title="② 七层"></a>② 七层</h4><p>OSI七层网络协议</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115105423484.png" alt="image-20211115105423484"></p>
+<h3 id="0-5-3-TCP-IP体系结构"><a href="#0-5-3-TCP-IP体系结构" class="headerlink" title="0-5-3 TCP/IP体系结构"></a>0-5-3 TCP/IP体系结构</h3><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115105123484.png" alt="image-20211115105123484"></p>
+<p>TCP/IP协议簇</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104428673.png" alt="image-20211115104428673"></p>
+<p><strong>Everything Over IP</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104548034.png" alt="image-20211115104548034"></p>
+<p><strong>IP Over Everything</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115104623484.png" alt="image-20211115104623484"></p>
+<br/>
+
+<h1 id="01-物理层"><a href="#01-物理层" class="headerlink" title="01 物理层"></a>01 物理层</h1><p>主要任务：确定与传输媒体的接口的一些特性。</p>
+<ul>
+<li>机械特性 | 接线器的形状、尺寸、引线数目、排列等</li>
+<li>电气特性 | 接口电缆各条线上出现电压的范围</li>
+<li>功能特性 | 指明某条线上某一电平的电压表示意义</li>
+<li>过程特性 | 指明不同功能各种可能事件出现顺序</li>
+</ul>
+<h2 id="1-1-数据通信系统"><a href="#1-1-数据通信系统" class="headerlink" title="1-1 数据通信系统"></a>1-1 数据通信系统</h2><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115110710201.png" alt="image-20211115110710201"></p>
+<p><strong>单向通信</strong> | 只有一个方向的通信，没有反方向</p>
+<p><strong>双向交替通信</strong> | 双向不能同时收发</p>
+<p><strong>双向同时通信</strong> | 双向可以同时收发</p>
+<h3 id="1-1-1-调制"><a href="#1-1-1-调制" class="headerlink" title="1-1-1 调制"></a>1-1-1 调制</h3><p>Modulation.</p>
+<p>基带信号包含较多低频/直流部分，许多信道不能传输低频分量或直流分量。</p>
+<p>最基本的二元调制方法</p>
+<ul>
+<li>调幅AM | 载波的振幅</li>
+<li>调频FM | 载波的频率</li>
+<li>调相PM | 初始相位</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115114419899.png" alt="image-20211115114419899"></p>
+<h3 id="1-1-2-信道"><a href="#1-1-2-信道" class="headerlink" title="1-1-2 信道"></a>1-1-2 信道</h3><p>任何实际信道都不是理想的，码元传输速率越高或传输距离越远，输出端失真越严重。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115115425392.png" alt="image-20211115115425392"></p>
+<h4 id="①-奈氏准则"><a href="#①-奈氏准则" class="headerlink" title="① 奈氏准则"></a>① 奈氏准则</h4><p>1924年。在假定的理想条件下，为了避免码间串扰，给出了码元传输速率的上限值。</p>
+<h4 id="②-香农公式"><a href="#②-香农公式" class="headerlink" title="② 香农公式"></a>② 香农公式</h4><p>$$<br>信道的极限传输速率\quad C = W\ log_2{(1+\frac{S}{N})}\quad b/s<br>$$</p>
+<p>其中W为信道的带宽(Hz)；S为信道内传输信号的平均功率；N为信道内高斯噪声的功率。</p>
+<p>只要传输速率低于信道极限传输速率，就一定可以找到某种办法来实现无差错的传输。</p>
+<p>对于频带宽度已确定的信道，如果信噪比不能再提高，并且码元传输速率也达到了上限值，**<u>还可以用编码的方法让每个码元携带更多比特的信息量</u>**。e.g. 极化码</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115151408344.png" alt="image-20211115151408344"></p>
+<h4 id="③-传输媒介"><a href="#③-传输媒介" class="headerlink" title="③ 传输媒介"></a>③ 传输媒介</h4><p><strong>导向传输媒体</strong> 双绞线；同轴电缆；光纤。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115152055902.png" alt="image-20211115152055902"></p>
+<p><strong>非导向传输媒体</strong> 无线传输使用的频段很广：1) 短波，靠电离层反射，通信质量较差；2) 微波，主要是直线传播，地面微波接力通信and卫星通信。</p>
+<h2 id="1-2-信道复用"><a href="#1-2-信道复用" class="headerlink" title="1-2 信道复用"></a>1-2 信道复用</h2><p><strong>复用</strong>（Multiplexing）是通信技术中的基本概念。主要技术包括频分复用，时分复用 和 统计时分复用技术。</p>
+<h3 id="1-2-1-频分复用"><a href="#1-2-1-频分复用" class="headerlink" title="1-2-1 频分复用"></a>1-2-1 频分复用</h3><p>FDM, <strong>Frequency Division Multiplexing</strong>. 用户同时占用不同的带宽资源。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115154808181.png" alt="image-20211115154808181"></p>
+<h3 id="1-2-2-时分复用"><a href="#1-2-2-时分复用" class="headerlink" title="1-2-2 时分复用"></a>1-2-2 时分复用</h3><p>TDM, <strong>Time Division Multiplexing</strong>. 将时间划分为一段段等长时分复用帧（TDM帧）</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115161811171.png" alt="image-20211115161811171"></p>
+<p>可能造成线路资源的浪费。源于实际使用中的突发性，分配到子信道的利用率不高。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115162115599.png" alt="image-20211115162115599"></p>
+<h3 id="1-2-3-统计时分复用"><a href="#1-2-3-统计时分复用" class="headerlink" title="1-2-3 统计时分复用"></a>1-2-3 统计时分复用</h3><p>STDM, <strong>Statistic Time Division Multiplexing</strong>. </p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115162318110.png" alt="image-20211115162318110"></p>
+<h3 id="1-2-4-波分复用"><a href="#1-2-4-波分复用" class="headerlink" title="1-2-4 波分复用"></a>1-2-4 波分复用</h3><p>WDM, <strong>Wavelength Division Multiplexing</strong>. 即光的频分复用。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115162609004.png" alt="image-20211115162609004"></p>
+<h3 id="1-2-5-码分复用"><a href="#1-2-5-码分复用" class="headerlink" title="1-2-5 码分复用"></a>1-2-5 码分复用</h3><p>CDM, <strong>Code Division Multiplexing</strong>. 常称 CDMA, Code Division Multiple Access. 各用户使用经过挑选的不同码型，彼此不会造成干扰。</p>
+<p>每一个比特时间划分为m个短的时间间隔，成为码片（Chip）。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115163041031.png" alt="image-20211115163041031"></p>
+<h2 id="1-3-同步光纤网-同步数字系列"><a href="#1-3-同步光纤网-同步数字系列" class="headerlink" title="1-3 同步光纤网/同步数字系列"></a>1-3 同步光纤网/同步数字系列</h2><p>同步光纤网 <strong>SONET</strong>（Synchronous Optical Network）各级时钟都来自一个非常精确的主时钟。</p>
+<ul>
+<li>第一级同步传送信号 STS-1 （Synchronous Transport Signal）传输速率51.84Mb/s</li>
+<li>第一级光载波 OP-1（Optical Carrier）即光信号</li>
+</ul>
+<p>同步数字系列 <strong>SDH</strong>（Synchronous Digital Hierarchy）</p>
+<ul>
+<li>第一级同步传递模块 STM-1（Synchronous Transfer Module）基本速率为155.52Mb/s</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115170016699.png" alt="image-20211115170016699"></p>
+<ul>
+<li>光子层 Photonic Layer | 处理跨越光缆的比特传送</li>
+<li>段层 Section Layer | 在光缆上传送 STS-N 帧</li>
+<li>线路层 Line Layer | 负责路径层的同步和复用</li>
+<li>路径层 Path Layer | 处理路径端接设备 PTE 之间的业务传输</li>
+</ul>
+<p><strong>P</strong>ath <strong>T</strong>erminating <strong>E</strong>lement</p>
+<h2 id="1-4-宽带接入技术"><a href="#1-4-宽带接入技术" class="headerlink" title="1-4 宽带接入技术"></a>1-4 宽带接入技术</h2><h3 id="1-4-1-xDSL技术"><a href="#1-4-1-xDSL技术" class="headerlink" title="1-4-1 xDSL技术"></a>1-4-1 xDSL技术</h3><p>DSL, Digital Subscriber Line, 数字用户线。用数字技术对现有的模拟电话用户线进行改造，使其能够承载宽带业务。</p>
+<p>xDSL把 0-4 kHz 低端频谱留于传统电话使用，原未被利用的高端频谱留给用户上网使用。</p>
+<p><strong>分类</strong></p>
+<ul>
+<li>ADSL, Asymmetric DSL, 非对称数字用户线。</li>
+<li>HDSL, High speed DSL, 高速数字用户线</li>
+<li>SDSL, Single-line DSL, 单对线数字用户线</li>
+<li>VDSL, Very high speed DSL, 甚高速数字用户线</li>
+<li>DSL, ISDN用户线</li>
+<li>RADSL, Rate-Adaptive DSL, 速率自适应DSL，是ADSL的一个子集</li>
+</ul>
+<p><strong>ADSL</strong></p>
+<ul>
+<li>上下行带宽不对称</li>
+<li>在用户线（铜线）两端各安装一个ADSL调制解调器</li>
+<li>离散多音调（即多载波，多子信道） DMT（Discrete Multi-Tone）调制技术</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173347245.png" alt="image-20211115173347245"></p>
+<p><strong>DMT频谱</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173021195.png" alt="image-20211115173021195"></p>
+<h3 id="1-4-2-HFC"><a href="#1-4-2-HFC" class="headerlink" title="1-4-2 HFC"></a>1-4-2 HFC</h3><p>HFC, Hybrid Fiber Coax, 光纤同轴混合网。覆盖面很广的有线电视网。基于CATV，主干线路采用光纤。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173808921.png" alt="image-20211115173808921"></p>
+<ul>
+<li>家庭安装<strong>用户接口盒</strong> UIB, User Interface Box 提供三种接口<ul>
+<li><u>同轴线缆</u> to 机顶盒（Set-Top Box） to 电视机</li>
+<li><u>双绞线</u> to 电话机</li>
+<li><u>电缆调制解调器</u> to 计算机</li>
+</ul>
+</li>
+</ul>
+<p><strong>频谱</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115173832651.png" alt="image-20211115173832651"></p>
+<h3 id="1-4-3-FTTx"><a href="#1-4-3-FTTx" class="headerlink" title="1-4-3 FTTx"></a>1-4-3 FTTx</h3><p>FTTx, Fiber To The xxx, 光纤到x</p>
+<ul>
+<li>FTTH 光纤到户 Home，居民接入网的最后解决方案</li>
+<li>FTTB 到大楼，Builing，进大楼转为电信号</li>
+<li>FTTC 到路边，Curb，路边到用户使用星型结构</li>
+</ul>
+<br/>
+
+<h1 id="02-数据链路层"><a href="#02-数据链路层" class="headerlink" title="02 数据链路层"></a>02 数据链路层</h1><p>数据链路层使用的信道主要有<strong>点对点</strong>和<strong>广播</strong>两种信道。</p>
+<p><strong>链路</strong>（Link）是一条无源的点到点的物理线路段，中间无任何其他交换结点。</p>
+<p><strong>数据链路</strong>（Data Link）除物理线路外，必须有通信协议来控制这些数据的传输。实现通信协议的软硬件部署到物理链路上构成数据链路。</p>
+<p>传输的数据单位为<strong>帧</strong>（Framing）。</p>
+<p>要解决的<strong>三个基本问题</strong> 封装成帧，透明传输，差错控制。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115202722353.png" alt="image-20211115202722353"></p>
+<p><strong>简单模型</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115202020033.png" alt="image-20211115202020033"></p>
+<h2 id="2-1-点对点信道"><a href="#2-1-点对点信道" class="headerlink" title="2-1 点对点信道"></a>2-1 点对点信道</h2><h3 id="2-1-1-封装成帧"><a href="#2-1-1-封装成帧" class="headerlink" title="2-1-1 封装成帧"></a>2-1-1 封装成帧</h3><p><strong>Framing.</strong> 在一段数据的前后分别添加首部和尾部，构成帧，确定帧的界限。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115203546343.png" alt="image-20211115203546343"></p>
+<p>使用<strong>控制字符</strong>确定帧的界限</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115203702586.png" alt="image-20211115203702586"></p>
+<h3 id="2-1-2-透明传输"><a href="#2-1-2-透明传输" class="headerlink" title="2-1-2 透明传输"></a>2-1-2 透明传输</h3><p>若EOT在数据部分出现，EOT后会被视为无效内容而被丢弃。<strong>解决办法</strong>：在SOH或EOT前插入转义字符’ESC’(1B)(十六进制)；若转移字符也出现在数据中，其前亦加入转义字符。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211115204201379.png" alt="image-20211115204201379"></p>
+<h3 id="2-1-3-差错检测"><a href="#2-1-3-差错检测" class="headerlink" title="2-1-3 差错检测"></a>2-1-3 差错检测</h3><p>误码率 BER（Bit Error Rate）与信噪比有很大的关系。</p>
+<h4 id="循环冗余码-CRC"><a href="#循环冗余码-CRC" class="headerlink" title="循环冗余码 CRC"></a>循环冗余码 CRC</h4><p>Cyclic Redundancy Check. 待传数据M(k位) + n位冗余码 一起发送。</p>
+<p><strong>计算办法</strong></p>
+<ul>
+<li>Step1 | M * 2^n  等价于  M后跟n个’0’</li>
+<li>Step2 | 事先预定除数P(n+1位)，P/M得到商Q, 余数R, R必为n位</li>
+</ul>
+<p><strong>示例</strong></p>
+<p>M = 101 001, k = 6, 设 n = 3, P = 1101, M * 2^n = 101 001 000</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116105540904.png" alt="image-20211116105540904"></p>
+<p><strong>检验</strong></p>
+<p>P/(M|FCS) 余数若为 ‘0’ 则接受，否则就丢弃</p>
+<p><mark><strong>注</strong>：只能用于<u>无差错接受</u>，要做到<strong>可靠传输</strong>，还需加上<strong>确认</strong>和<strong>重传</strong>机制。</mark></p>
+<h3 id="2-1-4-PPP协议"><a href="#2-1-4-PPP协议" class="headerlink" title="2-1-4 PPP协议"></a>2-1-4 PPP协议</h3><p>Point-to-Point Protocol. 1992年制定，1993，1994年修订。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116110905025.png" alt="image-20211116110905025"></p>
+<p><strong>组成部分</strong></p>
+<ul>
+<li>一个将IP数据包封装到串行链路的方法</li>
+<li>链路控制协议 LCP Link Control Protocol</li>
+<li>网络控制协议 NCP Network Control Protocol</li>
+</ul>
+<h4 id="2-1-4-1-帧格式"><a href="#2-1-4-1-帧格式" class="headerlink" title="2-1-4-1 帧格式"></a>2-1-4-1 帧格式</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116111236116.png" alt="image-20211116111236116"></p>
+<ul>
+<li>标志字段 F = 0x7E</li>
+<li>地址字段 A = 0xFF  实际不起作用</li>
+<li>控制字段 C 通常为 0x03</li>
+<li>协议字段<ul>
+<li>0x0021 | IP数据报</li>
+<li>0xC021 | PPP链路控制数据</li>
+<li>0x8021 | 网络控制数据</li>
+</ul>
+</li>
+<li>PPP是面向字节的，所有PPP帧的长度都是整数字节的</li>
+</ul>
+<h4 id="2-1-4-2-透明传输"><a href="#2-1-4-2-透明传输" class="headerlink" title="2-1-4-2 透明传输"></a>2-1-4-2 透明传输</h4><p><strong>字符填充</strong></p>
+<ul>
+<li>信息字段中的0x7E字节转变成2字节序列（0x7D | 0x5E）</li>
+<li>0x7D –&gt; （0x7D | 0x5D）</li>
+<li>ASCII 中控制字符（小于0x20）–&gt; （0x7D | 原字符）</li>
+</ul>
+<p><strong>零比特填充</strong></p>
+<p>PPP在使用 SONET/SDH 链路时，使用同步传输。此时采用零比特填充方法来实现透明传输。</p>
+<ul>
+<li>发送端：连续五个1，则立即填入一个0</li>
+<li>接收端：发现五个1，后一个0删除</li>
+</ul>
+<h4 id="2-1-4-3-不提供序号和确认机制"><a href="#2-1-4-3-不提供序号和确认机制" class="headerlink" title="2-1-4-3 不提供序号和确认机制"></a>2-1-4-3 不提供序号和确认机制</h4><p>PPP协议不使用序号和确认机制，原因：</p>
+<ul>
+<li>数据链路层出错概率不大时，使用比较简单的PPP协议较为合理</li>
+<li>数据链路层的可靠传输不能保证网络层的传输也可靠</li>
+<li>帧检验序列FCS可保证无差错接受</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116113607386.png" alt="image-20211116113607386"></p>
+<h2 id="2-2-广播信道"><a href="#2-2-广播信道" class="headerlink" title="2-2 广播信道"></a>2-2 广播信道</h2><p>最典型的应用是在局域网中。局域网的特点包括 1) 广播功能；2) 系统扩展灵活；3) 可靠性、可用性和残存性。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116152254468.png" alt="image-20211116152254468"></p>
+<p><strong>媒体共享技术</strong></p>
+<ul>
+<li>静态划分信道<ul>
+<li>频分复用；时分复用；波分复用；码分复用</li>
+</ul>
+</li>
+<li>动态媒体介入控制（多点接入）<ul>
+<li>随机接入</li>
+<li>受控接入，如多点线路探询（Polling）或轮询</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-1-以太网"><a href="#2-2-1-以太网" class="headerlink" title="2-2-1 以太网"></a>2-2-1 以太网</h3><p><strong>以太网标准</strong></p>
+<ul>
+<li>DIX Ethernet V2 | 第一个局域网产品（以太网）的规约</li>
+<li>IEEE 802.3</li>
+</ul>
+<h4 id="2-2-1-1-数据链路层的子层"><a href="#2-2-1-1-数据链路层的子层" class="headerlink" title="2-2-1-1 数据链路层的子层"></a>2-2-1-1 数据链路层的子层</h4><ul>
+<li>逻辑链路控制, LLC 子层, Logical Link Control </li>
+<li>媒体接入控制, MAC 子层, Medium Access Control </li>
+</ul>
+<p><strong>局域网对 LLC 是透明的</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116153822786.png" alt="image-20211116153822786"></p>
+<p>由于 TCP/IP 体系结构经常使用的是 DIX Ethernet V2，802委员会制定的逻辑链路控制层LLC的作用已经不大。</p>
+<h4 id="2-2-1-2-适配器"><a href="#2-2-1-2-适配器" class="headerlink" title="2-2-1-2 适配器"></a>2-2-1-2 适配器</h4><p>网络接口板 又称为 通信适配器（Adapter）或 网络接口卡（NIC, Nerwork Interface Card）或 网卡。</p>
+<ul>
+<li>串行/并行互换</li>
+<li>数据缓存</li>
+<li>安装设备驱动程序</li>
+<li>实现以太网协议</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116154525362.png" alt="image-20211116154525362"></p>
+<h4 id="2-2-1-3-以太网的广播方式传送"><a href="#2-2-1-3-以太网的广播方式传送" class="headerlink" title="2-2-1-3 以太网的广播方式传送"></a>2-2-1-3 以太网的广播方式传送</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116155408473.png" alt="image-20211116155408473"></p>
+<p><strong>采用的方式</strong></p>
+<p>原因：信道质量好，产生差错概率极小</p>
+<ul>
+<li>采用无连接方式 | 灵活；直接发送</li>
+<li>数据帧不编号；对方也不发回确认</li>
+</ul>
+<h4 id="2-2-1-4-提供的服务"><a href="#2-2-1-4-提供的服务" class="headerlink" title="2-2-1-4 提供的服务"></a>2-2-1-4 提供的服务</h4><ul>
+<li>尽最大努力交付 | 不可靠交付</li>
+<li>目的站收到有差错数据帧就丢弃</li>
+<li>无重传机制 重传视为新数据帧</li>
+</ul>
+<h4 id="2-2-1-5-编码方式"><a href="#2-2-1-5-编码方式" class="headerlink" title="2-2-1-5 编码方式"></a>2-2-1-5 编码方式</h4><p>曼彻斯特 Manchester 编码</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116161308150.png" alt="image-20211116161308150"></p>
+<h3 id="2-2-2-CSMA-CD协议"><a href="#2-2-2-CSMA-CD协议" class="headerlink" title="2-2-2 CSMA/CD协议"></a>2-2-2 CSMA/CD协议</h3><p>Carrier Sense Multiple Access with Collision Detectio, CSMA/CD</p>
+<p>即载波侦听多路访问/冲突检测，是广播型信道中采用一种随机访问技术的竞争型访问方法。</p>
+<ul>
+<li>多点接入 | 表示计算机以多点接入方式连接在总线上</li>
+<li>载波监听 | 每个站发送前先监听是否有其他消息正在发送，如果有则暂不发送，避免碰撞</li>
+</ul>
+<h4 id="2-2-2-1-碰撞检测"><a href="#2-2-2-1-碰撞检测" class="headerlink" title="2-2-2-1 碰撞检测"></a>2-2-2-1 碰撞检测</h4><p>计算机边发送数据边检测信道上的信号电压大小。</p>
+<p>几个站同时在总线上发送数据时，总线上的信号电压摆动值将会增大（互相叠加）。</p>
+<h4 id="2-2-2-2-传播时延对载波监听的影响"><a href="#2-2-2-2-传播时延对载波监听的影响" class="headerlink" title="2-2-2-2 传播时延对载波监听的影响"></a>2-2-2-2 传播时延对载波监听的影响</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116162039898.png" alt="image-20211116162039898"></p>
+<h4 id="2-2-2-3-重要特性"><a href="#2-2-2-3-重要特性" class="headerlink" title="2-2-2-3 重要特性"></a>2-2-2-3 重要特性</h4><ul>
+<li>不能进行全双工通信，只能进行半双工通信。</li>
+<li>每个站发送一小段时间后存在着遭遇碰撞的可能性。</li>
+<li>发送不确定性使以太网平均通信量远小于最高数据率。</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116162502021.png" alt="image-20211116162502021"></p>
+<h3 id="2-2-3-使用广播信道的以太网"><a href="#2-2-3-使用广播信道的以太网" class="headerlink" title="2-2-3 使用广播信道的以太网"></a>2-2-3 使用广播信道的以太网</h3><h4 id="2-2-3-1-使用集线器"><a href="#2-2-3-1-使用集线器" class="headerlink" title="2-2-3-1 使用集线器"></a>2-2-3-1 使用集线器</h4><p>采用星型拓扑结构，中心使用集线器（Hub），使用同轴电缆 –&gt; 双绞线。</p>
+<p>e.g. 星型网 <strong>10BASE-T</strong>。</p>
+<ul>
+<li>每个站使用两对无屏蔽双绞线，分别用于发送和接收。</li>
+<li>每个站到集线器的距离不超过100m</li>
+<li>10Mb/s速率无屏蔽双绞线，降低成本提高可靠性</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116162916615.png" alt="image-20211116162916615"></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116163424680.png" alt="image-20211116163424680"></p>
+<h4 id="2-2-3-2-信道利用率"><a href="#2-2-3-2-信道利用率" class="headerlink" title="2-2-3-2 信道利用率"></a>2-2-3-2 信道利用率</h4><p>争用期长度 2t 即端到端时延的两倍。检测到碰撞后不发送干扰信号。</p>
+<p>帧长 L bit，数据发送速率 C b/s，帧发送时间 T0 = L/C s。</p>
+<p>发送一帧占用线路的时间为 T0 + t，则极限信道利用率 Smax = T0 / (T0 + t) = 1 / (1 + a)；其中 a 为时延 t 与帧发送时间 T0 之比。</p>
+<h3 id="2-2-4-以太网MAC层"><a href="#2-2-4-以太网MAC层" class="headerlink" title="2-2-4 以太网MAC层"></a>2-2-4 以太网MAC层</h3><p>在局域网中，硬件地址又称为物理地址 或 MAC地址。48位。</p>
+<ul>
+<li>注册管理机构 RA 负责向厂家分配 高24位</li>
+<li>厂家自行指派 低24位，称为扩展标识符</li>
+</ul>
+<h4 id="2-2-4-1-MAC帧"><a href="#2-2-4-1-MAC帧" class="headerlink" title="2-2-4-1 MAC帧"></a>2-2-4-1 MAC帧</h4><p>常用的以太网MAC帧格式为 DIX Ethernet V2 格式。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116172212394.png" alt="image-20211116172212394"></p>
+<p>类型字段用来标识上一层使用的是什么协议，以便把该 MAC 帧数据上交给上一层的该协议。</p>
+<p>为了达到比特同步，在传输媒体上实际传送的要比MAC帧还多8字节（前同步码 + 帧开始定界符）。</p>
+<p><strong>帧间最小间隔</strong> 9.6微秒，相当于96bit的发送时间。一个站在检测到总线开始空闲后，还要等待9.6微秒才能再次发送数据。</p>
+<h3 id="2-2-5-扩展的以太网"><a href="#2-2-5-扩展的以太网" class="headerlink" title="2-2-5 扩展的以太网"></a>2-2-5 扩展的以太网</h3><h4 id="2-2-5-1-在物理层扩展"><a href="#2-2-5-1-在物理层扩展" class="headerlink" title="2-2-5-1 在物理层扩展"></a>2-2-5-1 在物理层扩展</h4><p>主机使用光纤和一对光纤调制解调器连接到集线器。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173104927.png" alt="image-20211116173104927"></p>
+<p>多个集线器组成更大的局域网（都在一个碰撞区中）。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173206638.png" alt="image-20211116173206638"></p>
+<h4 id="2-2-5-2-在链路层扩展"><a href="#2-2-5-2-在链路层扩展" class="headerlink" title="2-2-5-2 在链路层扩展"></a>2-2-5-2 在链路层扩展</h4><p>使用网桥。网桥具有过滤功能，当网桥接收到一个帧时，先检查帧的目的MAC地址，确定转发接口并转发。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173440863.png" alt="image-20211116173440863"></p>
+<p>隔离开了碰撞区，但增加了时延。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173539464.png" alt="image-20211116173539464"></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116173625667.png" alt="image-20211116173625667"></p>
+<h5 id="①-透明网桥"><a href="#①-透明网桥" class="headerlink" title="① 透明网桥"></a>① 透明网桥</h5><p>（Transparent Bridge） 透明是指局域网中的站点不知道所发送的帧将经过哪几个网桥。</p>
+<p>转发表建立过程：</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116183226742.png" alt="image-20211116183226742"></p>
+<p>透明网桥使用了生成树算法，避免产生转发的帧在网络中不断兜圈子。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116184617882.png" alt="image-20211116184617882"></p>
+<h5 id="②-多接口网桥——以太网交换机"><a href="#②-多接口网桥——以太网交换机" class="headerlink" title="② 多接口网桥——以太网交换机"></a>② 多接口网桥——以太网交换机</h5><p>1990年问世的<strong>交换式集线器</strong>（Switching Hub）可明显提高局域网的性能。通常称为 以太网交换机（Switch）或第二层交换机。</p>
+<p>通常有十几个接口，实质是一个多接口网桥。每个接口都直接与交换机相连，全双工方式。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116192130208.png" alt="image-20211116192130208"></p>
+<h5 id="③-虚拟局域网"><a href="#③-虚拟局域网" class="headerlink" title="③ 虚拟局域网"></a>③ 虚拟局域网</h5><p>VLAN 由一些局域网网段构成，与物理位置无关的逻辑组。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116192315709.png" alt="image-20211116192315709"></p>
+<p><strong>帧格式</strong></p>
+<p>插入一个四字节标识符，成为VLAN tag。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116192456785.png" alt="image-20211116192456785"></p>
+<p>速率达到或者超过100Mb/s的以太网称为高速以太网。</p>
+<h3 id="2-2-6-吉比特以太网"><a href="#2-2-6-吉比特以太网" class="headerlink" title="2-2-6 吉比特以太网"></a>2-2-6 吉比特以太网</h3><p>允许在1Gb/s下全双工或半双工两种方式工作。</p>
+<p>10吉比特网络只工作在全双工下。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211116193147951.png" alt="image-20211116193147951"></p>
+<br/>
+
+<h1 id="03-网络层"><a href="#03-网络层" class="headerlink" title="03 网络层"></a>03 网络层</h1><p>重点关注：虚拟互联网络；IP地址与物理地址的关系；IP地址分类（子网掩码）；无分类域间路由选择 CIDR；路由选择协议工作原理。</p>
+<p><strong>电信网设计思路</strong> | 虚电路服务</p>
+<ul>
+<li>面向连接</li>
+<li>建立虚电路（Virtual Circuit），保证通讯双方所需的一切网络资源 | 逻辑上的连接</li>
+<li>使用可靠传输的网络协议，可使所发送的分组无差错按序到达终点</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117092424075.png" alt="image-20211117092424075"></p>
+<p><strong>因特网设计思路</strong> | 数据报服务</p>
+<ul>
+<li>向上提供简单灵活、<u>无连接</u>的、<u>尽最大努力交付</u>的<strong>数据报服务</strong></li>
+<li>网络在发送分组时不需要建立连接，每一分组独立发送，不编号</li>
+<li>不提供服务质量的承诺</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117095501031.png" alt="image-20211117095501031"></p>
+<p><strong>对比</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>虚电路服务</th>
+<th>数据报服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>思路</td>
+<td>可靠通信由网络保证</td>
+<td>可靠通信由用户主机来保证</td>
+</tr>
+<tr>
+<td>连接</td>
+<td>有</td>
+<td>无</td>
+</tr>
+<tr>
+<td>终点地址</td>
+<td>连接建立阶段使用</td>
+<td>每个分组都有终点的完整地址</td>
+</tr>
+<tr>
+<td>分组转发</td>
+<td>属于同一虚电路的分组由同一路由转发</td>
+<td>每个分组独立选择路由进行转发</td>
+</tr>
+<tr>
+<td>结点故障</td>
+<td>所有通过故障结点的虚电路都不能工作</td>
+<td>故障结点可能丢失分组，部分路由可能发生变化</td>
+</tr>
+<tr>
+<td>分组顺序</td>
+<td>总是按照发送顺序到达终点</td>
+<td>不一定按序到达</td>
+</tr>
+<tr>
+<td>差错处理<br>流量控制</td>
+<td>可由网络负责，也可由用户主机负责</td>
+<td>由用户主机负责</td>
+</tr>
+</tbody></table>
+<h2 id="3-1-网际协议IP"><a href="#3-1-网际协议IP" class="headerlink" title="3-1 网际协议IP"></a>3-1 网际协议IP</h2><p>与 IP 协议配套使用的四个协议：地址解析协议 ARP；逆地址解析协议 RARP；网际控制报文协议 ICMP；网际组管理协议 IGMP。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117100709205.png" alt="image-20211117100709205"></p>
+<p><strong>网络互联中间设备</strong></p>
+<p>又称为中间系统、中继（Relay）系统。各层中间设备：</p>
+<ul>
+<li>物理层 | 转发器（Repeater）</li>
+<li>链路层 | 网桥 或 桥接器（Bridge）</li>
+<li>网络层 | 路由器（Router）<ul>
+<li>网桥 and 路由器 | 桥路器（Brouter）</li>
+</ul>
+</li>
+<li>网络层以上 | 网关（Gateway）</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117101438464.png" alt="image-20211117101438464"></p>
+<h3 id="3-1-1-IP地址"><a href="#3-1-1-IP地址" class="headerlink" title="3-1-1 IP地址"></a>3-1-1 IP地址</h3><p>分配一个在全世界范围内唯一的32位标识符。由<strong>因特网名字与号码指派公司</strong> ICANN（Internet Corpotation for Assigned Names and Numbers）进行分配。 2^32 = 4,294,967,296</p>
+<h4 id="3-1-1-1-分类地址"><a href="#3-1-1-1-分类地址" class="headerlink" title="3-1-1-1 分类地址"></a>3-1-1-1 分类地址</h4><p>IP地址 ::= { &lt;网络号&gt;, &lt;主机号&gt; }</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117105813331.png" alt="image-20211117105813331"></p>
+<p><strong>IP地址使用范围</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>最大网络数</th>
+<th>第一个</th>
+<th>最后一个</th>
+<th>最大主机数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>2^7 - 2 = 126</td>
+<td>1</td>
+<td>126</td>
+<td>2^24 - 2 = 16,777,214</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2^14 - 1 = 16,383</td>
+<td>128.1</td>
+<td>191.255</td>
+<td>2^16 - 2 = 65534</td>
+</tr>
+<tr>
+<td>C</td>
+<td>2^21 - 1 = 2,097,151</td>
+<td>192.0.1</td>
+<td>223.255.255</td>
+<td>2^8 - 2 = 254</td>
+</tr>
+</tbody></table>
+<h4 id="3-1-1-2-特点"><a href="#3-1-1-2-特点" class="headerlink" title="3-1-1-2 特点"></a>3-1-1-2 特点</h4><p>IP 地址实际标志 <strong>一个主机（或路由器）</strong> 和 <strong>一条链路</strong> 的接口。</p>
+<p><strong>多归属主机</strong>（Multihomed Host）同时连接到两个网络上，同时具有两个 IP 地址，网络号 Net-ID 必须是不同的。</p>
+<p>一个<strong>路由器</strong>至少连接到两个网络，故其至少有两个不同的 IP 地址。</p>
+<p><mark>用<u>转发器/网桥</u>（物理层/链路层）连接起来的若干局域网<strong>仍为一个网络</strong>。</mark></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117114443790.png" alt="image-20211117114443790"></p>
+<h4 id="3-1-1-3-IP地址与硬件地址"><a href="#3-1-1-3-IP地址与硬件地址" class="headerlink" title="3-1-1-3 IP地址与硬件地址"></a>3-1-1-3 IP地址与硬件地址</h4><p>网络层以上使用 IP 地址，链路层及以下使用硬件地址。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117115028239.png" alt="image-20211117115028239"></p>
+<p>路由器只根据目的站的 IP 地址的网络号进行路由选择。</p>
+<p>具体的物理网络链路层只能看见 MAC 帧，看不见 IP 数据报。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117115239622.png" alt="image-20211117115239622"></p>
+<h3 id="3-1-2-ARP-amp-RARP"><a href="#3-1-2-ARP-amp-RARP" class="headerlink" title="3-1-2 ARP &amp; RARP"></a>3-1-2 ARP &amp; RARP</h3><p>不论网络层使用何种协议，在实际网络链路上传输时，最终还是必须使用硬件地址。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117115731354.png" alt="image-20211117115731354"></p>
+<h4 id="3-1-2-1-ARP"><a href="#3-1-2-1-ARP" class="headerlink" title="3-1-2-1 ARP"></a>3-1-2-1 ARP</h4><p>地址解析协议 <strong>Addresss Resolution Protocol.</strong></p>
+<p>每个主机设有一个 ARP 高速缓存，存放所在局域网上<u>各主机和路由</u>的 <strong>IP地址到硬件地址</strong> 的<strong>映射</strong>表。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117121426414.png" alt="image-20211117121426414"></p>
+<p><strong>ARP作用</strong></p>
+<ul>
+<li>减少网络通信量</li>
+<li>解决<strong>同一局域网</strong>上主机或路由器 IP-物理地址映射问题</li>
+<li>不在同一局域网上，ARP找到位于本局域网某路由器的硬件地址</li>
+<li>自动进行 | 对用户透明</li>
+</ul>
+<p><strong>为什么不直接使用硬件地址通讯</strong></p>
+<ul>
+<li>异构网络中存在复杂的硬件地址，转换工作困难</li>
+<li>IP 地址格式相对统一，逻辑上可视为同一网络</li>
+</ul>
+<h4 id="3-1-2-2-RARP"><a href="#3-1-2-2-RARP" class="headerlink" title="3-1-2-2 RARP"></a>3-1-2-2 RARP</h4><p>逆地址解析协议 <strong>Reverse Address Resolution Protocol</strong></p>
+<p>使只知道自己硬件地址的主机能够知道其 IP 地址。这种主机往往是无盘工作站，因此 RARP 很少使用。</p>
+<h3 id="3-1-3-IP数据报"><a href="#3-1-3-IP数据报" class="headerlink" title="3-1-3 IP数据报"></a>3-1-3 IP数据报</h3><p>固定长度，20字节。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117122558230.png" alt="image-20211117122558230"></p>
+<h4 id="3-1-3-1-首部构成"><a href="#3-1-3-1-首部构成" class="headerlink" title="3-1-3-1 首部构成"></a>3-1-3-1 首部构成</h4><ul>
+<li>版本 | 4位 | IPv4 IPv6</li>
+<li>首部长度 | 4位 | 可表示最大数值是15单位<ul>
+<li>一单位为4字节，首部长度最大为60字节</li>
+</ul>
+</li>
+<li>区分服务 | 8位 | 只有在使用 DiffServ 时才起作用</li>
+<li>总长度 | 16位 | 最大长度 2^16-1 = 65535字节<ul>
+<li>单位为字节</li>
+</ul>
+</li>
+<li>标识 | 16位 | 计算器</li>
+<li>标志 | 3位 | MF(More Fragment) DF(Don’t Fragment)<ul>
+<li>MF = 1 表示后面“还有分片”；MF = 0 表示最后一个分片</li>
+<li>DF = 0 允许分片</li>
+</ul>
+</li>
+<li>片偏移 | 13位 | 某片在原分组中的相对位置<ul>
+<li>一单位为8字节</li>
+<li><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117153122164.png" alt="image-20211117153122164"></li>
+</ul>
+</li>
+<li><strong>生存时间</strong> | 8位 | <strong>TTL</strong> Time To Live<ul>
+<li>数据报在网络中可通过的路由器数的最大值</li>
+</ul>
+</li>
+<li>协议 | 8位 | 指出何种协议便于 IP 层将数据部分上交给对应处理过程<ul>
+<li><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117153352148.png" alt="image-20211117153352148"></li>
+</ul>
+</li>
+<li>首部检验和 | 16位 | 只检验首部，不采用CRC，只采用简单方法<ul>
+<li><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117153544570.png" alt="image-20211117153544570"></li>
+</ul>
+</li>
+<li>源地址、目的地址 | 4字节 | </li>
+<li>可变部分 | 1-40字节 | 支持排错、测量以及安全等措施；少被使用</li>
+</ul>
+<h4 id="3-1-3-2-转发分组"><a href="#3-1-3-2-转发分组" class="headerlink" title="3-1-3-2 转发分组"></a>3-1-3-2 转发分组</h4><p><strong>路由表</strong>若按目的主机制作将会无比庞大复杂，按<strong>网络地址</strong>制作将简化路由表。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117155224348.png" alt="image-20211117155224348"></p>
+<p><strong>默认路由</strong>（Default Route）</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117155401437.png" alt="image-20211117155401437"></p>
+<p><mark><strong>Attention ！！！！！！！！！</strong></mark></p>
+<ul>
+<li>数据报首部中不能指明下一跳路由器的IP地址</li>
+<li>路由器接收到转发的数据报，不将下一条IP地址填入IP数据报，而是交由下层网络接口软件</li>
+<li>网络接口软件使用 ARP 负责将下一跳 IP 地址转换成硬件地址；将硬件地址放在链路层的 MAC 帧的首部</li>
+</ul>
+<h2 id="3-2-划分子网和构造超网"><a href="#3-2-划分子网和构造超网" class="headerlink" title="3-2 划分子网和构造超网"></a>3-2 划分子网和构造超网</h2><p><strong>划分子网</strong>（Subnetting）1985年，IP地址中加入了“子网号”，成为三级IP地址。</p>
+<p>IP地址 ::= { &lt;网络号&gt;, &lt;子网号&gt;, &lt;主机号&gt; }</p>
+<h3 id="3-2-1-三级IP分组转发"><a href="#3-2-1-三级IP分组转发" class="headerlink" title="3-2-1 三级IP分组转发"></a>3-2-1 三级IP分组转发</h3><ul>
+<li>根据目标网络号 net-id 找到连接在本单位网络上的路由器</li>
+<li>路由器收到 IP 数据报后，按目的网络号 net-id 和子网号 subnet-id 找到目的子网</li>
+<li>最后将 IP 数据报直接交付给目的主机</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117174001073.png" alt="image-20211117174001073"></p>
+<h3 id="3-2-2-子网掩码"><a href="#3-2-2-子网掩码" class="headerlink" title="3-2-2 子网掩码"></a>3-2-2 子网掩码</h3><p><strong>Subnet Mask.</strong> </p>
+<p>一个 IP 数据报首部<strong>无法判断</strong>源主机或目的主机所连接网络是否进行了子网划分。使用<strong>子网掩码</strong>可以找出 IP 地址中的子网部分。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117211827932.png" alt="image-20211117211827932"></p>
+<p><strong>默认子网掩码</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117211942650.png" alt="image-20211117211942650"></p>
+<p><strong>子网掩码是一个重要属性</strong></p>
+<ul>
+<li>相邻路由器交换路由信息时，必须把自己所在网络的子网掩码告诉对方</li>
+<li>若一个路由器连接在两个子网上，就用于两个网络地址和两个子网掩码</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117213926641.png" alt="image-20211117213926641"></p>
+<h3 id="3-2-3-转发步骤"><a href="#3-2-3-转发步骤" class="headerlink" title="3-2-3 转发步骤"></a>3-2-3 转发步骤</h3><ol>
+<li>IP首部提取目的 IP 地址 D</li>
+<li>本地网络子网掩码与 D 逐位’AND’<ul>
+<li>若匹配，直接交付</li>
+<li>不匹配，步骤3</li>
+</ul>
+</li>
+<li>若路由表中有 D 的特定主机路由，则将分组传送给指明的下一跳路由；否则，步骤4</li>
+<li>与路由表中每一行子网掩码逐位’与’，结果与目的网络地址匹配则转发；否则，步骤5</li>
+<li>若路由表中有默认路由，转发给默认路由；否则，步骤6</li>
+<li>报错</li>
+</ol>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117215242387.png" alt="image-20211117215242387"></p>
+<h3 id="3-2-4-无分类编址-CIDR"><a href="#3-2-4-无分类编址-CIDR" class="headerlink" title="3-2-4 无分类编址 CIDR"></a>3-2-4 无分类编址 CIDR</h3><p>CIDR <strong>Classless Inter-Domain Routing</strong> 无分类域间路由选择。</p>
+<ul>
+<li>取消了传统 A B C 类地址 及 划分子网的概念</li>
+<li>可更加有效地分配 IPv4 的地址空间</li>
+<li>使用变长的<strong>网络前缀</strong>（Network-prefix）代替分类地址中的网络号和子网号</li>
+<li>三级 变 两级</li>
+</ul>
+<p><strong>CIDR地址块</strong> | e.g. 128.14.32.0/20</p>
+<ul>
+<li>斜杠后的数字代表子网掩码的位数，则例子中主机号是 32-20 = 12位</li>
+<li>起始地址 128.14.32.0</li>
+<li>全0和全1的主机号地址一般不使用</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117220725811.png" alt="image-20211117220725811"></p>
+<h3 id="3-2-5-构造超网"><a href="#3-2-5-构造超网" class="headerlink" title="3-2-5 构造超网"></a>3-2-5 构造超网</h3><p><strong>路由聚合</strong> 一个 CIDR 地址块可以表示很多地址。路由聚合也称为<strong>构成超网</strong>（Supernetting）。</p>
+<ul>
+<li>前缀长度不超过23位的 CIDR 地址块都包含了多个 C 类地址</li>
+<li>这些 C 类地址合起来就构成了超网</li>
+<li>CIDR 地址块中的地址数一定是2的整数次幂</li>
+<li>网络前缀越短，包含的地址数就越多</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211117221543922.png" alt="image-20211117221543922"></p>
+<p>该 ISP 共有64个 C类网络</p>
+<ul>
+<li>若不采用 CIDR 技术，则在与该 ISP 的路由器交换路由信息的每一个路由表中就需要64个项目</li>
+<li>采用地址聚合，只需要用路由聚合后的1个项目 206.0.64.0/18就能找到ISP</li>
+</ul>
+<h2 id="3-3-ICMP"><a href="#3-3-ICMP" class="headerlink" title="3-3 ICMP"></a>3-3 ICMP</h2><p><strong>Internet Control Message Protocol</strong> 网际控制报文协议</p>
+<p>ICMP 报文作为 IP 层数据报的数据，加上数据的首部，组成 IP 数据报发送</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118091755180.png" alt="image-20211118091755180"></p>
+<h3 id="3-3-1-ICMP差错报告报文"><a href="#3-3-1-ICMP差错报告报文" class="headerlink" title="3-3-1 ICMP差错报告报文"></a>3-3-1 ICMP差错报告报文</h3><p>五种：终点不可达；源点抑制（Source Quench）；时间超过；参数问题；改变路由（重定向）（Redirect）</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118092710632.png" alt="image-20211118092710632"></p>
+<p><strong>不发送情况</strong></p>
+<ul>
+<li>对 ICMP 差错报告报文不再发送</li>
+<li>对第一个分片的数据报片的所有后续数据报片都不发送</li>
+<li>对具有多播地址的数据报都不发送</li>
+<li>对具有特殊地址（127.0.0.0 或 0.0.0.0）不发送</li>
+</ul>
+<h3 id="3-3-2-ICMP询问报文"><a href="#3-3-2-ICMP询问报文" class="headerlink" title="3-3-2 ICMP询问报文"></a>3-3-2 ICMP询问报文</h3><p>两种：回送请求和回答报文；时间戳请求和回答报文。</p>
+<p><strong>应用举例</strong> | PING | Packet InterNet Groper</p>
+<ul>
+<li>测试两主机之间的连通性</li>
+<li>使用了 ICMP 回送请求报文 和 回送回答报文</li>
+<li>PING 是应用层直接使用网络层 ICMP 的例子，没有通过运输层的 TCP 或 UDP</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118100249421.png" alt="image-20211118100249421"></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118100119166.png" alt="image-20211118100119166"></p>
+<h2 id="3-4-路由选择协议"><a href="#3-4-路由选择协议" class="headerlink" title="3-4 路由选择协议"></a>3-4 路由选择协议</h2><p>静态路由选择策略（非自适应，简单开销小）；动态路由选择策略（自适应网络状态变化，复杂开销大）</p>
+<p>Internet采用<strong>分层次的路由选择协议</strong>。例：单位网络布局细节和采用的路由选择协议对外不可见，但同时连到互联网上。</p>
+<p><strong>自治系统</strong>（Autonomous System, AS） 系统内路由器使用一种 AS 内部的路由选择协议和共同度量以确定分组在该 <u>AS 内的路由</u>（IGP）；使用一种 AS 之间的路由选择协议用以确定分组在 <u>AS 之间的路由</u>（EGP）。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118103439366.png" alt="image-20211118103439366"></p>
+<h3 id="3-4-1-内部网关协议"><a href="#3-4-1-内部网关协议" class="headerlink" title="3-4-1 内部网关协议"></a>3-4-1 内部网关协议</h3><p><strong>Interior Gateway Protocol</strong>, IGP</p>
+<p>即在一个 AS 内部使用的路由选择协议，目前该类协议使用广泛，如 RIP, OSPF 等</p>
+<h4 id="3-4-1-1-RIP"><a href="#3-4-1-1-RIP" class="headerlink" title="3-4-1-1 RIP"></a>3-4-1-1 RIP</h4><p><strong>Routing Information Protocol</strong> 是一种分布式的基于<strong>距离向量</strong>的路由选择协议。每个路由器都要维护从它自己到其他每一个目的网络的距离（跳数 Hop Count）。</p>
+<p>距离短 = 好路由；允许一条路径<strong>最多只包含15个路由器</strong>，距离最大值为16时视为不可达。</p>
+<p>不允许两网络有多条路由，只选择一个具有最少路由器的路由，哪怕存在高速多路由线路。</p>
+<p><strong>三要点</strong></p>
+<ul>
+<li>仅和<strong>相邻路由器</strong>交换信息</li>
+<li>交换信息是当前本路由器知道的<strong>全部信息</strong>（路由表）</li>
+<li>按固定时间间隔交换</li>
+</ul>
+<p><strong>RIP2 协议的报文格式</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118104450677.png" alt="image-20211118104450677"></p>
+<ul>
+<li>地址簇标识符（地址类别）| 标志所用的地址协议</li>
+<li>路由标记 | 自治系统的号码</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>故障传递到所有路由时间开销大 | 好消息传播得快，坏消息传播得慢</li>
+<li>实现简单，开销小</li>
+<li>限制了网络规模，MAX = 16</li>
+<li>每个路由器都交换得到完整的路由表，规模越大开销越大</li>
+</ul>
+<h4 id="3-4-1-2-OSFP"><a href="#3-4-1-2-OSFP" class="headerlink" title="3-4-1-2 OSFP"></a>3-4-1-2 OSFP</h4><p><strong>Open Shortest Path First</strong> 使用 Dijkstra 提出的最短路径算法 SPF，是分布式的<strong>链路状态协议</strong>。</p>
+<p><strong>洪泛法</strong> 发送与本路由器相邻的所有路由器的链路状态。只有当链路状态发生变化时，路由器才用洪泛法向所有路由器发送此信息。</p>
+<p><strong>链路状态数据库</strong>（Link-state Database） 由于各路由器之间频繁交换链路状态信息，因此所有路由器最终都能建立一个链路状态数据库。实际上就是全网的拓扑结构图。</p>
+<p><strong>OSPF区域</strong> 将一个自治系统再划分为若干个更小的范围。每一区域都有一个32位的区域标识符。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118115600984.png" alt="image-20211118115600984"></p>
+<p>将洪泛法交换链路状态信息的范围局限于每个区域，减少了整体通信量。采用层次结构，上层主干区域（Backbone Area, 0.0.0.0）。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118120536482.png" alt="image-20211118120536482"></p>
+<p><strong>直接用 IP 数据报传送</strong>  长数据报不必分片。</p>
+<p><strong>多路径的负载平衡</strong> 若有多条代价相同的路径，可以将通信量分配给这几条路径。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118120159383.png" alt="image-20211118120159383"></p>
+<p><strong>分类</strong></p>
+<ul>
+<li>问候分组 | Hello</li>
+<li>数据库描述分组 | Database Description</li>
+<li>链路状态请求分组 | Link State Request</li>
+<li>链路状态更新分组 | Link State Update | 洪泛法全网更新</li>
+<li>链路状态确认分组 | Link State Aknowledgement</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118120615406.png" alt="image-20211118120615406"></p>
+<h3 id="3-4-2-外部网关协议"><a href="#3-4-2-外部网关协议" class="headerlink" title="3-4-2 外部网关协议"></a>3-4-2 外部网关协议</h3><p><strong>External Gateway Protocol</strong>, EGP</p>
+<p>若源站和目的站处在不同的 AS 中，数据报传到某 AS 的边界时，需要使用一种协议将路由选择信息传递到另一 AS 中，如 BGP-4</p>
+<p><strong>Border Gateway Protocol</strong>, BGP 边界网关协议只能是力求寻找一条能够到达目的网络且<strong>比较好的路由</strong>（不能兜圈子）而<strong>并非要寻找一条最佳路由</strong>。</p>
+<p><strong>BGP 发言人</strong> 使用 TCP 连接交换路由信息的两个 BGP Speaker，彼此成为对方的邻站或对等站。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118143438564.png" alt="image-20211118143438564"></p>
+<p>协议交换路由信息的结点数量级是<strong>自治系统数的量级</strong>。支持 CIDR，BGP 刚运行时邻站交换整个 BGP 路由表，以后只<strong>更新有变化的部分</strong>。</p>
+<p><strong>四种报文</strong></p>
+<ul>
+<li>打开报文 | OPEN | 与另一发言人建立连接</li>
+<li>更新报文 | UODATE | 发送某一路由的信息/需要撤销的路由</li>
+<li>保活报文 | KEEPALIVE | 确认打开报文 和 周期性地证实邻站关系</li>
+<li>通知报文 | NOTIFICATION | 发送检测到的差错</li>
+</ul>
+<p><strong>报文格式</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118144718476.png" alt="image-20211118144718476"></p>
+<h3 id="3-4-3-路由器Router"><a href="#3-4-3-路由器Router" class="headerlink" title="3-4-3 路由器Router"></a>3-4-3 路由器Router</h3><p>具有多个输入端口和多个输出端口的专用计算机，任务是转发分组。下一跳按同样方式直到分组到达终点为止。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145104800.png" alt="image-20211118145104800"></p>
+<p><strong>转发</strong>（Forwarding） 路由器根据转发表将用户的 IP 数据报从合适的端口转发出去。</p>
+<p><strong>路由选择</strong>（Routing） 按照分布式算法，根据从各相邻路由器得到关于网络拓扑的变化情况，动态改变所选择的路由。</p>
+<p><strong>输入端口</strong> | 数据链路层剥去帧首部和尾部，将分组送到网络层的队列中排队等待处理。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145517772.png" alt="image-20211118145517772"></p>
+<p><strong>输出端口</strong> | 数据链路层处理模块加上链路层的首部和尾部，交给物理层后发送到外部线路。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145659528.png" alt="image-20211118145659528"></p>
+<p><strong>交换结构</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118145912263.png" alt="image-20211118145912263"></p>
+<h2 id="3-5-IP多播"><a href="#3-5-IP多播" class="headerlink" title="3-5 IP多播"></a>3-5 IP多播</h2><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118150445921.png" alt="image-20211118150445921"></p>
+<p>多播使用组地址——IP 使用 D 类地址支持多播。多播只能用于目的地址，不能用于源地址。</p>
+<p>D 类 IP 地址与以太网多播地址的映射关系</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118150642371.png" alt="image-20211118150642371"></p>
+<h3 id="3-5-1-两种协议"><a href="#3-5-1-两种协议" class="headerlink" title="3-5-1 两种协议"></a>3-5-1 两种协议</h3><h4 id="3-5-1-1-IGMP"><a href="#3-5-1-1-IGMP" class="headerlink" title="3-5-1-1 IGMP"></a>3-5-1-1 IGMP</h4><p><strong>Internet Group Management Protocol</strong> 网际组管理协议。使用 IP 数据报传递其报文，但它也向 IP 提供服务。</p>
+<p>不将 IGMP 看成单独的协议，而是整个网际协议 IP 的一个组成部分。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118151833046.png" alt="image-20211118151833046"></p>
+<p><strong>分为两阶段</strong></p>
+<ul>
+<li>第一阶段 | 某主机新加入多播组时<ul>
+<li>该主机向多播组的多播地址发送 IGMP 报文，声明自己要成为改组成员</li>
+<li>多播路由器收到后，将组成员关系转发给因特网上的其他多播路由器</li>
+</ul>
+</li>
+<li>第二阶段 | 动态<ul>
+<li>多播路由器周期性探询本地局域网上的主机，确定是否继续是组成员</li>
+<li>响应则认为活跃，否则通知其他多播路由器</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-5-1-2-多播路由选择协议"><a href="#3-5-1-2-多播路由选择协议" class="headerlink" title="3-5-1-2 多播路由选择协议"></a>3-5-1-2 多播路由选择协议</h4><p>尚未标准化。动态变化。多播路由选择实际上是找出从源主机为根结点的多播转发树，在树上的结点不会收到重复的多播数据报。</p>
+<h3 id="3-5-2-转发多播数据报"><a href="#3-5-2-转发多播数据报" class="headerlink" title="3-5-2 转发多播数据报"></a>3-5-2 转发多播数据报</h3><h4 id="3-5-2-1-洪泛和剪除"><a href="#3-5-2-1-洪泛和剪除" class="headerlink" title="3-5-2-1 洪泛和剪除"></a>3-5-2-1 洪泛和剪除</h4><p>适合于较小的多播组，而所有组成员接入的局域网也是相邻接的。</p>
+<p>一开始，路由器转发多播数据报使用洪泛方法，为避免兜圈子，采用<strong>反向路径广播</strong>（RPB, Reverse Path Broadcasting）策略。</p>
+<p><strong>RPB</strong> 路由器收到多播数据报，检查是否从源点经最短路径传送过来</p>
+<ul>
+<li>若是，就向所有其他方向转发刚才收到的多播数据报</li>
+<li>否则，丢弃而不转发</li>
+<li>若几条路径长度相同，选最短路径中相邻路由器 IP 地址最小的</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118154407021.png" alt="image-20211118154407021"></p>
+<h4 id="3-5-2-2-隧道技术"><a href="#3-5-2-2-隧道技术" class="headerlink" title="3-5-2-2 隧道技术"></a>3-5-2-2 隧道技术</h4><p><strong>Tunneling</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118154541934.png" alt="image-20211118154541934"></p>
+<h4 id="3-5-2-3-基于核心的发现技术"><a href="#3-5-2-3-基于核心的发现技术" class="headerlink" title="3-5-2-3 基于核心的发现技术"></a>3-5-2-3 基于核心的发现技术</h4><p>对于多播组的大小在较大范围内变化都适合。对每个多播组 G 指定一个核心（Core）路由器给出它的 IP 单播地址。核心路由器创建出对应于多播组 G 的转发树。</p>
+<h4 id="3-5-2-4-几种多播路由选择协议"><a href="#3-5-2-4-几种多播路由选择协议" class="headerlink" title="3-5-2-4 几种多播路由选择协议"></a>3-5-2-4 几种多播路由选择协议</h4><ul>
+<li>距离向量多播路由选择协议 | DVMRP | Distance Vector Multicast Routing Protocol</li>
+<li>基于核心转发树 | CBT | Core Based Tree</li>
+<li>开放最短通路优先的多播扩展 | MOSPF | Multicast Extensions to OSPF</li>
+<li>协议无关多播-稀疏方式 | PIM-SM | Protocol Independent Multicast-Sparse Mode</li>
+<li>协议无关多播-密集方式 | PIM-DM | Protocol Independent Multicast-Dense Mode</li>
+</ul>
+<h2 id="3-6-VPN-amp-NAT"><a href="#3-6-VPN-amp-NAT" class="headerlink" title="3-6 VPN &amp; NAT"></a>3-6 VPN &amp; NAT</h2><p>虚拟专用网 <strong>Virtual Private Network</strong>；网络地址转换 <strong>Network Address Translation</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118160922109.png" alt="image-20211118160922109"></p>
+<p><strong>网络地址转换 NAT</strong></p>
+<ul>
+<li>内部主机 X 用本地地址 IPx 和因特网上主机 Y 通信所发送的数据报必须经过 NAT 路由器</li>
+<li>NAT 路由器将 IPx 转换成全球地址 IPg，但目的地址 IPy 不变，发送到因特网</li>
+<li>NAT 路由器收到主机 Y 发回的数据报时，知道数据报中的源地址 IPy，目的地址时 IPg</li>
+<li>根据 NAT 转换表，NAT 路由器将目的地址 IPg 转换为 IPx ，转发给最终的内部主机 X</li>
+</ul>
+<br/>
+
+<h1 id="04-运输层"><a href="#04-运输层" class="headerlink" title="04 运输层"></a>04 运输层</h1><p>运输层向应用层提供通信服务，通信部分最高层。提供应用进程间的<strong>逻辑通信</strong>。</p>
+<p>运输层为<strong>应用进程之间</strong>提供<strong>端到端</strong>的逻辑通信；而网络层是为<strong>主机之间</strong>提供逻辑通信。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118201825370.png" alt="image-20211118201825370"></p>
+<p>运输层需要有两种不同的运输协议，即面向连接的 TCP 和 无连接的 UDP。TCP 不提供广播或多播服务。</p>
+<p>传输的数据单位为<strong>运输协议数据单元</strong> TPDU（Transport Protocol Data Unit）；TCP 传送的数据单位协议是 TCP 报文段（Segment），UDP 传送的数据单位协议是 UDP 报文 或 用户数据报。</p>
+<p><strong>端口</strong> Port 在协议栈间的抽象的协议端口是软件端口，路由器或交换机上的端口是硬件端口。用16位端口号表示，只具有<strong>本地</strong>意义。</p>
+<p>三类端口：熟知端口（0-1023）；登记端口号（1024-49151，必须在 IANA 登记）；客户端口号（短暂端口号）（49152-65535，留给客户进程短暂使用）</p>
+<h2 id="4-1-UDP"><a href="#4-1-UDP" class="headerlink" title="4-1 UDP"></a>4-1 UDP</h2><p><u><strong>User Datagram Protocol</strong> | 用户数据报协议</u></p>
+<p>只在 IP 的数据报服务上增加了很少的一点功能——<strong>端口</strong>和<strong>差错检测</strong>的功能。</p>
+<ul>
+<li>无连接的，尽最大努力交付</li>
+<li>面向报文，无拥塞控制</li>
+<li>支持一对一，一对多，多对一，多对多的交互通信</li>
+<li>首部开销小，只有8字节</li>
+</ul>
+<h3 id="4-1-1-面向报文"><a href="#4-1-1-面向报文" class="headerlink" title="4-1-1 面向报文"></a>4-1-1 面向报文</h3><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118215238106.png" alt="image-20211118215238106"></p>
+<h3 id="4-1-2-首部格式"><a href="#4-1-2-首部格式" class="headerlink" title="4-1-2 首部格式"></a>4-1-2 首部格式</h3><p>8字节，4个字段，每个字段都为2字节。</p>
+<p><strong>检验和</strong> 临时把伪首部和 UDP 数据报连接在一起，伪首部仅仅是为了计算检验和。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118215605643.png" alt="image-20211118215605643"></p>
+<h3 id="4-1-3-检验和计算例子"><a href="#4-1-3-检验和计算例子" class="headerlink" title="4-1-3 检验和计算例子"></a>4-1-3 检验和计算例子</h3><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118220131327.png" alt="image-20211118220131327"></p>
+<h2 id="4-2-TCP"><a href="#4-2-TCP" class="headerlink" title="4-2 TCP"></a>4-2 TCP</h2><p><u><strong>Transmission Control Protocol</strong> | 传输控制协议</u></p>
+<ul>
+<li>面向连接 | 虚连接</li>
+<li>一对一 | TCP只能有两个端点（Endpoint）</li>
+<li>可靠交付</li>
+<li>全双工</li>
+<li><strong>面向字节流</strong> | 可把太长的数据块划分短一些再传送</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211118220823333.png" alt="image-20211118220823333"></p>
+<h3 id="4-2-1-可靠传输"><a href="#4-2-1-可靠传输" class="headerlink" title="4-2-1 可靠传输"></a>4-2-1 可靠传输</h3><p>TCP 把连接作为最基本的抽象，每一条 TCP 连接有两个端点。TCP 连接的端点称为<strong>套接字</strong>（Socket）或插口。</p>
+<p>套接字 Socket ::= ( IP地址:端口号 )</p>
+<p>TCP连接 ::= { socket1, socket2 } = { ( IP1:port1 ), ( IP2, port2 ) }</p>
+<h4 id="4-2-1-1-停止等待协议"><a href="#4-2-1-1-停止等待协议" class="headerlink" title="4-2-1-1 停止等待协议"></a>4-2-1-1 停止等待协议</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119095309778.png" alt="image-20211119095309778"></p>
+<ul>
+<li>发送完一个分组后，暂时保留该分组的副本</li>
+<li>分组 和 确认分组 都必须进行编号</li>
+<li>超时计时器的重传时间比数据在分组传输的平均往返时间更长一些</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119095750520.png" alt="image-20211119095750520"></p>
+<p>优点是简单，缺点是<strong>信道利用率低</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119100305077.png" alt="image-20211119100305077"><br>$$<br>信道利用率 \quad {U} = \frac{T_D}{T_D + RTT + T_A}<br>$$</p>
+<p><strong>采用流水线传输</strong>  连续发送多个分组，不必每发完一个就等待对方确认。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119101813004.png" alt="image-20211119101813004"></p>
+<h4 id="4-2-1-2-连续ARQ协议"><a href="#4-2-1-2-连续ARQ协议" class="headerlink" title="4-2-1-2 连续ARQ协议"></a>4-2-1-2 连续ARQ协议</h4><p>利用上述的确认和重传机制，可以在<strong>不可靠的传输网络上</strong>实现<strong>可靠的通信</strong>。</p>
+<p>这种可靠传输协议常称为<strong>自动重传请求</strong> ARQ（Automatic Repeat reQuest）。重传请求是自动的，接收方不需要请求发送方重传某个出错分组。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119102009903.png" alt="image-20211119102009903"></p>
+<p>一般采用<strong>累积确认</strong>的方式。对按序到达的最后一个分组发送确认，表示到此为止所有分组都已正确收到了。</p>
+<p><strong>Go-Back-N</strong></p>
+<p>若发送方发送了前5个分组，第三个丢失，接收方只能对前2个分组确认；发送方重发后3个分组。</p>
+<h4 id="4-2-1-3-具体实现"><a href="#4-2-1-3-具体实现" class="headerlink" title="4-2-1-3 具体实现"></a>4-2-1-3 具体实现</h4><ul>
+<li>TCP 连接的每一端都必须设有两个窗口（发送窗口 and 接收窗口）；</li>
+<li>用字节的序号进行控制，所有的确认都基于<strong>序号</strong>；</li>
+<li>TCP 两端的四个窗口经常处于<strong>动态变化</strong>中；</li>
+<li>TCP 连接的往返时间 RTT <strong>不是固定不变的</strong>。</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113405758.png" alt="image-20211119113405758"></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113438476.png" alt="image-20211119113438476"></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113514609.png" alt="image-20211119113514609"></p>
+<p><strong>发送缓存和接收缓存</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113612721.png" alt="image-20211119113612721"></p>
+<p>发送缓存暂时存放</p>
+<ul>
+<li>发送应用程序传送给发送方 TCP <strong>准备发送的数据</strong></li>
+<li>TCP 已发送出但<strong>尚未收到确认的数据</strong></li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119113701625.png" alt="image-20211119113701625"></p>
+<p>接收缓存暂时存放</p>
+<ul>
+<li>按序到达但尚未被接收应用程序读取的数据</li>
+<li>不按序到达的数据</li>
+</ul>
+<h3 id="4-2-2-报文格式"><a href="#4-2-2-报文格式" class="headerlink" title="4-2-2 报文格式"></a>4-2-2 报文格式</h3><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119103405916.png" alt="image-20211119103405916"></p>
+<ul>
+<li>源端口 目的端口 | 2字节 | 端口是运输层和应用层的接口<ul>
+<li>运输层的复用和分用功能都要通过端口才能实现</li>
+</ul>
+</li>
+<li>序号字段 | 4字节 | TCP传送的数据流中每一个字节都编上序号<ul>
+<li>值为报文段所发送数据的第一个字节的序号</li>
+</ul>
+</li>
+<li>确认号字段 | 4字节 | 期望收到对方下一个报文段数据的第一个字节的序号</li>
+<li>数据偏移 | 4位 | 指出数据起始处距离 TCP 报文段的起始处有多远</li>
+<li>保留字段 | 6位 | </li>
+<li>紧急 URG | 1位 | = 1时，表明紧急指针字段有效</li>
+<li><mark>确认 ACK | 1位 | = 1时，确认号字段才有效</mark></li>
+<li>推送 PSH | 1位 | = 1时，尽快交付接收应用进程</li>
+<li>复位 RST | 1位 | = 1时，表明TCP连接出现严重差错</li>
+<li><mark>同步 SYN |1位 | = 1时，表示这是一个连接请求/连接接受报文</mark></li>
+<li><mark>终止 FIN | 1位 | = 1时，表明此报文段的发送端数据发送完毕，释放运输连接</mark></li>
+<li>窗口字段 | 2字节 | 用来让对方设置发送窗口的依据</li>
+<li>检验和 | 2字节 | 首部+数据部分，加上12字节伪首部一起计算</li>
+<li>紧急指针 | 16位 | 指出本报文段中紧急数据共有多少字节</li>
+<li>选项字段 | 长度可变 | 最大报文段长度 MSS</li>
+</ul>
+<p>其他选项</p>
+<ul>
+<li>窗口扩大选项 | 3字节 | 把原窗口位数增大到 16+S</li>
+<li>时间戳选项 | 10字节 | 时间戳值字段4字节 时间戳回送回答字段4字节</li>
+<li>选择确认选项</li>
+</ul>
+<h4 id="4-2-2-1-超时重传时间"><a href="#4-2-2-1-超时重传时间" class="headerlink" title="4-2-2-1 超时重传时间"></a>4-2-2-1 超时重传时间</h4><p>TCP 每发送一个报文段就对该报文段设置一次计时器。由于 TCP 下层是一个互联网环境，IP 数据报所选择的路由变化很大，因而运输层的往返时间的方差也很大。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119114306755.png" alt="image-20211119114306755"></p>
+<p><strong>加权平均往返时间</strong> RTTs （又称 平滑的往返时间）<br>$$<br>new\ RTT_S = (1-\alpha) \times (old\ RTT_S) \ + \ \alpha \ \times \ (new RTT_i)<br>$$<br><strong>超时重传时间</strong> Retransmission Time-OUt, RTO<br>$$<br>RTO = RTT_S \ + \ 4 \ \times \ RTT_D<br>$$<br>$RTT_D$ 是<strong>RTT的偏差的加权平均值</strong><br>$$<br>new \ RTT_D = (1-\beta) \ \times \ (old \ RTT_D) \ + \ \beta \ \times \ |RTT_S-new \ RTT_i|<br>$$</p>
+<h4 id="4-2-2-2-Karn算法"><a href="#4-2-2-2-Karn算法" class="headerlink" title="4-2-2-2 Karn算法"></a>4-2-2-2 Karn算法</h4><p>$$<br>new \ RTO = \gamma\ \times \ (old\ RTO),\quad \gamma\ Typical\ Value= 2<br>$$</p>
+<h4 id="4-2-2-3-选择确认SACK"><a href="#4-2-2-3-选择确认SACK" class="headerlink" title="4-2-2-3 选择确认SACK"></a>4-2-2-3 选择确认SACK</h4><p><strong>Selective ACK</strong> 接收方收到了和前面字节流不连续的两个字节块。</p>
+<p>若这些字节块都在接收窗口之内，接收方就先收下这些数据，但要把这些信息准确高速发送方，使其避免重复发送。</p>
+<h3 id="4-2-3-TCP流量控制"><a href="#4-2-3-TCP流量控制" class="headerlink" title="4-2-3 TCP流量控制"></a>4-2-3 TCP流量控制</h3><p>发送数据过快可能导致来不及接收导致数据丢失。Flow Control 就是让发送速率不要过快，也不让网络发生拥塞。</p>
+<p>利用<strong>滑动窗口机制</strong>可以很方便在 TCP 连接上，实现流量控制。</p>
+<p><strong>示例</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119123223245.png" alt="image-20211119123223245"></p>
+<p><strong>持续计数器</strong> Persistence Timer</p>
+<p>TCP 连接的一方收到对方的<strong>零窗口</strong>通知，就启动计时器。</p>
+<h3 id="4-2-4-拥塞控制"><a href="#4-2-4-拥塞控制" class="headerlink" title="4-2-4 拥塞控制"></a>4-2-4 拥塞控制</h3><p><strong>Congestion</strong> 某段时间对网络中某资源的需求超过了该资源所能提供的可用部分，网络的性能变坏。</p>
+<p>拥塞控制</p>
+<ul>
+<li>网络能够承受现有的负荷</li>
+<li>是一个全局性的过程</li>
+<li>点对点通信量的控制</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119141935732.png" alt="image-20211119141935732"></p>
+<p>难设计</p>
+<ul>
+<li>是一个动态变化的过程</li>
+<li>网络高速化发展，缓存能否跟上避免分组丢失</li>
+<li>拥塞控制导致死锁</li>
+</ul>
+<p><strong>开环控制和闭环控制</strong></p>
+<ul>
+<li>开环 | 尽量不产生拥塞<ul>
+<li>设计网络时事先将有关发生拥塞的因素考虑周到</li>
+</ul>
+</li>
+<li>闭环 | 反馈环路<ul>
+<li>监测网络系统以便检测到拥塞在何时、何处发生</li>
+<li>将拥塞信息发送到可采取行动的地方</li>
+<li>调整网络系统的运行以解决出现的问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-2-4-1-慢开始和拥塞避免"><a href="#4-2-4-1-慢开始和拥塞避免" class="headerlink" title="4-2-4-1 慢开始和拥塞避免"></a>4-2-4-1 慢开始和拥塞避免</h4><p>发送发维持一个拥塞窗口 cwnd （Congestion Window）的状态变量。</p>
+<p>窗口大小取决于网络拥塞程度，且动态变化 | 只要网络没出现拥塞，拥塞窗口就再大一些；反之，减小一些。</p>
+<p>发送方让自己的发送窗口<strong>等于</strong>拥塞窗口，若考虑接收方的接收能力，还可<strong>小于</strong>拥塞窗口。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119143315461.png" alt="image-20211119143315461"></p>
+<p><strong>传输轮次</strong> Transmission Round 开始<strong>慢算法</strong>后，每经过一个<strong>传输轮次</strong>，拥塞窗口 cwnd 就加倍。</p>
+<p>一个传输轮次所经历的时间其实就是往返时间 RTT。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119144221546.png" alt="image-20211119144221546"></p>
+<p><strong>乘法减小</strong> 出现拥塞，满开始门限值 ssthresh 减半。</p>
+<p><strong>加法增大</strong> 经过一个 RTT 后（对所有报文段确认），就把 cwnd 增加一个 <u>MSS</u> 大小。（最大报文段大小）</p>
+<h4 id="4-2-4-2-快重传和快恢复"><a href="#4-2-4-2-快重传和快恢复" class="headerlink" title="4-2-4-2 快重传和快恢复"></a>4-2-4-2 快重传和快恢复</h4><p><strong>快重传</strong>要求</p>
+<ul>
+<li>接收方每收到一个失序的报文段后就立即发出重复确认。</li>
+<li>发送方一连收到三个重复确认就立即重传对方尚未收到的报文。</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119144843448.png" alt="image-20211119144843448"></p>
+<p><strong>快恢复</strong>算法</p>
+<ul>
+<li>发送端收到连续三个重复的确认时进行乘法减小</li>
+<li>但 cwnd 不从 1 开始，从减半后数值开始</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119145110882.png" alt="image-20211119145110882"></p>
+<h4 id="4-2-4-3-随机早期检测-RED"><a href="#4-2-4-3-随机早期检测-RED" class="headerlink" title="4-2-4-3 随机早期检测 RED"></a>4-2-4-3 随机早期检测 RED</h4><p><strong>Random Early Detection</strong></p>
+<ul>
+<li>路由器的队列维护 队列长度最小门限 $TH_min$ 和 最大门限 $TH_max$</li>
+<li>对每个到达的数据计算平均队列长度 $L_av$</li>
+<li>if ( L_av &lt; TH_min ) 当前数据报入队</li>
+<li>if ( L_av &gt; TH_max ) 丢弃</li>
+<li>else if ( TH_min &lt; L_av &lt; TH_max ) 按照某一概率 p 将新到达的数据报丢弃</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119145526808.png" alt="image-20211119145526808"></p>
+<h3 id="4-2-5-运输连接管理"><a href="#4-2-5-运输连接管理" class="headerlink" title="4-2-5 运输连接管理"></a>4-2-5 运输连接管理</h3><p>三个阶段：<strong>连接建立</strong>、<strong>数据传送</strong>和<strong>连接释放</strong>。TCP 连接的建立都是采用 客户端-服务器 方式。</p>
+<h4 id="4-2-5-1-连接建立-三次握手"><a href="#4-2-5-1-连接建立-三次握手" class="headerlink" title="4-2-5-1 连接建立 | 三次握手"></a>4-2-5-1 连接建立 | 三次握手</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119151040897.png" alt="image-20211119151040897"></p>
+<ul>
+<li>Step1 | C to S | SYN = 1，选择序号 seq = x，表明传送数据时的第一个数据字节的序号是 x</li>
+<li>Step2 | S to C | 若 S 同意，发回确认。SYN = 1，ACK = 1，seq = y，确认号 ack = x + 1</li>
+<li>Step3 | C to S | 向 S 确认，ACK = 1，ack = y + 1。C 的 TCP 通知上层应用进程，连接已建立</li>
+</ul>
+<h4 id="4-2-5-2-连接释放"><a href="#4-2-5-2-连接释放" class="headerlink" title="4-2-5-2 连接释放"></a>4-2-5-2 连接释放</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119151756740.png" alt="image-20211119151756740"></p>
+<ul>
+<li>Step1 | C to S | FIN = 1，seq = u，等待 S 确认</li>
+<li>Step2.1 | S to C | ACK = 1，报文段自己的序号 seq = v（半关闭状态）</li>
+<li>Step2.2 | S to C | FIN = 1，ACK = 1，seq = w，ack = u + 1，若无需要发送的数据，应用进程通知 TCP 释放连接</li>
+<li>Step3 | C to S | ACK = 1，ack = w + 1，seq = u + 1</li>
+</ul>
+<p><strong>等待 2MSL 后才真正释放</strong></p>
+<ul>
+<li>保证 C 最后发送的 ACK 报文段能够到达 S</li>
+<li>防止“已失效的连接请求报文段”，等待2MSL后，可以使本连接持续时间内产生的所有报文段在网络中消失</li>
+</ul>
+<h4 id="4-2-5-3-TCP有限状态机"><a href="#4-2-5-3-TCP有限状态机" class="headerlink" title="4-2-5-3 TCP有限状态机"></a>4-2-5-3 TCP有限状态机</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119152556870.png" alt="image-20211119152556870"></p>
+<br/>
+
+<h1 id="05-应用层"><a href="#05-应用层" class="headerlink" title="05 应用层"></a>05 应用层</h1><p>每个应用层协议都是为了解决某一类应用问题。大多基于 C/S 架构</p>
+<h2 id="5-1-DNS"><a href="#5-1-DNS" class="headerlink" title="5-1 DNS"></a>5-1 DNS</h2><p><strong>域名系统</strong> Domain Name System，应用层软件直接使用 DNS 系统，计算机用户间接使用。</p>
+<p>因特网采用层次结构的命名树作为主机的名字，并使用<strong>分布式</strong>的域名系统。<strong>域名服务器程序</strong>在专设结点上运行。</p>
+<h3 id="5-1-1-域名结构"><a href="#5-1-1-域名结构" class="headerlink" title="5-1-1 域名结构"></a>5-1-1 域名结构</h3><p><strong>xxx.三级域名.二级域名.顶级域名</strong>  |  只是个逻辑概念。</p>
+<p><strong>顶级域名 Top Level Domain</strong></p>
+<ul>
+<li>国家顶级域名 nTLD<ul>
+<li>.cn .us .uk 等</li>
+</ul>
+</li>
+<li>通用顶级域名 gTLD<ul>
+<li>.com | 公司和企业</li>
+<li>.net | 网络服务机构</li>
+<li>.org | 非营利性组织</li>
+<li>.edu | 美国专用的教育机构</li>
+<li>.gov | 美国专用的政府部门</li>
+<li>.mil | 美国专用的军事部门</li>
+<li>.int | 国际组织</li>
+<li>.aero | 航空运输企业</li>
+<li>.biz | 公司和企业</li>
+<li>.cat | 加泰隆人的语言和文化团体</li>
+<li>.coop | 合作团体</li>
+<li>.info | 各种情况</li>
+<li>.jobs | 人力资源管理者</li>
+<li>.mobi | 移动产品与服务的用户和提供者</li>
+<li>.museum | 博物馆</li>
+<li>.name | 个人</li>
+<li>.pro | 有证书的专业人员</li>
+<li>.travel | 旅游业</li>
+</ul>
+</li>
+<li>基础结构域名 infrastructure domain<ul>
+<li>只有一个 arpa 用于反向域名解析</li>
+</ul>
+</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119185528018.png" alt="image-20211119185528018"></p>
+<h3 id="5-1-2-域名服务器"><a href="#5-1-2-域名服务器" class="headerlink" title="5-1-2 域名服务器"></a>5-1-2 域名服务器</h3><p>一个服务器所负责管辖的（或有权限的）范围叫做<strong>区</strong>（zone）。每个区设置相应的<strong>权限域名服务器</strong>以保存该区中的所有主机的域名到 IP 地址的映射。</p>
+<p><strong>区 与 域</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119190005606.png" alt="image-20211119190005606"></p>
+<p><strong>四类域名服务器</strong>：根域名服务器，顶级域名服务器，权限域名服务器，本地域名服务器</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119190130514.png" alt="image-20211119190130514"></p>
+<h4 id="5-1-2-1-根域名服务器"><a href="#5-1-2-1-根域名服务器" class="headerlink" title="5-1-2-1 根域名服务器"></a>5-1-2-1 根域名服务器</h4><p>最高层次的域名服务器。</p>
+<p>所有的根域名服务器都知道所有的顶级域名服务器的域名和 IP 地址。</p>
+<p>因特网上共有 13 个不同 IP 地址的根域名服务器（a-m.rootservers.net）。共十三套装置非十三套机器。</p>
+<h4 id="5-1-2-2-顶级域名服务器"><a href="#5-1-2-2-顶级域名服务器" class="headerlink" title="5-1-2-2 顶级域名服务器"></a>5-1-2-2 顶级域名服务器</h4><p>负责管理在该顶级域名服务器注册的所有二级域名。</p>
+<p>当收到 DNS 查询请求时，就给出相应的回答（可能是最后的结构，也可能是下一步应当找的 DNS 服务器的 IP 地址）。</p>
+<h4 id="5-1-2-3-权限域名服务器"><a href="#5-1-2-3-权限域名服务器" class="headerlink" title="5-1-2-3 权限域名服务器"></a>5-1-2-3 权限域名服务器</h4><p>保存一个区中的所有主机的域名到 IP 地址的映射。</p>
+<p>当一个权限域名服务器还不能给出最后的查询回答时，就会告知下一步应该找哪一权限域名服务器。</p>
+<h4 id="5-1-2-4-本地域名服务器"><a href="#5-1-2-4-本地域名服务器" class="headerlink" title="5-1-2-4 本地域名服务器"></a>5-1-2-4 本地域名服务器</h4><p>当一个主机发出 DNS 查询请求时，该查询请求报文发送给本地域名服务器。</p>
+<p>每一个因特网服务提供者 ISP 或一个大学（系）都可以拥有一个本地域名服务器。</p>
+<p>也称默认域名服务器。</p>
+<h3 id="5-1-3-提高域名服务器可靠性"><a href="#5-1-3-提高域名服务器可靠性" class="headerlink" title="5-1-3 提高域名服务器可靠性"></a>5-1-3 提高域名服务器可靠性</h3><ul>
+<li>DNS 域名服务器都把数据复制到几个域名服务器来保存<ul>
+<li>主域名服务器 + 辅助域名服务器</li>
+</ul>
+</li>
+<li>主域名服务器出故障，辅助域名服务器可以保证 DNS 的查询工作不会终端</li>
+<li>主 DNS 定期把数据复制到 辅助 DNS 中 | 保证一致性</li>
+</ul>
+<h3 id="5-1-4-域名解析过程"><a href="#5-1-4-域名解析过程" class="headerlink" title="5-1-4 域名解析过程"></a>5-1-4 域名解析过程</h3><ul>
+<li>主机向本地域名服务器查询 一般都采用<strong>递归查询</strong>。<ul>
+<li>机主 –&gt; 本地 DNS，无结果，本地 DNS 作为客户 –&gt; 其他根域名服务器</li>
+</ul>
+</li>
+<li>本地服务器向根服务器查询 一般采用<strong>迭代查询</strong><ul>
+<li>根域名服务器要么给结果；要么指明下一域名服务器</li>
+</ul>
+</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119195140873.png" alt="image-20211119195140873"></p>
+<p>名字的<strong>高速缓存</strong></p>
+<p>每个域名服务器都维护一个高速缓存，存放最近用过的名字及从何处获得名字映射信息的记录。</p>
+<p>可减轻根域名服务器的负荷。</p>
+<h2 id="5-2-FTP"><a href="#5-2-FTP" class="headerlink" title="5-2 FTP"></a>5-2 FTP</h2><p><strong>File Transfer Protocol</strong> 文件传送协议</p>
+<p>交换式访问，允许客户指明文件类型与格式，并允许文件具有存取权限。</p>
+<p>适合在异构网络中传送文件。</p>
+<h3 id="5-2-1-特点"><a href="#5-2-1-特点" class="headerlink" title="5-2-1 特点"></a>5-2-1 特点</h3><p>提供文件传送的一些基本服务，使用 TCP 可靠的运输服务。</p>
+<p>由<strong>主进程</strong>（负责接受新的请求）和若干<strong>从属进程</strong>（负责处理单个请求）两部分组成。</p>
+<h3 id="5-2-2-工作步骤"><a href="#5-2-2-工作步骤" class="headerlink" title="5-2-2 工作步骤"></a>5-2-2 工作步骤</h3><ul>
+<li>打开熟知端口号（21），使客户进程能够连接上</li>
+<li>等待客户进程发出连接请求</li>
+<li>启动从属进程处理请求，处理完毕后即终止（端口号20）。运行期间可以创建一些子进程</li>
+<li>回到等待状态。主进程与从属进程的处理是并发的</li>
+</ul>
+<p><strong>两个 TCP 连接</strong></p>
+<ul>
+<li>控制连接 | 端口号20 | 整个会话期间保持打开<ul>
+<li>客户传送请求通过控制连接发送给服务端的控制进程</li>
+</ul>
+</li>
+<li>数据连接 | 端口号21 | 用于传输文件，传完关闭<ul>
+<li>服务端控制连接收到请求后创建“数据传送进程”和“数据连接”</li>
+</ul>
+</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119202505295-16373247063211.png" alt="image-20211119202505295"></p>
+<h3 id="5-2-3-TFTP"><a href="#5-2-3-TFTP" class="headerlink" title="5-2-3 TFTP"></a>5-2-3 TFTP</h3><p><strong>简单文件传送协议</strong> Trivial File Transfer Protocol</p>
+<p>小且易于实现，使用 C/S 方式，使用 UDP 数据报，则需要有差错改正措施。</p>
+<p>只支持文件传输而不支持交互，无庞大的命令集，无列目录功能，不能对用户进行身份鉴别。</p>
+<p><strong>特点</strong></p>
+<ul>
+<li>每次传送的数据 PDU 中有512字节数据，最后可不足512字节</li>
+<li>数据 PDU 也称<strong>文件块</strong>（block），按序编号，从1开始</li>
+<li>支持 ASCII 码 或 二进制传送</li>
+<li>可对文件进行读和写</li>
+<li>使用很简单的首部</li>
+</ul>
+<p><strong>工作步骤</strong></p>
+<p>发送完一个文件块后就等待确认，确认时指明所确认的块编号；</p>
+<p>得不到确认就需要重发数据 PDU；</p>
+<p>发送确认 PDU 的一方若在规定时间内收不到下一文件块，也需要重发确认 PDU。</p>
+<ul>
+<li>客户进程发送一个 读/写请求 PDU 给服务器进程 | <strong>端口号69</strong></li>
+<li>服务器进程选择一个<strong>新端口号</strong>和客户进程进程通信</li>
+<li>若文件长度恰好为512字节整数倍数，传送完毕后，还必须在最后发送一个只含首部无数据的数据 PDU</li>
+<li>若文件长度不是512字节整数倍数，传送最后不足512字节数据 PDU 可作为文件结束标志</li>
+</ul>
+<h2 id="5-3-TELNET"><a href="#5-3-TELNET" class="headerlink" title="5-3 TELNET"></a>5-3 TELNET</h2><p><strong>远程终端协议</strong> 用户用 TELNET 就可在其所在地<strong>通过 TCP 连接</strong>注册（即登录）到远地的另一个主机上（使用主机名或 IP 地址）。</p>
+<p>网络虚拟终端 NVT 格式</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119205038899.png" alt="image-20211119205038899"></p>
+<h2 id="5-4-WWW"><a href="#5-4-WWW" class="headerlink" title="5-4 WWW"></a>5-4 WWW</h2><p><strong>World Wide Web</strong> 万维网并非某种特殊的计算机网络。</p>
+<p>是大规模的、联机式的信息储藏所。用链接的办法能非常方便地从因特网上的一个站点访问另一个站点，从而主动地按需获取丰富的信息。</p>
+<p>是<strong>分布式超媒体</strong>（hypermedia），是<strong>超文本</strong>（hypertext）系统的扩充。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119210028098.png" alt="image-20211119210028098"></p>
+<h3 id="5-4-1-工作方式"><a href="#5-4-1-工作方式" class="headerlink" title="5-4-1 工作方式"></a>5-4-1 工作方式</h3><ul>
+<li>浏览器就是在计算机上的万维网<strong>客户程序</strong>；万维网文档所驻留的计算机则运行<strong>服务器程序</strong></li>
+<li>客户程序主窗口上显示出的万维网文档称为<strong>页面</strong>（page）</li>
+<li>使用<strong>统一资源定位符</strong> URL（Uniform Resource Locator）来标志万维网上的各种文档，每个文档有唯一的 URL</li>
+<li>C/S 之间交互协议为<strong>超文本传送协议 HTTP</strong>（HyperText Transfer Protocol），基于 TCP</li>
+<li>页面使用<strong>超文本标记语言 HTML</strong>（HyperText Markup Language）</li>
+<li>使用<strong>搜索引擎</strong>在网上查找信息</li>
+</ul>
+<h3 id="5-4-2-URL"><a href="#5-4-2-URL" class="headerlink" title="5-4-2 URL"></a>5-4-2 URL</h3><p>给资源的位置提供一种抽象的识别方法，并用这种方法给资源定位。相当于一个文件名在网络范围的扩展。</p>
+<p>定位后，系统就可对资源进行 存取、更新、替换和查找其属性。</p>
+<p><strong>一般形式</strong>： &lt;协议&gt;://&lt;主机&gt;:&lt;端口&gt;/&lt;路径&gt;</p>
+<ul>
+<li>协议 | ftp, http, https, News</li>
+<li>主机 | 存放资源的主机在因特网上的域名</li>
+<li>端口和路径有时可省略</li>
+</ul>
+<h3 id="5-4-3-HTTP"><a href="#5-4-3-HTTP" class="headerlink" title="5-4-3 HTTP"></a>5-4-3 HTTP</h3><p><strong>HTTP</strong> | http://&lt;主机&gt;:&lt;端口&gt;/&lt;路径&gt; | 面向事务 Transaction-oriented</p>
+<p><u>端口</u> 号通常为80，通常可省略</p>
+<p><u>路径</u> 指到因特网上的某个主页（home page）</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119212030306.png" alt="image-20211119212030306"></p>
+<p><strong>请求一个万维网文档所需的时间</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119212233030.png" alt="image-20211119212233030"></p>
+<h4 id="5-4-3-1-持续连接"><a href="#5-4-3-1-持续连接" class="headerlink" title="5-4-3-1 持续连接"></a>5-4-3-1 持续连接</h4><p><strong>Persistent connection</strong> 万维网服务器在发送响应后仍然在一段时间内保持连接。</p>
+<ul>
+<li>非流水线方式 | 客户在收到前一个响应后才能发出下一个请求。</li>
+<li>流水线方式 | 客户在收到 HTTP 响应报文之前就能接着发送新的请求。</li>
+</ul>
+<h4 id="5-4-3-2-代理服务器"><a href="#5-4-3-2-代理服务器" class="headerlink" title="5-4-3-2 代理服务器"></a>5-4-3-2 代理服务器</h4><p><strong>Proxy Server</strong> 又称万维网高速缓存（Web cache），它代表浏览器发出 HTTP 请求。</p>
+<p>将最近的一些请求和响应暂存在本地磁盘中。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119213255339.png" alt="image-20211119213255339"></p>
+<h4 id="5-4-3-3-报文结构"><a href="#5-4-3-3-报文结构" class="headerlink" title="5-4-3-3 报文结构"></a>5-4-3-3 报文结构</h4><p>两类报文：请求报文和响应报文。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119213614501.png" alt="image-20211119213614501"></p>
+<p><strong>HTTP请求报文的一些方法</strong></p>
+<p>OPTION，GET，HEAD，POST，PUT，DELETE，TRACE，CONNECT</p>
+<h4 id="5-4-3-4-状态码"><a href="#5-4-3-4-状态码" class="headerlink" title="5-4-3-4 状态码"></a>5-4-3-4 状态码</h4><ul>
+<li>1xx | 已收到正在处理</li>
+<li>2xx | 请求成功</li>
+<li>3xx | 重定向</li>
+<li>4xx | 客户的差错</li>
+<li>5xx | 服务器的差错</li>
+</ul>
+<h4 id="5-4-3-5-存放用户信息"><a href="#5-4-3-5-存放用户信息" class="headerlink" title="5-4-3-5 存放用户信息"></a>5-4-3-5 存放用户信息</h4><p>使用 Cookie 来跟踪用户。表示在 HTTP 服务器和客户之间传递的状态信息。使用 Cookie 的网站服务器为用户产生一个唯一的识别码。</p>
+<h3 id="5-4-4-万维网文档"><a href="#5-4-4-万维网文档" class="headerlink" title="5-4-4 万维网文档"></a>5-4-4 万维网文档</h3><h4 id="5-4-4-1-超文本标记语言"><a href="#5-4-4-1-超文本标记语言" class="headerlink" title="5-4-4-1 超文本标记语言"></a>5-4-4-1 超文本标记语言</h4><p>HTML 定义了许多用于排版的命令（即标签）后缀为.html或.htm</p>
+<p><strong>示例</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119214350613.png" alt="image-20211119214350613"></p>
+<h4 id="5-4-4-2-动态万维网"><a href="#5-4-4-2-动态万维网" class="headerlink" title="5-4-4-2 动态万维网"></a>5-4-4-2 动态万维网</h4><p><strong>静态文档</strong>是指文档创作完毕后存放在万维网服务器中，用户浏览过程中内容不会改变的。</p>
+<p><strong>动态文档</strong>是指文档内容在浏览器访问万维网服务器时才由应用程序动态创建。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119214651524.png" alt="image-20211119214651524"></p>
+<h4 id="5-4-4-3-通用网关接口-CGI"><a href="#5-4-4-3-通用网关接口-CGI" class="headerlink" title="5-4-4-3 通用网关接口 CGI"></a>5-4-4-3 通用网关接口 CGI</h4><p>是一种标准，定义了动态文件如何创建。</p>
+<p><strong>通用</strong>：CGI 标准所定义的规则对其他任何语言都是通用的</p>
+<p><strong>网关</strong>：CGI 程序的作用像网关</p>
+<p><strong>接口</strong>：有一些已定义好的变量和调用等可供其他 CGI 程序使用</p>
+<h2 id="5-5-电子邮件"><a href="#5-5-电子邮件" class="headerlink" title="5-5 电子邮件"></a>5-5 电子邮件</h2><p><strong>发送</strong>邮件的协议：SMTP</p>
+<p><strong>读取</strong>邮件的协议：POP3 和 IMAP</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211119215335858.png" alt="image-20211119215335858"></p>
+<h3 id="5-5-1-用户代理-UA"><a href="#5-5-1-用户代理-UA" class="headerlink" title="5-5-1 用户代理 UA"></a>5-5-1 用户代理 UA</h3><p><strong>User Agent</strong> 就是用户与电子邮件系统的接口，是电子邮件客户端软件。</p>
+<p>用户代理的功能：撰写、显示、处理和通信。</p>
+<p>邮件服务器的功能：发送和接受邮件，同时向发信人报告邮件的传送情况。</p>
+<p>电子邮件由<strong>信封</strong>（envelope）和<strong>内容</strong>（content）两部分组成。</p>
+<h3 id="5-5-2-传送协议-SMTP"><a href="#5-5-2-传送协议-SMTP" class="headerlink" title="5-5-2 传送协议 SMTP"></a>5-5-2 传送协议 SMTP</h3><p><strong>简单邮件传送协议</strong> Simple Mail Transfer Protocol </p>
+<p>规定在两个相互通信的 SMTP 进程之间应如何交换信息。</p>
+<p>规定了14条命令和21种应答信息。每条命令由4个字母组成，应答消息一般只有一行。</p>
+<h4 id="5-5-2-1-通信的三个阶段"><a href="#5-5-2-1-通信的三个阶段" class="headerlink" title="5-5-2-1 通信的三个阶段"></a>5-5-2-1 通信的三个阶段</h4><p><strong>连接建立</strong> SMTP 客户和接收主机的 SMTP 服务器之间建立的。无中间的邮件服务器。</p>
+<p><strong>邮件传送</strong></p>
+<p><strong>连接释放</strong> 邮件发送完毕后，SMTP 释放 TCP 连接。</p>
+<h4 id="5-5-2-2-信息格式"><a href="#5-5-2-2-信息格式" class="headerlink" title="5-5-2-2 信息格式"></a>5-5-2-2 信息格式</h4><p>RFC 822 只规定了邮件内容中的<strong>首部</strong>（Header）格式，而<strong>主体</strong>（Body）部分则让用户自由撰写。</p>
+<p>首部包括一些关键字，后面加上冒号。</p>
+<p>重要关键字</p>
+<ul>
+<li>To:  | 后面填入一个或多个收件人的电子邮件地址</li>
+<li>Subject:  | 邮件的主题，反映了邮件的主要内容</li>
+<li>Cc:  | 抄送，表示给某某人发送一个副本</li>
+<li>From:  | 发信人的邮件地址</li>
+<li>Date:  | 发信时间</li>
+<li>Reply-To:  | 对方回信所用的地址</li>
+</ul>
+<h3 id="5-5-3-读取协议"><a href="#5-5-3-读取协议" class="headerlink" title="5-5-3 读取协议"></a>5-5-3 读取协议</h3><p>POP3 和 IMAP</p>
+<p><strong>Post Office Protocol - Version 3</strong>  邮局协议 | 非常简单 功能有限的邮件读取协议</p>
+<p><strong>Internet Message Access Protocol</strong> 因特网消息访问协议，以前称 <strong>Interactive Mail Access Protocol</strong>（交互邮件访问协议）</p>
+<p><strong>IMAP特点</strong></p>
+<ul>
+<li>用户在自己的主机上操作 ISP 上的邮件服务器信箱，如同在本地操作一样</li>
+<li>IMAP 是一个联机协议</li>
+<li>可以携带附件</li>
+<li>缺点 | 如果用户没有将邮件复制到本机，需要经常与 IMAP 服务器建立连接</li>
+</ul>
+<h3 id="5-5-4-基于WWW的电子邮件"><a href="#5-5-4-基于WWW的电子邮件" class="headerlink" title="5-5-4 基于WWW的电子邮件"></a>5-5-4 基于WWW的电子邮件</h3><p>主机和邮件服务器之间使用 http 协议，邮件服务器之间邮件传送使用 SMTP 协议。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120101712263.png" alt="image-20211120101712263"></p>
+<p><strong>SMTP 缺点</strong></p>
+<ul>
+<li>不能传送可执行文件/二进制对象</li>
+<li>限于传7位 ASCII 码</li>
+<li>SMTP 拒绝超过一定长度的邮件</li>
+</ul>
+<h3 id="5-5-5-MIME"><a href="#5-5-5-MIME" class="headerlink" title="5-5-5 MIME"></a>5-5-5 MIME</h3><p><strong>Multipurpose Internet Mail Extension</strong> 多用途互联网扩展类型 | 设定某种扩展名的文件用一种应用程序来打开的方式类型。</p>
+<p>MIME 三个部分</p>
+<ul>
+<li>5个新邮件首部字段 | 提供有关邮件主体的信息<ul>
+<li>MIME-Version</li>
+<li>Content-Description</li>
+<li>Content-ID</li>
+<li>Content-Transfer_Encoding</li>
+<li>Content-Type</li>
+</ul>
+</li>
+<li>定义了许多邮件内容格式 | 对多媒体电子邮件表示方法标准化</li>
+<li>定义了传送编码 | 可对任何内容格式进行转换</li>
+</ul>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120112032297.png" alt="image-20211120112032297"></p>
+<h2 id="5-6-DHCP"><a href="#5-6-DHCP" class="headerlink" title="5-6 DHCP"></a>5-6 DHCP</h2><p><strong>动态主机配置协议</strong> Dynamic Host Configuration Protocol</p>
+<p>为了将软件协议做成通用的、便于移植的，将协议软件参数化，不同计算机可以通过不同参数体现。</p>
+<p>提供了<mark>即插即用联网</mark>（Plug-and-Play Networking）机制，允许计算机加入新的网络和获取 IP 地址不用手工操作。</p>
+<p><strong>协议配置</strong> 给软件协议参数赋值的动作。</p>
+<p><strong>配置项目</strong> 1) IP 地址；2) 子网掩码；3) 默认路由器的 IP 地址；4) 域名服务器的 IP 地址。</p>
+<h3 id="5-6-1-中继代理"><a href="#5-6-1-中继代理" class="headerlink" title="5-6-1 中继代理"></a>5-6-1 中继代理</h3><p><strong>Relay Agent</strong> 不是每个网络都有 DHCP 服务器，但至少有一个 DHCP 中继代理，配置了 DHCP 服务器的 IP 地址信息。</p>
+<p><strong>单播方式</strong> | UDP</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120121418047.png" alt="image-20211120121418047"></p>
+<h3 id="5-6-2-租用期"><a href="#5-6-2-租用期" class="headerlink" title="5-6-2 租用期"></a>5-6-2 租用期</h3><p><strong>Lease Period</strong>  DHCP 分配给客户的 IP 地址是临时的。租用期由 DHCP 服务器自主决定。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120121629693.png" alt="image-20211120121629693"></p>
+<h2 id="5-7-SNMP"><a href="#5-7-SNMP" class="headerlink" title="5-7 SNMP"></a>5-7 SNMP</h2><p><strong>简单网络管理协议</strong> Simple Network Management Protocol   |  使用 UDP 协议</p>
+<p><strong>网络管理</strong> 包括对硬件、软件和人力的使用、综合与协调，以便对<strong>网络资源</strong>进行监视、测试、配置、分析、评价和控制。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120121954233.png" alt="image-20211120121954233"></p>
+<p><strong>主要构件</strong></p>
+<ul>
+<li>管理站（网络运行中心） | Network Operations Center | 网络管理系统的核心</li>
+<li>管理程序 | 运行时成为管理进程</li>
+<li>管理者 | Manager | 指机器</li>
+<li>网络管理员 | Administrator | 人</li>
+</ul>
+<p><strong>被管理的对象</strong> 一个被管设备中可有多个被管对象</p>
+<p><strong>被管设备</strong> 有时称为<strong>网络元素</strong>或<strong>网元</strong></p>
+<p><strong>构成内容</strong> SNMP 本身 + 管理信息结构 SMI + 管理信息库 MIB</p>
+<h3 id="5-7-1-SNMP-本身"><a href="#5-7-1-SNMP-本身" class="headerlink" title="5-7-1 SNMP 本身"></a>5-7-1 SNMP 本身</h3><p>定义了管理站和代理之间所交换的分组格式。</p>
+<p>所交换的分组包含各代理中的 <strong>对象（变量）名 及 其状态（值）</strong>。</p>
+<p>SNMP 负责读取和改变这些数值。</p>
+<h3 id="5-7-2-SMI-管理信息结构"><a href="#5-7-2-SMI-管理信息结构" class="headerlink" title="5-7-2 SMI 管理信息结构"></a>5-7-2 SMI 管理信息结构</h3><p><strong>Structure of Management Infomation</strong> </p>
+<p>定义了 命名对象和定义对象类型（包括范围和长度）的通用规则，以及 把对象和对象的值进行编码的规则</p>
+<p>目的：确保网络管理数据的语法和语义<strong>无二义性</strong>。</p>
+<p><strong>功能</strong></p>
+<ul>
+<li>被管对象应该怎样命名  |  抽象语法记法1 ASN.1</li>
+<li>存储被管对象的数据类型有哪些种</li>
+<li>网络上传送的管理数据如何编码  |  基本编码规则 BER Basic Encoding Rule</li>
+</ul>
+<p><strong>SMI 管理对象构成一颗命名树</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120124349138.png" alt="image-20211120124349138"></p>
+<h3 id="5-7-3-MIB-管理信息库"><a href="#5-7-3-MIB-管理信息库" class="headerlink" title="5-7-3 MIB 管理信息库"></a>5-7-3 MIB 管理信息库</h3><p><strong>Management Infomation Base</strong></p>
+<p>在被管理的实体中创建命名对象，并规定了其类型。</p>
+<h3 id="5-7-4-协议数据单元和报文"><a href="#5-7-4-协议数据单元和报文" class="headerlink" title="5-7-4 协议数据单元和报文"></a>5-7-4 协议数据单元和报文</h3><p>两种基本的管理功能：“读”操作，get，检测；“写”操作，set，改变。</p>
+<h4 id="5-7-4-1-探询操作"><a href="#5-7-4-1-探询操作" class="headerlink" title="5-7-4-1 探询操作"></a>5-7-4-1 探询操作</h4><p>SNMP 管理进程定时向被管理设备<strong>周期性地发送探寻信息</strong>。</p>
+<p><strong>好处</strong></p>
+<ul>
+<li>使系统相对简单</li>
+<li>限制通过网络所产生的管理信息通信量</li>
+</ul>
+<p>但<strong>不够灵活</strong>，且所能管理的设备不够多；系统开销大，若<strong>探询频繁</strong>而并未得到有用报告，通信线路和计算机 CPU 周期就被浪费。</p>
+<h4 id="5-7-4-2-陷进"><a href="#5-7-4-2-陷进" class="headerlink" title="5-7-4-2 陷进"></a>5-7-4-2 陷进</h4><p>SNMP 不是完全的探询协议，它允许不经过询问就能发送某些信息。这些信息称为<strong>陷阱</strong> Trap</p>
+<h4 id="5-7-4-3-报文格式"><a href="#5-7-4-3-报文格式" class="headerlink" title="5-7-4-3 报文格式"></a>5-7-4-3 报文格式</h4><p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120125820085.png" alt="image-20211120125820085"></p>
+<h2 id="5-8-应用进程跨网络通信"><a href="#5-8-应用进程跨网络通信" class="headerlink" title="5-8 应用进程跨网络通信"></a>5-8 应用进程跨网络通信</h2><p>大多数 OS 使用<strong>系统调用</strong>（System Call）机制在应用程序和 OS 之间传递控制权。</p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120125921240.png" alt="image-20211120125921240"></p>
+<h3 id="5-8-1-API"><a href="#5-8-1-API" class="headerlink" title="5-8-1 API"></a>5-8-1 API</h3><p><strong>Application Programming Interface</strong> 应用编程接口</p>
+<p>应用进程启动系统调用时，控制权就从进程传递给系统调用接口。接口再将控制权传递给计算机 OS。</p>
+<p><strong>几种不同的 API</strong></p>
+<ul>
+<li>Socket Interface | 套接字接口 | UNIX 定义的一种 API</li>
+<li>Windows Socket | Windows OS 提供</li>
+<li>TLI | Transport Layer Interface | AT&amp;T</li>
+</ul>
+<p><strong>应用程序通过套接字接入网络</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120130529113.png" alt="image-20211120130529113"></p>
+<h3 id="5-8-2-系统调用方式"><a href="#5-8-2-系统调用方式" class="headerlink" title="5-8-2 系统调用方式"></a>5-8-2 系统调用方式</h3><p><strong>并发方式</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120130706898.png" alt="image-20211120130706898"></p>
+<p><strong>系统调用使用顺序</strong></p>
+<p><img src="/imgForArc/2021-11-14-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-assets/image-20211120130807999.png" alt="image-20211120130807999"></p>
+<p>【完结】</p>
+
+      
+    </div>
+    
+    
+    <div class="article-category">
+      
+        <b>Categories:</b>
+        <a class="article-category-link" href="/categories/Computer-Science/">Computer Science</a>
+      
+      
+      
+    </div>
+    
+    
+  </div>
+</article>
+
+  
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2021/15/2021-12-15-%E5%85%B3%E4%BA%8E%E9%95%BF%E5%A4%A7%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%A6%82%E6%9E%9C%E5%9C%A8%E9%BB%84%E6%98%8F%E6%97%B6%E9%86%92%E6%9D%A5/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于长大（二）——如果在黄昏时醒来
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/09/2021-11-09-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          数据库原理与应用
+        
+      </div>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+    </div>
+  </div>
+  
+
+
+
+
+<div id="settings-container">
+  <div id="dark-mode">dark</div>
+  <div id="sans-font">sans</div>
+</div>
+<script type="text/javascript">
+let d=document,r=d.documentElement.style,f=r.setProperty.bind(r),l=localStorage,s=l.getItem('s')||(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),n=l.getItem('n'),m=d.getElementById("dark-mode"),b=()=>{f('--bg-color','#fafafa');f('--code-bg-color','#f4f4f4');f('--text-color','#212121');f('--secondary-color','#808080');f('--tertiary-color','#b0b0b0');f('--link-color','#b5c8cf');f('--link-hover-color','#618794');f('--link-bg-color','#dae4e7');f('--selection-color','#dae4e7');m.innerHTML="dark"},c=()=>{f('--bg-color','#212121');f('--code-bg-color','#292929');f('--text-color','#fff');f('--secondary-color','#c0c0c0');f('--tertiary-color','#6e6e6e');f('--link-color','#4d6b75');f('--link-hover-color','#96b1bb');f('--link-bg-color','#5d828e');f('--selection-color','#acc1c9');m.innerHTML="light"},o=d.getElementById("sans-font"),e=()=>{f('--body-stack','"Lora", "Georgia", "Times New Roman", serif');o.innerHTML="sans"},g=()=>{f('--body-stack','"Lato", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Verdana", sans-serif');o.innerHTML="serif"};m.onclick=()=>{if(s==2){s=1;l.setItem('s',s);c()}else{s=2;l.setItem('s',s);b()}};o.onclick=()=>{if(n==2){n=1;l.setItem('n',n);g()}else{n=2;l.setItem('n',n);e()}};if(!s){s=2;l.setItem('s',2)};if(s==1){c()};if(!n){n=2;l.setItem('n',2)};if(n==1){g()};
+</script>
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-195210058-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

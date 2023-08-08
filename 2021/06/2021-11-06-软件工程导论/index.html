@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>软件工程导论 | Hmmmi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+    <link rel="icon" href="/avatar-default.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+  
+  <meta name="description" content="软件工程导论，以【软件的生命周期】为脉络，1) 分别从结构化和面向对象两种角度，通过UML等工具，从软件立项、需求分析、软件设计，软件实现到软件测试，运用软件工程的方法和工具进行整个软件系统的实现工作；2) 确定每个环节有相对规范的可交付成果，如立项合同、需求规格说明书、概要设计和详细设计说明书、程序和文档及测试文档等，为管理、评审、变更等环节规范提供一个可靠的流程。总的目标是【高效有序开发】【降">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程导论">
+<meta property="og:url" content="https://hmmmi.github.io/2021/06/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA/index.html">
+<meta property="og:site_name" content="Hmmmi">
+<meta property="og:description" content="软件工程导论，以【软件的生命周期】为脉络，1) 分别从结构化和面向对象两种角度，通过UML等工具，从软件立项、需求分析、软件设计，软件实现到软件测试，运用软件工程的方法和工具进行整个软件系统的实现工作；2) 确定每个环节有相对规范的可交付成果，如立项合同、需求规格说明书、概要设计和详细设计说明书、程序和文档及测试文档等，为管理、评审、变更等环节规范提供一个可靠的流程。总的目标是【高效有序开发】【降">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106150531182.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152030733.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152110149.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152421188.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152742290.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106153759136.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106154013175.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106154908794.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106155852709.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107155227091.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107155216827.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107161744008.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107162025754.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107164641529.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107171335053.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108085454016.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108090411108.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108091353022.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108092403569.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108093528153.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108093659220.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108095824762.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108095933088.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108100325503.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108101834046.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108102626977.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108111121134.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108112150192.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113125374.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113355509.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113449033.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113440077.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113626785.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108120437502.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108121602037.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108153329938.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108160603767.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108160653481.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108161104160.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108161545041.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108161821165.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162232993.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162414417.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162637451.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162939515.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108163124757.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108163356610.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108164734046.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108164923972.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108164945906.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165044214.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165153127.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165932400.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165944828.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108200439125.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201426823.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201504842.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201600325.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201636697.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201652589.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108202212871.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108203501060.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108204122247.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108204306744.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108204409645.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108210033681.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108210102134.png">
+<meta property="article:published_time" content="2021-11-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-09T09:08:25.577Z">
+<meta property="article:author" content="Hmmmi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hmmmi.github.io/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106150531182.png"><meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="wrapper">
+    <header id="header">
+  <h1 id="title">
+    <a href="/">Hmmmi</a>
+  </h1>
+  <nav>
+    
+    
+      
+      <a class="nav-link" href="/">Home</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" href="/archives">Archives</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/hmmmi">GitHub</a>
+    
+    
+  </nav>
+</header>
+
+    <div id="content">
+      <article id="post-2021-11-06-软件工程导论" class="article article-type-post" itemprop="blogPost" itemscope>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 class="article-title" itemprop="headline name">
+      软件工程导论
+    </h2>
+  
+
+
+        <div class="article-meta">
+          <time class="article-date" datetime="2021-11-05T16:00:00.000Z" itemprop="datePublished">November 6, 2021</time>
+
+          
+            × <span class="article-word-count">8.7k words</span>
+            
+            × <span class="article-time-to-read">30 minutes</span>
+            
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="01-概述"><a href="#01-概述" class="headerlink" title="01 概述"></a>01 概述</h1><p>软件（ Software）是计算机系统中与硬件相互依存的另一部分，它是包括程序（Program） ，数据（Data）及其相关文档（ Document）的完整集合。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Software &#x3D; Program + Data + Document</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-1-背景"><a href="#1-1-背景" class="headerlink" title="1-1 背景"></a>1-1 背景</h2><h3 id="1-1-1-发展问题"><a href="#1-1-1-发展问题" class="headerlink" title="1-1-1 发展问题"></a>1-1-1 发展问题</h3><ul>
+<li><p>软件日益复杂</p>
+<ul>
+<li>逻辑复杂：远远高于硬件的逻辑复杂度</li>
+<li>开发复杂：成本难以估算、进度难以控制、人员素质要求、质量得不到保证</li>
+</ul>
+</li>
+<li><p>成本增加</p>
+</li>
+</ul>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106150531182.png" alt="image-20211106150531182"></p>
+<ul>
+<li><p>风险增加</p>
+</li>
+<li><p>维护困难</p>
+<ul>
+<li>维护形式多样化【改正性：修改故障；完善性：增加功能；适应性：移植】</li>
+<li>维护成本越来越高、维护带来的问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-1-2-软件危机"><a href="#1-1-2-软件危机" class="headerlink" title="1-1-2 软件危机"></a>1-1-2 软件危机</h3><ul>
+<li>成本高</li>
+<li>软件质量得不到保证</li>
+<li>进度难以控制</li>
+<li>维护非常困难</li>
+</ul>
+<h3 id="1-1-3-软件工程"><a href="#1-1-3-软件工程" class="headerlink" title="1-1-3 软件工程"></a>1-1-3 软件工程</h3><p>把软件当作一种工业产品，要求 “采用<strong>工程化的原理与方法</strong>对软件进行<u>计划、开发和维护</u> ”。</p>
+<p><strong>Definition</strong></p>
+<blockquote>
+<p>The establishment and use of sound engineering principles (methods) in order to obtain economically software that is reliable and works on real machines. (1968- Fritz Bauer)</p>
+</blockquote>
+<p>软件工程就是<strong>建立和使用一套合理的工程原理</strong>，从而经济地获得可靠的、可以在实际机器上高效运行的软件。</p>
+<blockquote>
+<p>Software engineering. (1) The application of a systematic, disciplined, quantifiable approach to the development, operation, and maintenance of software; that is, the application of engineering to software. (2) The study of approaches as in (1). (IEEE(The Institute for Electrical and Electronic engineers) Std 610-1990.）</p>
+</blockquote>
+<p>软件工程是：（1）把系统的、规范的、可度量的途径应用于软件开发、运行和维护过程，也就是<strong>把工程应用于软件</strong>；（2）研究（1）中提到的途径。</p>
+<blockquote>
+<p>Engineering is the systematic application of scientific knowledge in creating and building cost-effective solutions to practical problems in the service of mankind. </p>
+<p>Software engineering is that form of engineering that applies the principles of computer science and mathematics to achieving cost-effective solutions to software problems.</p>
+</blockquote>
+<p><strong>Summary</strong></p>
+<p>软件工程是应用<strong>计算机科学</strong>、<strong>数学</strong>及<strong>管理科学</strong>等原理开发软件的工程。它借鉴传统<strong>工程的原则、方法</strong>，以<u>提高质量，降低成本</u>为目的。</p>
+<h2 id="1-2-软件过程模型"><a href="#1-2-软件过程模型" class="headerlink" title="1-2 软件过程模型"></a>1-2 软件过程模型</h2><p><strong>软件生命周期</strong>的每一阶段都有明确的任务，把规模大、结构复杂、管理复杂的软件开发变得容易控制和管理。</p>
+<p>各个阶段的活动如何衔接，开发过程中采用什么样的策略，应遵守什么样的规定和制约，将这些<strong>活动框架</strong>（忽略不必要的细节）用一种模型表示出来，称为<strong>软件过程模型</strong>（或<strong>软件开发模型</strong>或<strong>软件生命周期模型</strong>）</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152030733.png" alt="image-20211106152030733"></p>
+<h3 id="1-2-1-瀑布模型（Waterfall-Model）"><a href="#1-2-1-瀑布模型（Waterfall-Model）" class="headerlink" title="1-2-1 瀑布模型（Waterfall Model）"></a>1-2-1 瀑布模型（Waterfall Model）</h3><p>瀑布模型也称为线性顺序模型，在20世纪80年代以前，瀑布模型一直是唯一被广泛采用的生命周期模型。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152110149.png" alt="image-20211106152110149"></p>
+<p><strong>特点</strong></p>
+<ul>
+<li>提供了软件过程模型的<strong>基本框架</strong>。</li>
+<li>强调了每一阶段活动的<strong>严格顺序</strong>。</li>
+<li><strong>质量保证</strong>：以经过评审确认了的阶段工作产品（文档）驱动下一阶段的工作，便于管理。</li>
+<li>是一种<strong>整体开发</strong>模型，程序的物理实现集中在开发阶段的后期，用户在最后才能看到自己的产品。</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>阶段间具有<strong>顺序</strong>性和依赖性。</li>
+<li><strong>推迟实现</strong>。</li>
+<li>传统的瀑布模型过于<strong>理想化</strong>。事实上，人在工作过程中不可能不犯错误。</li>
+</ul>
+<p><strong>实际模型</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152421188.png" alt="image-20211106152421188"></p>
+<h3 id="1-2-2-原型模型（Prototype-Model）"><a href="#1-2-2-原型模型（Prototype-Model）" class="headerlink" title="1-2-2 原型模型（Prototype Model）"></a>1-2-2 原型模型（Prototype Model）</h3><p>在用户不能给出完整、准确的需求说明，或者开发者不能确定算法的有效性、操作系统的适应性或人机交互的形式等许多情况下，可以根据用户的一组基本需求，<strong>快速建造一个原型</strong>（可运行的软件），然后进行评估，进一步精化、调整原型，使其满足用户的要求，也使开发者对将要做的事情有更好的理解。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106152742290.png" alt="image-20211106152742290"></p>
+<p><strong>特点 / 缺点</strong></p>
+<ul>
+<li>为使原型尽快工作，<u>没有考虑软件的总体质量和长期的可维护性</u>。</li>
+<li>为演示，可能采用不理想的选项成为系统的组成部分。<ul>
+<li>不理想成分：操作系统、编程语言、低效率算法</li>
+</ul>
+</li>
+<li>开发过程不便于管理。</li>
+</ul>
+<p><strong>有效使用</strong></p>
+<p>建造原型仅是为了<strong>定义需求</strong>，之后就被抛弃（或被部分抛弃），实际的软件在充分考虑了质量和可维护性之后才被开发。</p>
+<h3 id="1-2-3-增量模型（Incremental-Model）"><a href="#1-2-3-增量模型（Incremental-Model）" class="headerlink" title="1-2-3 增量模型（Incremental Model）"></a>1-2-3 增量模型（Incremental Model）</h3><p>是一种渐进地开发逐步完善的软件版本的模型。早期的版本实现用户的基本需求，并提供给用户评估的平台。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106153759136.png" alt="image-20211106153759136"></p>
+<p>反复的应用瀑布模型的基本成分和原型模型的迭代特征，每一个线型过程产生一个“增量”的发布或提交，该增量均是一个可运行的产品。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106154013175.png" alt="image-20211106154013175"></p>
+<p><strong>优点</strong></p>
+<ul>
+<li>短时间内向用户提交可完成部分的产品<ul>
+<li>分批、逐步地向用户提交产品</li>
+<li>从第一个构件交付之日起，用户就能做一些有用的工作</li>
+</ul>
+</li>
+<li>整个软件产品分解成许多个增量构件<ul>
+<li>开发人员可以一个构件一个构件地逐步开发。</li>
+</ul>
+</li>
+<li>用户有充裕时间学习适应新产品<ul>
+<li>减少一个全新的软件可能给客户组织带来的冲击</li>
+</ul>
+</li>
+<li>需要更精心的设计<ul>
+<li>在设计阶段多付出的劳动将在维护阶段获得回报</li>
+</ul>
+</li>
+</ul>
+<p><strong>困难</strong></p>
+<ul>
+<li>增量构件不得破坏原产品</li>
+<li>软件体系结构必须开放，新构件加入必须简单方便</li>
+<li>开发人员既要把软件系统看作整体。又要看成可独立的构件，相互矛盾。</li>
+<li>多个构件并行开发，具有无法集成的风险。</li>
+</ul>
+<p><strong>适用情况</strong></p>
+<ul>
+<li>客户能够接受分阶段交付</li>
+<li>工期紧且可分阶段提交或者对目标、环境不熟悉</li>
+<li>用户可参与到整个软件开发过程中</li>
+<li>软件开发组织自己应该拥有较好的类库、构件库</li>
+</ul>
+<p><strong>软件企业开发大型项目时，一般还是采用增量模型，因为可以根据轻重缓急，逐个实现子系统。</strong></p>
+<h3 id="1-2-4-螺旋模型（Spiral-Model）"><a href="#1-2-4-螺旋模型（Spiral-Model）" class="headerlink" title="1-2-4 螺旋模型（Spiral Model）"></a>1-2-4 螺旋模型（Spiral Model）</h3><p>螺旋模型的基本思想是<strong>降低风险</strong>。结合了瀑布模型和快速原型模型，加入风险分析。</p>
+<p><strong>软件风险</strong>是任何软件开发项目中都普遍存在的实际问题，项目越大，软件越复杂，承担该项目所冒的风险也越大。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106154908794.png" alt="image-20211106154908794"></p>
+<p><strong>优点</strong></p>
+<ul>
+<li>对可选方案和约束条件的强调<strong>有利于已有软件的重用</strong><ul>
+<li>有助于把软件质量作为软件开发的一个重要目标</li>
+</ul>
+</li>
+<li>减少了过多测试（浪费资金）或测试不足（产品故障多）所带来的风险；</li>
+<li>更重要的是，在螺旋模型中<strong>维护只是模型的另一个周期</strong>，在维护和开发之间并没有本质区别</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li><strong>风险驱动</strong><ul>
+<li>需要丰富的风险评估经验和专门知识，否则风险更大</li>
+</ul>
+</li>
+<li>要求<strong>用户参与</strong>阶段评估</li>
+<li>过多的<strong>迭代次数增加了开发成本</strong>，延迟了提交时间</li>
+</ul>
+<p><strong>适用情况</strong></p>
+<ul>
+<li><strong>内部开发的大规模软件项目</strong>：方便中止<ul>
+<li>但是如果风险分析费用接近整个项目的预算，则风险分析是不可行的</li>
+</ul>
+</li>
+<li><strong>不确定因素很多</strong>，很多东西开始无法计划的情况</li>
+</ul>
+<p><strong>Summary</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">四种模型总结</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">瀑布模型历史悠久、广为人知，它的优势在于它是规范的、  文档驱动的方法；这种模型的问题是，最终开发出的软件产品  可能并不是用户真正需要的。</td>
+</tr>
+<tr>
+<td align="left">快速原型模型正是为了克服瀑布模型的缺点而提出来的。它通过快速构建起一个可在计算机上运行的原型系统，让用户试用原型并收集用户反馈意见的办法，获取用户的真实需求。</td>
+</tr>
+<tr>
+<td align="left">增量模型具有可在软件开发的早期阶段使投资获得明显回报和较易维护的优点，但是，要求软件具有开放的结构是使用这种模型时固有的困难。</td>
+</tr>
+<tr>
+<td align="left">风险驱动的螺旋模型适用于内部开发的大型软件项目，但是，只有在开发人员具有风险分析和排除风险的经验及专门知识时，使用这种模型才会获得成功。</td>
+</tr>
+</tbody></table>
+<h2 id="1-3-软件工程知识体系"><a href="#1-3-软件工程知识体系" class="headerlink" title="1-3 软件工程知识体系"></a>1-3 软件工程知识体系</h2><p><strong>软件工程知识体系</strong>（Software Engineering Body of Knowledge, SWEBOK）</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211106155852709.png" alt="image-20211106155852709"></p>
+<h2 id="1-4-软件工程师职业素养"><a href="#1-4-软件工程师职业素养" class="headerlink" title="1-4 软件工程师职业素养"></a>1-4 软件工程师职业素养</h2><p><strong>ACM / IEEE 职业道德准则</strong> </p>
+<ol>
+<li>公众感——软件工程人员应始终与公众利益保持一致。</li>
+<li>客户与雇主——软件工程人员应当在与公众利益保持一致的前提下，满足客户与雇主的最大利益。</li>
+<li>产品——软件工程人员应当保证他们的产品及其相关附件达到尽可能高的行业标准。</li>
+<li>判断力——软件工程人员应当具有公正和独立的职业判断力。</li>
+<li>管理——软件工程管理者和领导者应当拥护并倡导合乎道德的有关软件开发和维护的管理方法。</li>
+<li>专业——软件工程人员应当增进符合公众利益的专业的诚信和名誉</li>
+<li>同事——软件工程人员应当公平地对待和协助每一位同事。</li>
+<li>自己——软件工程人员应当毕生学习专业知识，倡导合乎职业道德的职业活动方式。 </li>
+</ol>
+<hr>
+<ul>
+<li>Communication skills</li>
+<li>Honesty/Integrity </li>
+<li>Teamwork skills</li>
+<li>Interpersonal skills </li>
+<li>Motivation/Initiative </li>
+<li>Strong work ethic</li>
+</ul>
+<h1 id="02-方法与工具"><a href="#02-方法与工具" class="headerlink" title="02 方法与工具"></a>02 方法与工具</h1><p>软件工程方法学包含3个要素：<strong>方法、工具和过程</strong>。</p>
+<ul>
+<li>方法 — 完成软件开发的各项任务的技术方法，回答“怎样做”的问题；</li>
+<li>工具 — 为运用方法而提供的自动的或半自动的软件工程支撑环境；</li>
+<li>过程 — 为了获得高质量的软件所需要完成的一系列任务的框架，它规定了完成各项任务的工作步骤。</li>
+</ul>
+<h2 id="2-1-方法"><a href="#2-1-方法" class="headerlink" title="2-1 方法"></a>2-1 方法</h2><p>软件工程方法学分类：</p>
+<ul>
+<li>传统方法学（结构化软件工程方法）</li>
+<li>面向对象方法学</li>
+</ul>
+<h3 id="2-1-1-结构化方法"><a href="#2-1-1-结构化方法" class="headerlink" title="2-1-1 结构化方法"></a>2-1-1 结构化方法</h3><p>SA，SD，SP方法相互衔接，形成了一整套开发方法，称为结构化分析与设计技术。</p>
+<p>结构化分析方法（Structured Analysis） </p>
+<p>–&gt; 结构化设计方法（Structured Design） </p>
+<p>–&gt; 结构化程序设计方法（Structured Program）</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107155227091.png" alt="image-20211107155227091"></p>
+<p><strong>特点</strong></p>
+<ul>
+<li>自顶向下、逐步求精</li>
+<li>功能的分解与抽象</li>
+<li>符合人们的思维逻辑</li>
+<li>面向数据、面向过程、面向功能、面向数据流</li>
+</ul>
+<p><strong>不足</strong></p>
+<ul>
+<li>处理过程和数据分离</li>
+<li>可重用性和可修改性差</li>
+</ul>
+<h3 id="2-1-2-面向对象方法"><a href="#2-1-2-面向对象方法" class="headerlink" title="2-1-2 面向对象方法"></a>2-1-2 面向对象方法</h3><p>为<strong>克服</strong>传统软件工程方法<strong>复用性和可维护性差</strong>及难满足用户需要等缺点。</p>
+<p>提倡运用人类的思维方式，从现实世界中存在的事物出发来构造软件。</p>
+<p>以对象为中心，以类和<strong>继承</strong>为构造机制，来设计和构造相应的软件系统。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107155216827.png" alt="image-20211107155216827"></p>
+<p><strong>对象</strong></p>
+<ul>
+<li>类的实例</li>
+<li>属性 - 静态</li>
+<li>操作 - 动态</li>
+</ul>
+<p><strong>类</strong></p>
+<p>对象的抽象</p>
+<p><strong>封装</strong></p>
+<ul>
+<li>隐藏内部私有属性、实现</li>
+<li>提供接口</li>
+</ul>
+<p><strong>继承</strong></p>
+<p>类间的层次关系，可使子类对象自动拥有父类对象的全部属性和操作</p>
+<p><strong>多态</strong></p>
+<p>父类的属性、操作被子类继承后，可有不同的实现机制</p>
+<p><strong>消息</strong></p>
+<p>对象发出的服务请求。</p>
+<p><strong>对象间的联系</strong></p>
+<ul>
+<li>一般与特殊</li>
+<li>整体与部分</li>
+<li>实例连接——通过对象的属性来表现对象之间的依赖关系<ul>
+<li>Eg. 学生类和课程类之间存在 “学习”联系，这种联系是通过类中“课程编号”等属性建立</li>
+</ul>
+</li>
+<li>消息连接——从请求者指向接受者</li>
+</ul>
+<h2 id="2-2-工具"><a href="#2-2-工具" class="headerlink" title="2-2 工具"></a>2-2 工具</h2><p>主要是UML，统一建模语言（Unified Modeling Language）。</p>
+<p>UML是用于描绘软件蓝图的标准语言，是一个通用的可视化建模语言。</p>
+<p><strong>特点</strong></p>
+<ul>
+<li>标准统一</li>
+<li>面向对象</li>
+<li>可视化</li>
+<li>独立于过程</li>
+</ul>
+<h3 id="2-2-1-UML主要构成"><a href="#2-2-1-UML主要构成" class="headerlink" title="2-2-1 UML主要构成"></a>2-2-1 UML主要构成</h3><p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107161744008.png" alt="image-20211107161744008"></p>
+<ul>
+<li>事务（Things）：具有代表性的成分的抽象(结构、行为、组织、辅助)</li>
+<li>关系（Relationships）：事务之间的联系</li>
+<li>图（Diagrams）：事务和关系的可视化表示</li>
+</ul>
+<h3 id="2-2-2-图"><a href="#2-2-2-图" class="headerlink" title="2-2-2 图"></a>2-2-2 图</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>图名称</th>
+<th>图定</th>
+<th>图性质</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>类图</td>
+<td>一组类、接口、协作及它们的关系</td>
+<td>静态图</td>
+</tr>
+<tr>
+<td>2</td>
+<td>对象图</td>
+<td>一组对象及它们的关系</td>
+<td>静态图</td>
+</tr>
+<tr>
+<td>3</td>
+<td>用例图</td>
+<td>一组用例、参与者及它们的关系</td>
+<td>静态图</td>
+</tr>
+<tr>
+<td>4</td>
+<td>顺序图</td>
+<td>一个交互，强调消息的时间顺序</td>
+<td>- 动态图</td>
+</tr>
+<tr>
+<td>5</td>
+<td>协作图</td>
+<td>一个交互，强调消息发送和接受的对象的结构组织</td>
+<td>- 动态图</td>
+</tr>
+<tr>
+<td>6</td>
+<td>状态图</td>
+<td>一个状态机，强调对象按时间排序的行为</td>
+<td>- 动态图</td>
+</tr>
+<tr>
+<td>7</td>
+<td>活动图</td>
+<td>一个状态机，强调从活动到活动的流动</td>
+<td>- 动态图</td>
+</tr>
+<tr>
+<td>8</td>
+<td>构件图</td>
+<td>一组构件及关系</td>
+<td>静态图</td>
+</tr>
+<tr>
+<td>9</td>
+<td>配置图</td>
+<td>一组结点及它们的关系</td>
+<td>静态图</td>
+</tr>
+</tbody></table>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107162025754.png" alt="image-20211107162025754"></p>
+<br/>
+
+<h1 id="03-软件立项"><a href="#03-软件立项" class="headerlink" title="03 软件立项"></a>03 软件立项</h1><p>就是在市场调查研究的基础上，分析立项的<strong>必要性</strong>（是否有市场前景）和<strong>可能性</strong>（是否有能力实现），并具体列出系统的功能、性能、接口和运行环境等方面的<strong>需求</strong>，当前客户群和潜在客户群的情况，以及投入产出分析，然后再<u>编写立项建议书</u>，并对它进行<u>评审</u>，评审<u>通过</u>后才算正式<u>立项</u>。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107164641529.png" alt="image-20211107164641529"></p>
+<h2 id="3-1-立项建议"><a href="#3-1-立项建议" class="headerlink" title="3-1 立项建议"></a>3-1 立项建议</h2><ul>
+<li><strong>目的：</strong>立项建议小组进行产品构思、立项调查和可行性分析，撰写相应文档并申请立项。</li>
+<li><strong>角色与职责：</strong>立项建议小组实施本规程的所有活动</li>
+<li><strong>启动准则：</strong>立项建议小组已经成立</li>
+<li><strong>输入：</strong>与目标产品有关的任何信息</li>
+<li><strong>主要步骤：</strong>（迭代进行）<ul>
+<li>第一步：产品构思</li>
+<li>第二步：立项调查</li>
+<li>第三步：可行性分析</li>
+<li>第四步：撰写文档</li>
+<li>第五步：申请立项</li>
+</ul>
+</li>
+<li><strong>输出：</strong>《可行性分析报告》、《立项建议书》以及调查报告等文档</li>
+<li><strong>结束准则：</strong>立项建议小组按照指定的模板撰写了《可行性分析报告》和《立项建议书》，并做了内部审查（消除拼写、排版等错误）。</li>
+<li><strong>度量：</strong>立项建议小组统计工作量和上述文档的规模，将来汇报给项目经理。</li>
+</ul>
+<h3 id="3-1-1-产品构思"><a href="#3-1-1-产品构思" class="headerlink" title="3-1-1 产品构思"></a>3-1-1 产品构思</h3><p>立项建议小组首先要在宏观层面上搞清楚“<strong>开发什么</strong>”、“<strong>怎样开发</strong>”、“<strong>怎样赚钱</strong>”等重大问题，即产品构思。</p>
+<p>提炼后，最终写在《立项建议书》中。</p>
+<h3 id="3-1-2-立项调查"><a href="#3-1-2-立项调查" class="headerlink" title="3-1-2 立项调查"></a>3-1-2 立项调查</h3><p>为产品<strong>构思</strong>和<strong>可行性分析</strong>提供<u>充分的、有价值的信息</u>。</p>
+<p>主要内容有：市场调查；政策调查；同类产品调查；竞争对手调查；用户调查。</p>
+<h3 id="3-1-3-可行性分析"><a href="#3-1-3-可行性分析" class="headerlink" title="3-1-3 可行性分析"></a>3-1-3 可行性分析</h3><p>从各个方面去综合对比分析，对比成功或者失败的可能性有多大？值不值得立项？</p>
+<p><strong>市场可行性分析</strong></p>
+<p>分析市场发展历史与发展趋势，判断本产品处于市场的什么发展阶段。</p>
+<p><strong>政策可行性分析</strong></p>
+<p>有无<strong>政策</strong>“支持”或者“限制”；有无地方<strong>政府</strong>（或其它机构）的“扶持”或者“干扰”。</p>
+<p><strong>技术可行性分析</strong></p>
+<p>有限时间内完成功能的可行性，软件质量，开发效率等。</p>
+<p><strong>成本效益分析</strong></p>
+<p>开发成本【硬件、软件、开发、施工、培训成本+其他费用】</p>
+<p>运营成本【人员费用、网络/服务器费用、维修费用、消耗品】</p>
+<p><strong>SWOT分析</strong></p>
+<p>强项（Strengths）弱项（Weaknesses）机会（Opportunities）威胁（Threats）</p>
+<h3 id="3-1-4-申请立项"><a href="#3-1-4-申请立项" class="headerlink" title="3-1-4 申请立项"></a>3-1-4 申请立项</h3><p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211107171335053.png" alt="image-20211107171335053"></p>
+<h2 id="3-2-评审"><a href="#3-2-评审" class="headerlink" title="3-2 评审"></a>3-2 评审</h2><p>立项建议小组把《立项建议书》、《可行性分析报告》递交给有决策权的机构领导。</p>
+<p>一般地，立项评审委员会由机构领导、各级经理、市场人员、技术专家、财务人员等组成。<strong>委员会按少数服从多数原则投票决定是否同意立项</strong>（此时机构领导只是一名委员，不具有一票否决权）。</p>
+<p><strong>步骤</strong></p>
+<ul>
+<li>第一步 <strong>评审准备</strong>。| 评审会议的时间、地点、设备和参会人员名单，材料。</li>
+<li>第二步 举行<strong>评审会议</strong>。<ul>
+<li>主席宣讲本次评审会议的议程、重点、原则、时间限制等。</li>
+<li>立项建议小组陈述《立项建议书》的主要内容。</li>
+<li>评审委员会提出疑问，立项建议小组解答。双方应当对有争议的内容达成一致的处理意见。</li>
+<li>记录员记录答辩过程的重要内容（问题、结论、建议等）。  </li>
+</ul>
+</li>
+<li>第三步 <strong>评估</strong>。每个评审委员会根据“立项评审检查表”评估该项目。 </li>
+<li>第四步 <strong>评审会议决议</strong>。评审委员会给出评审结论和意见。半数以上赞同，则结论为“同意立项”。    </li>
+<li>第五步 <strong>机构领导终审</strong>。</li>
+</ul>
+<h2 id="3-3-筹备"><a href="#3-3-筹备" class="headerlink" title="3-3 筹备"></a>3-3 筹备</h2><ul>
+<li>签订合同的方法与文档</li>
+<li>招标与投标</li>
+<li>下达任务的方法与文档</li>
+</ul>
+<br/>
+
+<h1 id="04-需求分析"><a href="#04-需求分析" class="headerlink" title="04 需求分析"></a>04 需求分析</h1><p>任务：1) 深入描述软件的<strong>功能和性能</strong>；2) 确定软件设计的<strong>约束</strong>和与其他系统元素的<strong>接口</strong>细节；3) 定义软件<strong>其他</strong>有效性需求。研究一种无二义性的表达工具。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108085454016.png" alt="image-20211108085454016"></p>
+<p><strong>需求分析的过程</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108090411108.png" alt="image-20211108090411108"></p>
+<h2 id="4-1-需求获取"><a href="#4-1-需求获取" class="headerlink" title="4-1 需求获取"></a>4-1 需求获取</h2><p><strong>需求的类型</strong></p>
+<p>功能需求；非功能需求；环境需求；用户界面需求；</p>
+<p>此外还包括，<strong>可靠性需求</strong>、<strong>安全保密需求</strong>、<strong>可移植性</strong>、<strong>可维护性</strong>等方面需求。</p>
+<h3 id="4-1-1-需求的层次"><a href="#4-1-1-需求的层次" class="headerlink" title="4-1-1 需求的层次"></a>4-1-1 需求的层次</h3><ul>
+<li>业务需求</li>
+<li>用户需求</li>
+<li>功能需求</li>
+<li>非功能需求</li>
+</ul>
+<p><strong>各组成部分之间的关系</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108091353022.png" alt="image-20211108091353022"></p>
+<h3 id="4-1-2-获取方法"><a href="#4-1-2-获取方法" class="headerlink" title="4-1-2 获取方法"></a>4-1-2 获取方法</h3><p><strong>调查研究</strong></p>
+<p>① 与<strong>用户交谈</strong>，向用户提出问题。</p>
+<p>② 参观用户的<strong>工作流程</strong>，观察用户的操作。</p>
+<p>③ 向用户群体发放调查<strong>问卷</strong>表。</p>
+<p>④ 与<strong>同行、专家</strong>交谈，听取他们的意见。</p>
+<p>⑤ 分析已经存在的<strong>同类软件</strong>产品，提取需求。</p>
+<p>⑥ 从<strong>行业标准、规则</strong>中提取需求。</p>
+<p>⑦ 从<strong>Internet</strong>上搜索相关资料。</p>
+<h2 id="4-2-需求分析-建模"><a href="#4-2-需求分析-建模" class="headerlink" title="4-2 需求分析/建模"></a>4-2 需求分析/建模</h2><p>结构化分析方法；面向对象分析方法 ；原型方法。</p>
+<h3 id="4-2-1-结构化分析"><a href="#4-2-1-结构化分析" class="headerlink" title="4-2-1 结构化分析"></a>4-2-1 结构化分析</h3><p>自顶向下，逐步求精（逐层分解）；面向数据流。DFD</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108092403569.png" alt="image-20211108092403569"></p>
+<ul>
+<li>DD | 数据字典：系统所涉及的各种数据对象的总和</li>
+<li>ER图 | 描述数据对象间的<strong>关系</strong>、构建软件的数据模型</li>
+<li>DFD图 | 指明系统中数据和数据流是如何<strong>流动和变换</strong>的</li>
+<li>STD图 | 状态-变迁图：指明系统在<strong>外部事件</strong>的作用下将如何动作，表明系统的各种<strong>状态及其变迁</strong></li>
+</ul>
+<h4 id="4-2-1-1-DFD"><a href="#4-2-1-1-DFD" class="headerlink" title="4-2-1-1 DFD"></a>4-2-1-1 DFD</h4><p>从数据传递和加工的角度，以图形的方式刻画信息流和数据从输入到输出的移动变换过程。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108093528153.png" alt="image-20211108093528153"></p>
+<p><strong>分层DFD</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108093659220.png" alt="image-20211108093659220"></p>
+<p><strong>实例</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108095824762.png" alt="image-20211108095824762"></p>
+<h4 id="4-2-1-2-ER"><a href="#4-2-1-2-ER" class="headerlink" title="4-2-1-2 ER"></a>4-2-1-2 ER</h4><p><strong>数据建模</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108095933088.png" alt="image-20211108095933088"></p>
+<p>4-2-1-3 STD</p>
+<p><strong>状态转移图</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108100325503.png" alt="image-20211108100325503"></p>
+<h3 id="4-2-2-面向对象分析"><a href="#4-2-2-面向对象分析" class="headerlink" title="4-2-2 面向对象分析"></a>4-2-2 面向对象分析</h3><p>功能模型；对象模型；动态模型。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108101834046.png" alt="image-20211108101834046"></p>
+<ul>
+<li>功能模型：指明系统应该“<u>做什么”</u>  |  用例图</li>
+<li>对象模型：描述静态结构，定义做事情的<u>实体</u>  |  类图</li>
+<li>动态模型：描述<u>交互过程</u>，规定什么时候做  |  状态、顺序、协作、活动</li>
+</ul>
+<p><strong>分析过程</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108102626977.png" alt="image-20211108102626977"></p>
+<h4 id="4-2-2-1-用例建模"><a href="#4-2-2-1-用例建模" class="headerlink" title="4-2-2-1 用例建模"></a>4-2-2-1 用例建模</h4><p>又称功能建模。</p>
+<p>由用例图建立系统模型，有助于客户理解系统，帮助开发人员、测试人员、文档人员开展后续工作。</p>
+<h4 id="4-2-2-2-对象模型"><a href="#4-2-2-2-对象模型" class="headerlink" title="4-2-2-2 对象模型"></a>4-2-2-2 对象模型</h4><p>描述系统的静态结构。</p>
+<p>构成系统的类和对象的属性、操作，及他们间的关系。</p>
+<ul>
+<li>确定、定义类</li>
+<li>建立关联<ul>
+<li>分类关系（归纳/一般与特殊关系）</li>
+<li>组成关系（组合/整体与部分关系）</li>
+<li>对象属性之间的静态的联系</li>
+<li>对象行为的动态联系</li>
+</ul>
+</li>
+</ul>
+<p><strong>医院病房监护系统类图</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108111121134.png" alt="image-20211108111121098"></p>
+<h4 id="4-2-2-3-动态模型"><a href="#4-2-2-3-动态模型" class="headerlink" title="4-2-2-3 动态模型"></a>4-2-2-3 动态模型</h4><p>对象及其关系的改变。</p>
+<p>状态图；事件追踪图（顺序图/时序图）；协作图；活动图。</p>
+<h4 id="4-2-2-4-举例"><a href="#4-2-2-4-举例" class="headerlink" title="4-2-2-4 举例"></a>4-2-2-4 举例</h4><p><strong>面向对象的分析方法和步骤（举例）</strong></p>
+<ol>
+<li>分析使用场景  (Use  Case)</li>
+<li>标识类和对象<ul>
+<li>名词作为候选对象类</li>
+<li>排列名词并分类对象</li>
+<li>筛选候选的对象类</li>
+</ul>
+</li>
+<li>画对象类图</li>
+<li>组织类结构（继承、聚合关系）</li>
+<li>定义主题（子系统）</li>
+<li>画Sequence顺序图（轨迹图）</li>
+<li>画Collaboration协作图</li>
+<li>画State Transition状态转移图</li>
+</ol>
+<h3 id="4-2-3-原型方法"><a href="#4-2-3-原型方法" class="headerlink" title="4-2-3 原型方法"></a>4-2-3 原型方法</h3><p>用户和软件开发人员之间进行的一种交互过程。需求不确定性高。快速、易于修改。</p>
+<ul>
+<li>废弃型</li>
+<li>追加型 / 演化型</li>
+</ul>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108112150192.png" alt="image-20211108112150192"></p>
+<h2 id="4-3-文档-评审-管理"><a href="#4-3-文档-评审-管理" class="headerlink" title="4-3 文档/评审/管理"></a>4-3 文档/评审/管理</h2><p>需求规格说明；需求验证与评审；需求管理。</p>
+<h3 id="4-3-1-需求规格说明"><a href="#4-3-1-需求规格说明" class="headerlink" title="4-3-1 需求规格说明"></a>4-3-1 需求规格说明</h3><p>软件需求规格（SRS，Software Requirement Specification）是需求分析阶段的最终所需交付的成果。</p>
+<p>是客户、管理者、分析工程师、测试工程师、维护工程师交流的标准和依据。</p>
+<p>描述了系统的数据、功能、行为、性能需求、设计约束、验收标准、以及其他与需求相关的信息。</p>
+<p><strong>分类</strong>：用户需求和系统需求。</p>
+<p><strong>实例</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113125374.png" alt="image-20211108113125374"></p>
+<h3 id="4-3-2-需求验证与评审"><a href="#4-3-2-需求验证与评审" class="headerlink" title="4-3-2 需求验证与评审"></a>4-3-2 需求验证与评审</h3><p>在需求规格说明完成之后，对需求规格说明文档进行的验证活动。</p>
+<p>目标：尽可能暴露问题。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113355509.png" alt="image-20211108113355509"></p>
+<p>评审</p>
+<ul>
+<li>非正式评审</li>
+<li>正式评审</li>
+</ul>
+<p><strong>流程</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113449033.png" alt="image-20211108113449033"></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113440077.png" alt="image-20211108113440077"></p>
+<h3 id="4-3-3-需求管理"><a href="#4-3-3-需求管理" class="headerlink" title="4-3-3 需求管理"></a>4-3-3 需求管理</h3><p>管理产品和产品构件的需求。一些需求的改进是合理的且不可避免。控制项目范围的扩展。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108113626785.png" alt="image-20211108113626785"></p>
+<br/>
+
+<h1 id="05-软件设计"><a href="#05-软件设计" class="headerlink" title="05 软件设计"></a>05 软件设计</h1><p>将用户需求准确转化为软件设计模型与文档的方法。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108120437502.png" alt="image-20211108120437502"></p>
+<ul>
+<li>从工程管理的角度，可以将软件设计分为<strong>概要设计</strong>阶段和<strong>详细设计</strong>阶段。</li>
+<li>从技术的角度，传统的结构化方法将软件设计划分为<strong>体系结构设计</strong>、<strong>数据设计</strong>、<strong>接口设计</strong>和<strong>过程设计</strong>4部分。</li>
+<li>面向对象方法则将软件设计划分为<strong>体系结构设计</strong>、<strong>类设计/数据设计</strong>、<strong>接口设计</strong>和<strong>构件级设计</strong>4部分。 </li>
+</ul>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108121602037.png" alt="image-20211108121602037"></p>
+<h2 id="5-1-设计任务"><a href="#5-1-设计任务" class="headerlink" title="5-1 设计任务"></a>5-1 设计任务</h2><ul>
+<li>体系结构设计：体系结构设计定义软件的主要<strong>结构元素</strong>及其之间的关系。</li>
+<li>类设计：对分析阶段的类模型细化，转化为设计类的实现及软件实现所要求的<strong>数据结构</strong>。 </li>
+<li>数据设计：根据需求阶段建立的<strong>实体—关系图</strong>确定软件的<strong>文件系统</strong>结构及<strong>数据库的表结构</strong>。 </li>
+<li>接口设计：描述UI，软件和硬件、其他系统、用户的<strong>外部接口</strong>，以及各种构件之间的<strong>内部接口</strong>。</li>
+<li>构件级设计：将软件体系结构的<strong>结构元素</strong>变换为对软件<strong>构件的过程性描述</strong>。</li>
+<li>过程设计：确定软件各组成部分内<strong>算法及数据结构</strong>，描述各种算法。</li>
+</ul>
+<h2 id="5-2-设计准则"><a href="#5-2-设计准则" class="headerlink" title="5-2 设计准则"></a>5-2 设计准则</h2><ul>
+<li>性能准则  |  系统速度和空间的需求</li>
+<li>可靠性准则  |  对减少系统崩溃/造成危害所做的努力程度</li>
+<li>成本准则  |  开发、配置、维护、管理系统和培训用户成本</li>
+<li>维护准则  |  开发后改变系统的困难程度</li>
+<li>最终用户准则  |  从用户视点出发所需的属性</li>
+</ul>
+<h2 id="5-3-设计原理"><a href="#5-3-设计原理" class="headerlink" title="5-3 设计原理"></a>5-3 设计原理</h2><h3 id="5-3-1-抽象"><a href="#5-3-1-抽象" class="headerlink" title="5-3-1 抽象"></a>5-3-1 抽象</h3><p>忽略事物间细微差别，将共同性质抽取出来。</p>
+<ul>
+<li>控制抽象  |  通过清晰的控制流程和部件间的接口，实现对复杂软件的分解，降低软件复杂度</li>
+<li>过程抽象  |  将处理过程抽象成函数或方法，通过参数列表不同来实现具体化应用</li>
+<li>数据抽象  |  数据库的表及表的字段，或类及类的属性</li>
+</ul>
+<h3 id="5-3-2-逐步求精"><a href="#5-3-2-逐步求精" class="headerlink" title="5-3-2 逐步求精"></a>5-3-2 逐步求精</h3><p>集中精力解决主要问题而尽量推迟对问题细节的考虑。实际上是细化过程，在抽象的基础上实现细节。</p>
+<h3 id="5-3-3-模块化"><a href="#5-3-3-模块化" class="headerlink" title="5-3-3 模块化"></a>5-3-3 模块化</h3><p>由边界元素限定的相邻的程序元素。</p>
+<p>过程、函数、子程序等，都可作为模块。模块是构成程序/软件的基本构件。</p>
+<p><strong>数量需要适当</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108153329938.png" alt="image-20211108153329938"></p>
+<p><strong>特点</strong></p>
+<ul>
+<li>信息隐藏  |  （数据与过程）</li>
+<li>局部化  |  与信息隐藏密切相关，关系密切的软件元素物理地放得彼此靠近</li>
+<li>独立性  |  具体的子功能，高内聚低耦合</li>
+</ul>
+<p><strong>耦合</strong> 模块间相互连接/依赖的紧密程度；<strong>内聚</strong> 模块内各元素间结合的紧密程度。</p>
+<h4 id="5-3-3-1-耦合"><a href="#5-3-3-1-耦合" class="headerlink" title="5-3-3-1 耦合"></a>5-3-3-1 耦合</h4><p>尽可能松散耦合；模块间联系简单，发生在一处的错误传播到整个系统的可能性就很小。</p>
+<h5 id="①-非直接耦合-完全独立-No-Direct-Coupling"><a href="#①-非直接耦合-完全独立-No-Direct-Coupling" class="headerlink" title="① 非直接耦合/完全独立 No Direct Coupling"></a>① 非直接耦合/完全独立 No Direct Coupling</h5><p>两个模块中的每一个都能独立地工作而不需要另一个模块的存在。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108160603767.png" alt="image-20211108160603767"></p>
+<h5 id="②-数据耦合-Data-Coupling"><a href="#②-数据耦合-Data-Coupling" class="headerlink" title="② 数据耦合 Data Coupling"></a>② 数据耦合 Data Coupling</h5><p>通过参数表交换数据，交换简单数据（而不是控制参数、公共数据结构或外部变量）。</p>
+<p>是松散耦合，模块间独立性较强。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108160653481.png" alt="image-20211108160653481"></p>
+<h5 id="③-控制耦合-Control-Coupling"><a href="#③-控制耦合-Control-Coupling" class="headerlink" title="③ 控制耦合 Control Coupling"></a>③ 控制耦合 Control Coupling</h5><p>模块彼此间传递的信息中有控制信息。增加了理解和编程的复杂性。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108161104160.png" alt="image-20211108161104160"></p>
+<p><strong>去除办法</strong></p>
+<ul>
+<li>判定上移到调用模块中</li>
+<li>被调用模块分成子模块</li>
+</ul>
+<h5 id="④-公共耦合-Common-Coupling"><a href="#④-公共耦合-Common-Coupling" class="headerlink" title="④ 公共耦合 Common Coupling"></a>④ 公共耦合 Common Coupling</h5><p>通过一个公共数据环境相互作用。</p>
+<p>公共耦合的复杂程度随耦合模块的个数增加而显著增加。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108161545041.png" alt="image-20211108161545041"></p>
+<h5 id="⑤-内容耦合-Content-Coupling"><a href="#⑤-内容耦合-Content-Coupling" class="headerlink" title="⑤ 内容耦合 Content Coupling"></a>⑤ 内容耦合 Content Coupling</h5><p>耦合程度最高。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108161821165.png" alt="image-20211108161821165"></p>
+<p><strong><u>尽量使用数据耦合；少用控制耦合；限制公共耦合的范围；完全不用内容耦合。</u></strong> </p>
+<h4 id="5-3-3-2-内聚"><a href="#5-3-3-2-内聚" class="headerlink" title="5-3-3-2 内聚"></a>5-3-3-2 内聚</h4><p>理想内聚的模块只做一件事情。</p>
+<h5 id="①-巧合-偶然内聚-Coincidental-Cohesion"><a href="#①-巧合-偶然内聚-Coincidental-Cohesion" class="headerlink" title="① 巧合/偶然内聚 Coincidental Cohesion"></a>① 巧合/偶然内聚 Coincidental Cohesion</h5><p>模块内各部分间无联系或联系非常松散。例：模块M中的三个语句没有任何联系。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162232993.png" alt="image-20211108162232993"></p>
+<p>可理解性差，可修改性差；模块是不可重用的。</p>
+<h5 id="②-逻辑内聚-Logical-Cohesion"><a href="#②-逻辑内聚-Logical-Cohesion" class="headerlink" title="② 逻辑内聚 Logical Cohesion"></a>② 逻辑内聚 Logical Cohesion</h5><p>几种相关功能（逻辑上相似的功能）组合在一个模块内。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162414417.png" alt="image-20211108162414417"></p>
+<p>多个操作的代码互相纠缠在一起，即使局部功能的修改有时也会影响全局，导致严重的维护问题。</p>
+<p><strong>解决办法</strong>：模块分解，如上图读记录和写记录模块分开，判定上移。</p>
+<h5 id="③-时间内聚-Temporal-Cohesion"><a href="#③-时间内聚-Temporal-Cohesion" class="headerlink" title="③ 时间内聚 Temporal Cohesion"></a>③ 时间内聚 Temporal Cohesion</h5><p>模块包含的任务必须在同一段时间内执行。</p>
+<p>如：初始化系统模块、系统结束模块、紧急故障处理模块等。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162637451.png" alt="image-20211108162637451"></p>
+<h5 id="④-过程内聚-Procedural-Cohesion"><a href="#④-过程内聚-Procedural-Cohesion" class="headerlink" title="④ 过程内聚 Procedural Cohesion"></a>④ 过程内聚 Procedural Cohesion</h5><p>模块内处理元素相关，且必须以特定次序执行。</p>
+<p>通过程序流图设计软件时得到的往往是过程内聚的模块。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108162939515.png" alt="image-20211108162939515"></p>
+<h5 id="⑤-通信内聚-Communicational-Cohesion"><a href="#⑤-通信内聚-Communicational-Cohesion" class="headerlink" title="⑤ 通信内聚 Communicational Cohesion"></a>⑤ 通信内聚 Communicational Cohesion</h5><p>模块中所有元素都使用同一个输入数据和（或）产生同一个输出数据。</p>
+<p>比过程内聚更好。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108163124757.png" alt="image-20211108163124757"></p>
+<h5 id="⑥-顺序内聚-Sequential-Cohesion"><a href="#⑥-顺序内聚-Sequential-Cohesion" class="headerlink" title="⑥ 顺序内聚 Sequential Cohesion"></a>⑥ 顺序内聚 Sequential Cohesion</h5><p>模块中各组成部分密切相关且必须顺序执行。</p>
+<p><strong>前一处理部分的输出就是下一处理部分的输入。</strong></p>
+<h5 id="⑦-功能内聚-Functional-Cohesion"><a href="#⑦-功能内聚-Functional-Cohesion" class="headerlink" title="⑦ 功能内聚 Functional Cohesion"></a>⑦ 功能内聚 Functional Cohesion</h5><p>所有处理元素属于一个整体，完成一个单一的功能。</p>
+<ul>
+<li>模块可重用，应尽可能重用；</li>
+<li>可隔离错误，维护更容易；</li>
+</ul>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108163356610.png" alt="image-20211108163356610"></p>
+<h2 id="5-4-设计过程"><a href="#5-4-设计过程" class="headerlink" title="5-4 设计过程"></a>5-4 设计过程</h2><h3 id="5-4-1-软件体系结构设计"><a href="#5-4-1-软件体系结构设计" class="headerlink" title="5-4-1 软件体系结构设计"></a>5-4-1 软件体系结构设计</h3><p>详见<a href="https://hmmmi.github.io/2021/02/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">软件体系结构</a>。</p>
+<p><strong>银行储蓄系统设计示例</strong></p>
+<h4 id="Step01-DFD复查-精细化"><a href="#Step01-DFD复查-精细化" class="headerlink" title="Step01 DFD复查/精细化"></a>Step01 DFD复查/精细化</h4><p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108164734046.png" alt="image-20211108164734046"></p>
+<h4 id="Step02-确定DFD变换特性"><a href="#Step02-确定DFD变换特性" class="headerlink" title="Step02 确定DFD变换特性"></a>Step02 确定DFD变换特性</h4><p>变换流 or 事务流</p>
+<p>通过对精化后的数据流图进行分析，可以看到整个系统是对存款及取款两种不同的事务进行处理，因此<strong>具有事务特性</strong>。</p>
+<h4 id="Step03-确定I-O流边界"><a href="#Step03-确定I-O流边界" class="headerlink" title="Step03 确定I/O流边界"></a>Step03 确定I/O流边界</h4><p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108164923972.png" alt="image-20211108164923972"></p>
+<h4 id="Step04-一级分解"><a href="#Step04-一级分解" class="headerlink" title="Step04 一级分解"></a>Step04 一级分解</h4><p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108164945906.png" alt="image-20211108164945906"></p>
+<h4 id="Step05-二级分解"><a href="#Step05-二级分解" class="headerlink" title="Step05 二级分解"></a>Step05 二级分解</h4><p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165044214.png" alt="image-20211108165044214"></p>
+<h4 id="Step06-精细化"><a href="#Step06-精细化" class="headerlink" title="Step06 精细化"></a>Step06 精细化</h4><p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165153127.png" alt="image-20211108165153127"></p>
+<p>各子模块分别精细化，图过大省略。</p>
+<h3 id="5-4-2-数据设计"><a href="#5-4-2-数据设计" class="headerlink" title="5-4-2 数据设计"></a>5-4-2 数据设计</h3><p><strong>数据库设计</strong></p>
+<ul>
+<li>组织结构  |  网状数据库、层次数据库、<strong>关系数据库</strong>、面向对象数据库、文档数据库、多维数据库等</li>
+<li>结构化设计方法中，容易将分析阶段建立的ER模型映射到关系数据库中</li>
+</ul>
+<p><strong>文件设计</strong></p>
+<p>适用于文件存储的情况</p>
+<ul>
+<li><strong>数据量较大</strong>的非结构化数据，如多媒体信息。</li>
+<li>数据量大，<strong>信息松散</strong>，如历史记录、档案文件等。</li>
+<li><strong>非关系层次化数据</strong>，如系统配置文件。</li>
+<li>对数据的<strong>存取速度</strong>要求极高的情况。</li>
+<li><strong>临时存放</strong>的数据。</li>
+</ul>
+<h3 id="5-4-3-过程设计"><a href="#5-4-3-过程设计" class="headerlink" title="5-4-3 过程设计"></a>5-4-3 过程设计</h3><p>使用图形工具、表格工具、语言工具（伪码）等来描述过程的细节。</p>
+<p><strong>示例</strong></p>
+<ul>
+<li><strong>程序流图</strong></li>
+<li><strong>N-S图（盒状图）</strong><ul>
+<li><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165932400.png" alt="image-20211108165932400"></li>
+</ul>
+</li>
+<li><strong>问题分析图（PAD）</strong><ul>
+<li><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108165944828.png" alt="image-20211108165944828"></li>
+</ul>
+</li>
+<li>过程设计语言（PDL）</li>
+<li>判定表</li>
+</ul>
+<h3 id="5-4-4-用户界面设计"><a href="#5-4-4-用户界面设计" class="headerlink" title="5-4-4 用户界面设计"></a>5-4-4 用户界面设计</h3><p>Human Computer Interface，简称HCI；User Interface，简称UI</p>
+<p><strong>接口设计包括</strong></p>
+<ul>
+<li>模块或软件构件间的接口设计；</li>
+<li>软件与其他软硬件系统之间的接口设计；</li>
+<li>软件与人（用户）之间的交互设计。</li>
+</ul>
+<br/>
+
+<h1 id="06-软件实现"><a href="#06-软件实现" class="headerlink" title="06 软件实现"></a>06 软件实现</h1><p>编码</p>
+<br/>
+
+<h1 id="07-软件测试"><a href="#07-软件测试" class="headerlink" title="07 软件测试"></a>07 软件测试</h1><p><strong>软件测试</strong></p>
+<ul>
+<li><p>狭义上：测试是对软件<strong>产品质量</strong>的检验和评价</p>
+</li>
+<li><p>广义上：测试是软件产品<strong>生存周期内</strong>所有的检查、评审和确认活动</p>
+</li>
+</ul>
+<p><strong>基本概念</strong></p>
+<ul>
+<li>testing  |  通过执行程序，暴露潜在的错误</li>
+<li>debugging  |  消除软件故障，保证可靠运行</li>
+</ul>
+<p><strong>测试 vs 纠错</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108200439125.png" alt="image-20211108200439125"></p>
+<p><strong>测试的特点</strong></p>
+<ul>
+<li>挑剔性  |  抱着程序有错的目的进行</li>
+<li>复杂性  |  设计合适的用例需要细致和高度的技巧</li>
+<li>不彻底性  |  只能证明错误的存在，不能证明错误不存在</li>
+<li>经济性  |  有选择地测试，经济性</li>
+</ul>
+<p><strong>测试的原则</strong></p>
+<ul>
+<li>尽早且不断测试</li>
+<li>用例应由 测试输入数据 和 预期输出结果 组成</li>
+<li>程序员避免测试检查自己的程序</li>
+<li>测试时应包括合理和不合理的输入条件</li>
+<li>注意集群现象</li>
+<li>排除随意性</li>
+<li>对每一测试结果全面检查</li>
+<li>妥善保存测试计划，形成报告</li>
+</ul>
+<p><strong>测试的对象</strong></p>
+<p>并不局限于程序测试。软件测试应贯穿于软件定义与开发的整个期间。</p>
+<p>需求分析、概要设计、详细设计以及程序编码等各阶段所得到的<strong>文档</strong>（需求规格说明、概要设计规格说明、详细设计规格说明以及源程序）都是测试的对象。</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201426823.png" alt="image-20211108201426823"></p>
+<h2 id="7-1-测试的过程模型"><a href="#7-1-测试的过程模型" class="headerlink" title="7-1 测试的过程模型"></a>7-1 测试的过程模型</h2><p>V W H X</p>
+<p><strong>V模型</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201504842.png" alt="image-20211108201504842"></p>
+<p><strong>W模型</strong></p>
+<p>双V模型组成</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201600325.png" alt="image-20211108201600325"></p>
+<p><strong>H模型</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201636697.png" alt="image-20211108201636697"></p>
+<p><strong>X模型</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108201652589.png" alt="image-20211108201652589"></p>
+<h2 id="7-2-测试的方法分类"><a href="#7-2-测试的方法分类" class="headerlink" title="7-2 测试的方法分类"></a>7-2 测试的方法分类</h2><p>是否要执行软件</p>
+<ul>
+<li>动态测试</li>
+<li>静态测试</li>
+</ul>
+<p>是否针对内部结构</p>
+<ul>
+<li>黑盒测试</li>
+<li>白盒测试</li>
+</ul>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108202212871.png" alt="image-20211108202212871"></p>
+<h3 id="7-2-1-静态测试"><a href="#7-2-1-静态测试" class="headerlink" title="7-2-1 静态测试"></a>7-2-1 静态测试</h3><p>人工检测（代码评审）和计算机辅助静态分析。</p>
+<p><strong>人工</strong></p>
+<ul>
+<li>桌面检查：程序员对<strong>源文件代码</strong>进行分析、检查并补充相关<strong>文档</strong>，发现程序中错误的过程</li>
+<li>走查：程序员和测试员组成的审查小组通过<strong>逻辑运行程序</strong>发现问题的过程</li>
+<li>代码审查：程序员和测试员组成的<strong>审查小组</strong>通过阅读、讨论、分析技术对程序进行静态分析的过程</li>
+</ul>
+<p><strong>计算机辅助</strong></p>
+<p>静态分析器在机器上以自动方式进行检查</p>
+<h3 id="7-2-2-黑盒测试"><a href="#7-2-2-黑盒测试" class="headerlink" title="7-2-2 黑盒测试"></a>7-2-2 黑盒测试</h3><p>等价类划分法；边界值分析法；错误推测；因果图。</p>
+<h4 id="7-2-2-1-等价类划分法"><a href="#7-2-2-1-等价类划分法" class="headerlink" title="7-2-2-1 等价类划分法"></a>7-2-2-1 等价类划分法</h4><p>选择少量有代表性的输入数据，来揭露尽可能多的程序错误。</p>
+<p>将输入数据域按有效的或无效的（也称合理的或不合理的）划分成若干个等价类——有效等价类 + 无效等价类。</p>
+<p><strong>原则</strong></p>
+<ul>
+<li>取值范围（e.g. input在0-100之间）<ul>
+<li>有效等价类：0≤ x ≤100</li>
+<li>无效等价类：x&lt;0   and  x&gt;100</li>
+</ul>
+</li>
+<li>有限数值（e.g. 三角形的边数）<ul>
+<li>有效等价类 x = 3</li>
+<li>无效等价类 x &lt; 3  and x &gt; 3</li>
+</ul>
+</li>
+<li>下拉值（e.g. “职称”的值是初级、中级或高级）<ul>
+<li>有效等价类 初级，中级，高级3个</li>
+<li>无效等价类 其他任何职称</li>
+</ul>
+</li>
+<li>规则（Pascal变量标识符是以字母开头的串）<ul>
+<li>有效等价类 以字母开头的串</li>
+<li>无效等价类 以数字/符号……开头的串</li>
+</ul>
+</li>
+<li>输入值类型（e.g. 日期）<ul>
+<li>有效等价类 日期类型的数据</li>
+<li>无效等价类 非日期类型数据</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108203501060.png" alt="image-20211108203501060"></p>
+<h4 id="7-2-2-2-边界值分析法"><a href="#7-2-2-2-边界值分析法" class="headerlink" title="7-2-2-2 边界值分析法"></a>7-2-2-2 边界值分析法</h4><p>程序往往在处理边界情况时发生错误。一般与等价类划分结合起来，将测试边界情况作为重点目标。</p>
+<p>选取正好等于、刚刚大于或刚刚小于边界值的测试数据。</p>
+<p><strong>原则</strong></p>
+<ul>
+<li>范围 0-100<ul>
+<li>范围的边界 -1，0，100，101</li>
+</ul>
+</li>
+<li>值的个数 3<ul>
+<li>2，3，4</li>
+</ul>
+</li>
+<li>对输出同样适用边界值（e.g. ouput: 0-10000）<ul>
+<li>input满足output为-1，0，999，10000的情况</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例</strong></p>
+<p>设某公司要打印2001～2005年的报表，其中报表日期为6位数字组成，其中，前4位为年份，后两位为月份。</p>
+<p>Step 1. 划分等价类</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108204122247.png" alt="image-20211108204122247"></p>
+<p>Step 2. 对有效等价类设计用例覆盖</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108204306744.png" alt="image-20211108204306744"></p>
+<p>Step 3. 为每个无效等价类至少设计一个用例</p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108204409645.png" alt="image-20211108204409645"></p>
+<h4 id="7-2-2-3-错误推测法"><a href="#7-2-2-3-错误推测法" class="headerlink" title="7-2-2-3 错误推测法"></a>7-2-2-3 错误推测法</h4><p>凭直觉和经验推测某些可能存在的错误，针对这些可能设计用例</p>
+<h4 id="7-2-2-4-因果图"><a href="#7-2-2-4-因果图" class="headerlink" title="7-2-2-4 因果图"></a>7-2-2-4 因果图</h4><p>略</p>
+<h3 id="7-2-3-白盒测试"><a href="#7-2-3-白盒测试" class="headerlink" title="7-2-3 白盒测试"></a>7-2-3 白盒测试</h3><p><strong>逻辑覆盖法</strong></p>
+<p>语句覆盖；判定覆盖；条件覆盖；判定—条件覆盖；条件组合覆盖；路径覆盖。</p>
+<h2 id="7-3-测试步骤"><a href="#7-3-测试步骤" class="headerlink" title="7-3 测试步骤"></a>7-3 测试步骤</h2><p><strong>综合策略</strong></p>
+<ul>
+<li>在<strong>任何情况</strong>下都应使用<strong>边界值分析法</strong>。</li>
+<li>必要时用<strong>等价类划分法</strong>补充一些测试用例。</li>
+<li>再用<strong>错误推测法</strong>补充测试用例。</li>
+<li>检查上述测试用例的<strong>逻辑覆盖</strong>程度，如未满足所要求的覆盖标准，再添加测试用例。</li>
+<li>如需求说明中含有输入条件的组合情况，则一开始就可使用<strong>因果图法</strong>。</li>
+</ul>
+<p><strong>工作流</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108210033681.png" alt="image-20211108210033681"></p>
+<p><strong>步骤</strong></p>
+<p><img src="/imgForArc/2021-11-06-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%AF%BC%E8%AE%BA-assets/image-20211108210102134.png" alt="image-20211108210102134"></p>
+<p>【完】</p>
+
+      
+    </div>
+    
+    
+    <div class="article-category">
+      
+        <b>Categories:</b>
+        <a class="article-category-link" href="/categories/Software-Engineering/">Software Engineering</a>
+      
+      
+      
+    </div>
+    
+    
+  </div>
+</article>
+
+  
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2021/09/2021-11-09-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据库原理与应用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/02/2021-11-02-%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          软件体系结构
+        
+      </div>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+    </div>
+  </div>
+  
+
+
+
+
+<div id="settings-container">
+  <div id="dark-mode">dark</div>
+  <div id="sans-font">sans</div>
+</div>
+<script type="text/javascript">
+let d=document,r=d.documentElement.style,f=r.setProperty.bind(r),l=localStorage,s=l.getItem('s')||(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),n=l.getItem('n'),m=d.getElementById("dark-mode"),b=()=>{f('--bg-color','#fafafa');f('--code-bg-color','#f4f4f4');f('--text-color','#212121');f('--secondary-color','#808080');f('--tertiary-color','#b0b0b0');f('--link-color','#b5c8cf');f('--link-hover-color','#618794');f('--link-bg-color','#dae4e7');f('--selection-color','#dae4e7');m.innerHTML="dark"},c=()=>{f('--bg-color','#212121');f('--code-bg-color','#292929');f('--text-color','#fff');f('--secondary-color','#c0c0c0');f('--tertiary-color','#6e6e6e');f('--link-color','#4d6b75');f('--link-hover-color','#96b1bb');f('--link-bg-color','#5d828e');f('--selection-color','#acc1c9');m.innerHTML="light"},o=d.getElementById("sans-font"),e=()=>{f('--body-stack','"Lora", "Georgia", "Times New Roman", serif');o.innerHTML="sans"},g=()=>{f('--body-stack','"Lato", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Verdana", sans-serif');o.innerHTML="serif"};m.onclick=()=>{if(s==2){s=1;l.setItem('s',s);c()}else{s=2;l.setItem('s',s);b()}};o.onclick=()=>{if(n==2){n=1;l.setItem('n',n);g()}else{n=2;l.setItem('n',n);e()}};if(!s){s=2;l.setItem('s',2)};if(s==1){c()};if(!n){n=2;l.setItem('n',2)};if(n==1){g()};
+</script>
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-195210058-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

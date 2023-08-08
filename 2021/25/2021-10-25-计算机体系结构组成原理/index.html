@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机组成原理 | Hmmmi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+    <link rel="icon" href="/avatar-default.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/highlight.css">
+
+  
+  <meta name="description" content="计算机系统的“基石”；计算机软件的“立足点”；计算机学生的“专长区”。a) 从用户角度：计算机是一个可以交互的黑匣子；b) 从应用程序员角度：使用高级语言编写程序，可以让计算机“转起来”；c) 从系统程序员角度：开发系统程序时需要熟悉计算机底层的相关硬件和系统结构。其内容包含：数据内容及格式、运算方法和运算部件、指令系统及格式、寻址方式、数据通路和控制器、指令流水线、存储器体系结构和管理、总线互连">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理">
+<meta property="og:url" content="https://hmmmi.github.io/2021/25/2021-10-25-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Hmmmi">
+<meta property="og:description" content="计算机系统的“基石”；计算机软件的“立足点”；计算机学生的“专长区”。a) 从用户角度：计算机是一个可以交互的黑匣子；b) 从应用程序员角度：使用高级语言编写程序，可以让计算机“转起来”；c) 从系统程序员角度：开发系统程序时需要熟悉计算机底层的相关硬件和系统结构。其内容包含：数据内容及格式、运算方法和运算部件、指令系统及格式、寻址方式、数据通路和控制器、指令流水线、存储器体系结构和管理、总线互连">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025081943461.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025082245181.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025110640761.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025092558232.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025103332696.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025112932120.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025151114274.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025152331395.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025174516124.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025173851707.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025175113316.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025175124076.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211026102730194.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211026112125990.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211026112137004.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211026124227162.png">
+<meta property="og:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211026172350684.png">
+<meta property="article:published_time" content="2021-10-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-27T02:57:41.419Z">
+<meta property="article:author" content="Hmmmi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hmmmi.github.io/imgForArc/2021/10/image-20211025081943461.png"><meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="wrapper">
+    <header id="header">
+  <h1 id="title">
+    <a href="/">Hmmmi</a>
+  </h1>
+  <nav>
+    
+    
+      
+      <a class="nav-link" href="/">Home</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" href="/archives">Archives</a>
+    
+      
+        <span class="nav-spacer">×</span>
+      
+      <a class="nav-link" target="_blank" rel="noopener" href="https://github.com/hmmmi">GitHub</a>
+    
+    
+  </nav>
+</header>
+
+    <div id="content">
+      <article id="post-2021-10-25-计算机体系结构组成原理" class="article article-type-post" itemprop="blogPost" itemscope>
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 class="article-title" itemprop="headline name">
+      计算机组成原理
+    </h2>
+  
+
+
+        <div class="article-meta">
+          <time class="article-date" datetime="2021-10-24T16:00:00.000Z" itemprop="datePublished">October 25, 2021</time>
+
+          
+            × <span class="article-word-count">4.2k words</span>
+            
+            × <span class="article-time-to-read">15 minutes</span>
+            
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+        <p>组成原理在计算机系统中的位置：</p>
+<p><img src="/imgForArc/2021/10/image-20211025081943461.png" alt="image-20211025081943461"></p>
+<p>目的与意义：</p>
+<p>构建系统框架，以建立完整计算机系统概念。</p>
+<p><img src="/imgForArc/2021/10/image-20211025082245181.png" alt="image-20211025082245181"></p>
+<p>学习路线：</p>
+<p><img src="/imgForArc/2021/10/image-20211025110640761.png" alt="image-20211025110640761"></p>
+<hr>
+<h2 id="00-概述"><a href="#00-概述" class="headerlink" title="00 - 概述"></a>00 - 概述</h2><h3 id="0-1-计算机发展简史"><a href="#0-1-计算机发展简史" class="headerlink" title="0-1 计算机发展简史"></a>0-1 计算机发展简史</h3><ul>
+<li>IAS通用计算机模型机：冯·诺依曼结构 （真空管/电子管）</li>
+<li>IBM360系列机：引入兼容性（系列机）概念 （晶体管）</li>
+<li>DEC PDP-8：引入总线结构 （SSI/MSI 小规模/中规模集成电路）</li>
+<li>LSI/VLSI/ULSI （大规模/甚大规模/超大规模集成电路）</li>
+</ul>
+<p>*注：（普林斯顿高等研究院 the Institute for Advance Study at Princeton，IAS ）</p>
+<h4 id="0-1-1-第一代（冯·诺依曼）（1946-1957）"><a href="#0-1-1-第一代（冯·诺依曼）（1946-1957）" class="headerlink" title="0-1-1 第一代（冯·诺依曼）（1946 - 1957）"></a>0-1-1 第一代（冯·诺依曼）（1946 - 1957）</h4><p>五个基本部件：运算器 + 控制器 + 存储器 + 输入设备 + 输出设备</p>
+<ol>
+<li>运算器：算术运算 + 逻辑运算 + 附加运算</li>
+<li>控制器：应该能自动执行指令</li>
+<li>存储器：存放数据 + 存放指令</li>
+<li>输入输出设备：操作人员通过I/O与主机进行通信</li>
+</ol>
+<p>内部以二进制表示数据和指令【每条**<u>指令由操作码和地址码两部分组成</u>**】；采用“存储程序”工作方式。</p>
+<h4 id="0-1-2-第二代（晶体管）（1958-1964）"><a href="#0-1-2-第二代（晶体管）（1958-1964）" class="headerlink" title="0-1-2 第二代（晶体管）（1958 - 1964）"></a>0-1-2 第二代（晶体管）（1958 - 1964）</h4><p>元器件：逻辑元件采用晶体管；内存由磁芯构成；外存由磁鼓和磁带。</p>
+<p>特点：变址；浮点运算；多路存储器；I/O处理机；中央交换结构（非总线）</p>
+<p>软件：使用高级语言，提供系统软件</p>
+<h4 id="0-1-3-第三代（集成电路）（1965-1971）"><a href="#0-1-3-第三代（集成电路）（1965-1971）" class="headerlink" title="0-1-3 第三代（集成电路）（1965 - 1971）"></a>0-1-3 第三代（集成电路）（1965 - 1971）</h4><p>元器件：逻辑元件与主存储器均有集成电路（IC）实现</p>
+<p>特点：微程序控制，Cache，虚拟存储器，流水线等</p>
+<h4 id="0-1-4-第四代（L-VL-ULSI-半导体）（1972-）"><a href="#0-1-4-第四代（L-VL-ULSI-半导体）（1972-）" class="headerlink" title="0-1-4 第四代（L/VL/ULSI+半导体）（1972 - ）"></a>0-1-4 第四代（L/VL/ULSI+半导体）（1972 - ）</h4><p>元器件：微处理器 + 半导体存储 技术发展迅猛</p>
+<p>特点：共享存储器，分布式存储器大规模发展并行处理系统</p>
+<br>
+
+<h3 id="0-2-计算机系统的组成和层次结构"><a href="#0-2-计算机系统的组成和层次结构" class="headerlink" title="0-2 计算机系统的组成和层次结构"></a>0-2 计算机系统的组成和层次结构</h3><p>计算机组成</p>
+<ul>
+<li>硬件：CPU + MM + I/O</li>
+<li>软件：系统软件 + 应用软件</li>
+</ul>
+<p>计算机层次结构</p>
+<ul>
+<li>硬件和软件的接口：指令系统</li>
+<li>计算机软件如何在硬件上执行</li>
+</ul>
+<h4 id="0-2-1-计算机组成"><a href="#0-2-1-计算机组成" class="headerlink" title="0-2-1 计算机组成"></a>0-2-1 计算机组成</h4><p><img src="/imgForArc/2021/10/image-20211025092558232.png" alt="image-20211025092558232"></p>
+<ul>
+<li>CPU：中央处理器<ul>
+<li><strong>PC：程序计数器</strong></li>
+<li><strong>ALU (Arithmetic Logic Unit )：算术逻辑部件</strong></li>
+<li><strong>IR：指令寄存器</strong></li>
+<li><strong>MAR：存储器地址寄存器</strong></li>
+<li><strong>MDR：存储器数据寄存器</strong></li>
+<li><strong>GPRs：通用寄存器（由若干通用寄存器组成，早期就是累加器）</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="0-2-2-工作流程"><a href="#0-2-2-工作流程" class="headerlink" title="0-2-2 工作流程"></a>0-2-2 工作流程</h4><p>程序由指令组成</p>
+<ul>
+<li>执行前（采用<strong>“存储程序”</strong>工作方式，程序由指令组成，启动后计算机逐条执行）<ul>
+<li><strong>数据和指令都存放到存储器</strong>，每条指令和每个数据都有地址</li>
+<li>指令按序存放；由<strong>OP, ADDR</strong>字段组成</li>
+<li>程序<strong>起始地址置PC</strong></li>
+</ul>
+</li>
+<li>执行中（指令和数据从存储器提取存放到CPU中的寄存器（指令存放IR，数据存放GPR）中）<ol>
+<li>根据PC取指令<ul>
+<li>操作性质（操作码）</li>
+<li>源操作数/源操作数2 （立即数，寄存器编号，存储地址）</li>
+<li>目的操作数地址（寄存器编号，存储地址）</li>
+</ul>
+</li>
+<li>指令译码</li>
+<li>取操作数</li>
+<li>指令执行</li>
+<li>回写结果</li>
+<li>修改PC值</li>
+</ol>
+</li>
+<li>继续执行下一条指令</li>
+</ul>
+<h4 id="0-2-3-计算机层次结构"><a href="#0-2-3-计算机层次结构" class="headerlink" title="0-2-3 计算机层次结构"></a>0-2-3 计算机层次结构</h4><p><img src="/imgForArc/2021/10/image-20211025103332696.png" alt="image-20211025103332696"></p>
+<p>SOFTWARE 软件</p>
+<ul>
+<li>系统软件<ul>
+<li>操作系统</li>
+<li>语言处理系统<ul>
+<li><strong>翻译程序</strong><ul>
+<li>汇编程序（汇编语言源程序 –&gt; 机器目标程序）</li>
+<li>编译程序（高级语言源程序 –&gt; 汇编/机器目标程序）</li>
+<li>解释程序（将高级语言语句逐条翻译成机器指令并立即执行，不生成目标文件）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>其他实用程序（磁盘碎片整理程序、备份程序）</li>
+</ul>
+</li>
+<li>应用软件</li>
+</ul>
+<br>
+
+
+
+<hr>
+<h2 id="01-数据的机器表示"><a href="#01-数据的机器表示" class="headerlink" title="01 - 数据的机器表示"></a>01 - 数据的机器表示</h2><p><img src="/imgForArc/2021/10/image-20211025112932120.png" alt="image-20211025112932120"></p>
+<h3 id="1-1-数值数据的表示"><a href="#1-1-数值数据的表示" class="headerlink" title="1-1 数值数据的表示"></a>1-1 数值数据的表示</h3><p>三要素：</p>
+<ul>
+<li>进位计数制（二进制、八、十、十六<strong>进制</strong> 及 相互<strong>转换</strong>）</li>
+<li>定点、浮点表示（解决<strong>小数点</strong>问题）<ul>
+<li>定点正数、定点小数</li>
+<li>浮点数（一个定点整数和一个定点小数来表示）</li>
+</ul>
+</li>
+<li>如何用二进制编码（解决<strong>正负号</strong>问题）<ul>
+<li>原码、补码、反码（少见）、移码</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-1-1-补码的表示"><a href="#1-1-1-补码的表示" class="headerlink" title="1-1-1 补码的表示"></a>1-1-1 补码的表示</h4><p>特性——模运算（ ‘+’ 和 ‘-‘ 的统一）。</p>
+<p>结论1：一个负数的补码等于模减该负数的绝对值。</p>
+<p>结论2：对于某一确定的模，某数减去小于模的另一数，总可以用该数加上另一数负数的补码来代替。</p>
+<p>二进制中，一个<strong>负数的补码等于对应正数补码的“各位取反、末位加1”</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;例如，十二进制中</span><br><span class="line"> -4的补码 ≡ 12 - |-4| ≡ 8</span><br><span class="line">e.g. </span><br><span class="line">7-4 </span><br><span class="line">≡ (7+8) mod 12 </span><br><span class="line">≡ 15 mod 12 </span><br><span class="line">≡ 3</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;二进制</span><br><span class="line">e.g.</span><br><span class="line">0111 1111 - 0100 0000</span><br><span class="line">≡ 0111 1111 + 1100 0000 mod 2^8</span><br><span class="line">≡ 1 0011 1111 mod (1 0000 0000)</span><br><span class="line">≡ 0011 1111</span><br></pre></td></tr></table></figure>
+
+<p>e.g.3 8-bit range</p>
+<p><img src="/imgForArc/2021/10/image-20211025151114274.png" alt="image-20211025151114274"></p>
+<p>1101 0110  -010 1001+0000 0001 = -010 1010 = -（2+8+32）=-42</p>
+<h4 id="1-1-2-移码的表示"><a href="#1-1-2-移码的表示" class="headerlink" title="1-1-2 移码的表示"></a>1-1-2 移码的表示</h4><p>一般来说，当编码位数为n时，偏置常量取 2^(n-1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">E.g. </span><br><span class="line">n&#x3D;4 : E移 &#x3D; E+ 23	( bias&#x3D; 2^3 &#x3D;1000B)</span><br><span class="line"></span><br><span class="line">-8 (+8) ~ 0000B</span><br><span class="line">-7 (+8) ~ 0001B</span><br><span class="line">…</span><br><span class="line">0  (+8) ~ 1000B</span><br><span class="line">… </span><br><span class="line">+7 (+8) ~ 1111B</span><br></pre></td></tr></table></figure>
+
+<p>特性：移码主要用来表示浮点数阶码！便于浮点数加减运算时的对阶操作（比较大小）。</p>
+<p><img src="/imgForArc/2021/10/image-20211025152331395.png" alt="image-20211025152331395"></p>
+<h4 id="1-1-3-无符号整数-vs-有符号整数"><a href="#1-1-3-无符号整数-vs-有符号整数" class="headerlink" title="1-1-3 无符号整数 vs 有符号整数"></a>1-1-3 无符号整数 vs 有符号整数</h4><h5 id="①-扩充操作"><a href="#①-扩充操作" class="headerlink" title="① 扩充操作"></a>① 扩充操作</h5><p>e.g. MIPS提供了两种加载指令（load byte unsigned / load byte）</p>
+<pre><code>- 无符号数 lbu $t0, 0($s0) 【$t0高24位补0】（0扩展）
+- 有符号数 lb $t0, 0($s0) 【$t0高24位补符】（符号扩展）</code></pre>
+<h5 id="②-数的比较"><a href="#②-数的比较" class="headerlink" title="② 数的比较"></a>② 数的比较</h5><ul>
+<li>无符号数：MSB为1的数比MSB为0的数大（MSB：最高有效位）</li>
+<li>带符号整数： MSB为1的数比MSB为0的数小</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;若</span><br><span class="line">$s0 &#x3D; 1111 1111 1111 1111 1111 1111 1111 1111</span><br><span class="line">$s1 &#x3D; 0000 0000 0000 0000 0000 0000 0000 0001</span><br><span class="line"></span><br><span class="line">sltu $t0, $s0, $s1		&#x2F;&#x2F;无符号数	（set less than unsigned）</span><br><span class="line">slt  $t1, $s0, $s1		&#x2F;&#x2F;带符号整数	（set less than）</span><br><span class="line">&#x2F;&#x2F;结果</span><br><span class="line">&#x2F;&#x2F; $t0 : 0; $t1 : 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="③-溢出判断"><a href="#③-溢出判断" class="headerlink" title="③ 溢出判断"></a>③ 溢出判断</h5><ul>
+<li>MIPS规定：无符号数运算溢出时，不产生“溢出异常”</li>
+</ul>
+<h4 id="1-1-4-科学计数法-amp-浮点数"><a href="#1-1-4-科学计数法-amp-浮点数" class="headerlink" title="1-1-4 科学计数法 &amp; 浮点数"></a>1-1-4 科学计数法 &amp; 浮点数</h4><h5 id="①-IEEE754标准-32位浮点数"><a href="#①-IEEE754标准-32位浮点数" class="headerlink" title="① IEEE754标准 - 32位浮点数"></a>① IEEE754标准 - 32位浮点数</h5><p><img src="/imgForArc/2021/10/image-20211025174516124.png" alt="image-20211025174516124"></p>
+<p><img src="/imgForArc/2021/10/image-20211025173851707.png" alt="image-20211025173851707"></p>
+<ul>
+<li>E是阶码，用移码表示</li>
+<li>M是尾数，表示值为1.M，1为隐含值</li>
+</ul>
+<ul>
+<li>1≤E≤254: X = (-1)s  * 2^(E-127)  * 1.M 规格化的浮点数</li>
+<li>E=0, M=0: 表示机器0</li>
+<li>E=255, M=0: 表示一个无穷大的数</li>
+<li>E=255, M!=0: 表示一个非数值</li>
+</ul>
+<h5 id="②-IEEE754标准-64位浮点数"><a href="#②-IEEE754标准-64位浮点数" class="headerlink" title="② IEEE754标准 - 64位浮点数"></a>② IEEE754标准 - 64位浮点数</h5><p><img src="/imgForArc/2021/10/image-20211025175113316.png" alt="image-20211025175113316"></p>
+<p><img src="/imgForArc/2021/10/image-20211025175124076.png" alt="image-20211025175124076"></p>
+<br>
+
+<h3 id="1-2-非数值数据的表示"><a href="#1-2-非数值数据的表示" class="headerlink" title="1-2 非数值数据的表示"></a>1-2 非数值数据的表示</h3><h4 id="1-2-1-逻辑数据"><a href="#1-2-1-逻辑数据" class="headerlink" title="1-2-1 逻辑数据"></a>1-2-1 逻辑数据</h4><ul>
+<li>表示<ul>
+<li>用1位表示。例如，真：1  /  假：0</li>
+<li>n位二进制数可表示n个逻辑数据，或一个位串</li>
+</ul>
+</li>
+<li>运算<ul>
+<li>按位进行</li>
+<li>如，按位与 / 按位或 / 逻辑左移 / 逻辑右移 等</li>
+</ul>
+</li>
+<li>识别<ul>
+<li>逻辑数据和数值数据在形式上并无差别，也是一串0/1序列，机器靠指令来识别</li>
+</ul>
+</li>
+<li>位串<ul>
+<li>用来表示若干个状态位或控制位（OS中使用较多） </li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-2-西文字符"><a href="#1-2-2-西文字符" class="headerlink" title="1-2-2 西文字符"></a>1-2-2 西文字符</h4><ul>
+<li>特点<ul>
+<li>只对有限个字母和数学符号、标点符号等辅助字符编码</li>
+<li>所有字符总数不超过256个，使用7或8个二进位可表示</li>
+</ul>
+</li>
+<li>表示（常用编码为7位ASCII码）<ul>
+<li>十进制数字：0/1/2…/9                【48-57】</li>
+<li>英文字母：A/B/…/Z/a/b/…/z      【65-90；97+122】</li>
+<li>专用符号：+/-/%/*/&amp;/…… </li>
+<li>控制字符（不可打印或显示）</li>
+</ul>
+</li>
+<li>操作<ul>
+<li>字符串操作。如：传送/比较 等      </li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-3-汉字"><a href="#1-2-3-汉字" class="headerlink" title="1-2-3 汉字"></a>1-2-3 汉字</h4><ul>
+<li>特点<ul>
+<li>数量巨大，总数超过6万字</li>
+<li>给汉字在计算机内部的表示、汉字的传输与交换、汉字的输入和输出等带来了一系列问题</li>
+</ul>
+</li>
+<li>编码形式<ul>
+<li>输入码：对汉字用相应按键进行编码表示，用于输入</li>
+<li>内码：用于在系统中进行存储、查找、传送等处理</li>
+<li>字模点阵或轮廓描述：描述汉字字模点阵或轮廓，用于显示/打印</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="1-3-数据宽度、存储排列、纠-检错"><a href="#1-3-数据宽度、存储排列、纠-检错" class="headerlink" title="1-3 数据宽度、存储排列、纠/检错"></a>1-3 数据宽度、存储排列、纠/检错</h3><h4 id="1-3-1-数据的基本宽度"><a href="#1-3-1-数据的基本宽度" class="headerlink" title="1-3-1 数据的基本宽度"></a>1-3-1 数据的基本宽度</h4><ul>
+<li>bit是计算机中处理、存储、传输信息的最小单位</li>
+<li>byte是二进制信息的计量单位<ul>
+<li>计算机存储器按byte编址，byte是最小可寻址单位</li>
+</ul>
+</li>
+<li>字 (word) /字长<ul>
+<li>“字”表示被处理信息的单位，用来度量数据类型的宽度。</li>
+<li>“字长”等于CPU内部总线的宽度、运算器的位数、通用寄存器的宽度等</li>
+<li>字和字长的宽度可以一样，也可不同。</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-3-2-数据量的度量"><a href="#1-3-2-数据量的度量" class="headerlink" title="1-3-2 数据量的度量"></a>1-3-2 数据量的度量</h4><ul>
+<li>容量 KB/MB/GB/TB (Byte)</li>
+<li>通讯中带宽  Kb/s   Mb/s   Gb/s   Tb/s (bit)</li>
+</ul>
+<h4 id="1-3-3-程序中数据类型的宽度"><a href="#1-3-3-程序中数据类型的宽度" class="headerlink" title="1-3-3 程序中数据类型的宽度"></a>1-3-3 程序中数据类型的宽度</h4><table>
+<thead>
+<tr>
+<th align="left">C声明</th>
+<th>典型32位机器</th>
+<th>Compaq  Alpha 机器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">char <br />short  int  <br />int  <br />long  int</td>
+<td>1  <br />2  <br />4  <br />4</td>
+<td>1 <br />2  <br />4 <br />8</td>
+</tr>
+<tr>
+<td align="left">char*</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr>
+<td align="left">float  <br />double</td>
+<td>4  <br />8</td>
+<td>4  <br />8</td>
+</tr>
+</tbody></table>
+<h4 id="1-3-4-★数据的存储和排列顺序"><a href="#1-3-4-★数据的存储和排列顺序" class="headerlink" title="1-3-4 ★数据的存储和排列顺序"></a>1-3-4 ★数据的存储和排列顺序</h4><p>ISA设计需要考虑到的问题</p>
+<ul>
+<li>如何根据一个地址取到一个32的字【字的<strong>存放</strong>问题】</li>
+<li>一个字能否存放在任何地址边界【字的<strong>边界对齐</strong>问题】</li>
+</ul>
+<h5 id="①-大端方式-Big-Endian"><a href="#①-大端方式-Big-Endian" class="headerlink" title="① 大端方式 Big Endian"></a>① 大端方式 Big Endian</h5><p>MSB所在地址是数的地址，如，IBM 360/370, Motorola 68k, MIPS, Sparc, HP PA</p>
+<p><strong>【高位字节排放在内存的低地址端】</strong></p>
+<h5 id="②-小端方式-Little-Endian"><a href="#②-小端方式-Little-Endian" class="headerlink" title="② 小端方式 Little Endian"></a>② 小端方式 Little Endian</h5><p>LSB所在地址是数的地址，如，Intel 80x86, DEC VAX </p>
+<p><strong>【低位字节排放在内存的低地址端】</strong></p>
+<h5 id="③-例"><a href="#③-例" class="headerlink" title="③ 例"></a>③ 例</h5><p><img src="/imgForArc/2021/10/image-20211026102730194.png" alt="image-20211026102730194"></p>
+<h4 id="1-3-5-字节交换问题"><a href="#1-3-5-字节交换问题" class="headerlink" title="1-3-5 字节交换问题"></a>1-3-5 字节交换问题</h4><ul>
+<li>每个系统内部是一致的，但在系统间通信时可能会发生问题！</li>
+<li>因为顺序不同，需要进行顺序转换</li>
+</ul>
+<p>例如，<u>音、视频和图像等文件格式或处理程序都涉及到字节顺序问题</u></p>
+<ul>
+<li>Little endian: GIF, PC Paintbrush, Microsoft RTF, etc</li>
+<li>Big endian: Adobe Photoshop, JPEG, MacPaint, etc  </li>
+</ul>
+<h4 id="1-3-6-对齐"><a href="#1-3-6-对齐" class="headerlink" title="1-3-6 对齐"></a>1-3-6 对齐</h4><p>要求数据的地址是相应的边界地址。</p>
+<p>目前机器字长一般为32位或64位，而存储器地址按字节编址，指令系统支持对**<u>字节、半字、字及双字的运算</u>**，也有位处理指令。</p>
+<p>各种不同长度的数据存放时，有两种不同的处理方式</p>
+<ul>
+<li>按边界对齐（以存储字的宽度为32位，按字节编址为例）<ul>
+<li>字地址：4的倍数（低2位为0）</li>
+<li>半字地址：2的倍数（低位为0）</li>
+<li>字节地址：任意</li>
+</ul>
+</li>
+<li>不按边界对齐<ul>
+<li>坏处：可能会增加访存次数</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-3-7-校验码"><a href="#1-3-7-校验码" class="headerlink" title="1-3-7 校验码"></a>1-3-7 校验码</h4><h5 id="①-奇偶校验码"><a href="#①-奇偶校验码" class="headerlink" title="① 奇偶校验码"></a>① 奇偶校验码</h5><p>在数据码之外增加1位校验码。</p>
+<ul>
+<li>奇校验码：使整个校验码的1的个数为奇数。<ul>
+<li><img src="/imgForArc/2021/10/image-20211026112125990.png" alt="image-20211026112125990"></li>
+</ul>
+</li>
+<li>偶校验码：使整个校验码的1的个数为偶数。<ul>
+<li><img src="/imgForArc/2021/10/image-20211026112137004.png" alt="image-20211026112137004"></li>
+</ul>
+</li>
+</ul>
+<p>例子</p>
+<table>
+<thead>
+<tr>
+<th>数据码</th>
+<th>偶校验码</th>
+<th>奇校验码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0 0 0 1</td>
+<td>0 0 0 1 <strong>1</strong></td>
+<td>0 0 0 1 <strong>0</strong></td>
+</tr>
+<tr>
+<td>0 1 0 1</td>
+<td>0 1 0 1 <strong>0</strong></td>
+<td>0 1 0 1 <strong>1</strong></td>
+</tr>
+</tbody></table>
+<h5 id="②-海明检错与纠错码"><a href="#②-海明检错与纠错码" class="headerlink" title="② 海明检错与纠错码"></a>② 海明检错与纠错码</h5><p>太复杂不想看了</p>
+<h5 id="③-循环冗余码（CRC）"><a href="#③-循环冗余码（CRC）" class="headerlink" title="③ 循环冗余码（CRC）"></a>③ 循环冗余码（CRC）</h5><p>计算机网络里学</p>
+<br>
+
+
+
+<h2 id="02-运算方法和运算部件"><a href="#02-运算方法和运算部件" class="headerlink" title="02 - 运算方法和运算部件"></a>02 - 运算方法和运算部件</h2><h3 id="2-1-运算和运算部件"><a href="#2-1-运算和运算部件" class="headerlink" title="2-1 运算和运算部件"></a>2-1 运算和运算部件</h3><p>不同层次程序员看到的运算及ALU。</p>
+<h4 id="2-1-1-高级语言程序中涉及的运算"><a href="#2-1-1-高级语言程序中涉及的运算" class="headerlink" title="2-1-1 高级语言程序中涉及的运算"></a>2-1-1 高级语言程序中涉及的运算</h4><ul>
+<li>算术运算<ul>
+<li>无符号数、带符号整数、浮点数的 + - * / 运算</li>
+</ul>
+</li>
+<li>按位运算<ul>
+<li>用途：对位串实现掩码操作或其他处理（主要用于多媒体数据或状态/控制信息进行处理）</li>
+<li>操作：|(按位或)  &amp;(按位与)  ~(按位取反)  ^(按位抑或)</li>
+</ul>
+</li>
+<li>逻辑运算<ul>
+<li>用途：关系表达式 e.g. or  and  not</li>
+<li>操作：||  &amp;&amp;  !</li>
+</ul>
+</li>
+<li>移位运算<ul>
+<li>用途：提取部分信息；扩大/缩小数值 2 4 8 …… 倍</li>
+<li>操作：&gt;&gt;    &lt;&lt;</li>
+</ul>
+</li>
+<li>位扩展和位截断运算<ul>
+<li>用途：<u>类型转换</u>时可能需要数据扩展或截断</li>
+<li>操作：无专门运算符</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-2-ALU"><a href="#2-1-2-ALU" class="headerlink" title="2-1-2 ALU"></a>2-1-2 ALU</h4><p><img src="/imgForArc/2021/10/image-20211026124227162.png" alt="image-20211026124227162"></p>
+<ul>
+<li>全加器、串行加法器、先行进位加法器</li>
+<li>串行ALU、先行进位ALU（单级/多级）</li>
+<li>MSI芯片级联、直接做在CPU芯片内</li>
+</ul>
+<h3 id="2-2-定点数运算"><a href="#2-2-定点数运算" class="headerlink" title="2-2 定点数运算"></a>2-2 定点数运算</h3><h4 id="2-2-1-n位整数加-减法运算器"><a href="#2-2-1-n位整数加-减法运算器" class="headerlink" title="2-2-1 n位整数加/减法运算器"></a>2-2-1 n位整数加/减法运算器</h4><h3 id="2-3-浮点数运算"><a href="#2-3-浮点数运算" class="headerlink" title="2-3 浮点数运算"></a>2-3 浮点数运算</h3><br/>
+
+
+
+<h2 id="03-指令系统"><a href="#03-指令系统" class="headerlink" title="03 - 指令系统"></a>03 - 指令系统</h2><p>Instruction Set</p>
+<ul>
+<li>指令系统的设计</li>
+<li>程序的机器级表示</li>
+</ul>
+<h3 id="3-1-指令系统的设计"><a href="#3-1-指令系统的设计" class="headerlink" title="3-1 指令系统的设计"></a>3-1 指令系统的设计</h3><p>指令系统处在计算机软件/硬件的交界面上，同时被硬件设计者和系统程序员所关注，也决定了计算机的性能和成本。</p>
+<ul>
+<li>硬件设计者：指令系统为CPU提供功能需求，要求<strong>易于硬件设计</strong></li>
+<li>系统程序员：通过指令系统来使用硬件，要求<strong>易于编译器的实现</strong></li>
+</ul>
+<h4 id="3-1-1-指令内容"><a href="#3-1-1-指令内容" class="headerlink" title="3-1-1 指令内容"></a>3-1-1 指令内容</h4><p>一条指令应该明显或隐式包含的信息有哪些？</p>
+<ul>
+<li>操作码：指定操作类型<ul>
+<li>操作码长度：固定/可变</li>
+</ul>
+</li>
+<li>源操作数参照：一个或多个源操作数所在的地址<ul>
+<li>操作数来源：主(虚)存 / 寄存器 / I/O端口 / 指令本身</li>
+</ul>
+</li>
+<li>结果值参照：产生的结果存放何处（目的操作数）<ul>
+<li>结果地址：主(虚)存 / 寄存器 / I/O端口</li>
+</ul>
+</li>
+<li>下一条指令地址<ul>
+<li>下条指令地址 ：主(虚)存</li>
+<li>正常情况隐含在PC中，改变顺序时由指令给出</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-2-指令的类型"><a href="#3-1-2-指令的类型" class="headerlink" title="3-1-2 指令的类型"></a>3-1-2 指令的类型</h4><ul>
+<li>零地址：op</li>
+<li>一地址：op a1</li>
+<li>二地址：op a1 a2</li>
+<li>三地址：op a1 a2 a3</li>
+<li>多地址：用于成批数据处理的指令，如：向量 / 矩阵等运算的SIMD指令。</li>
+</ul>
+<h4 id="3-1-3-指令执行周期"><a href="#3-1-3-指令执行周期" class="headerlink" title="3-1-3 指令执行周期"></a>3-1-3 指令执行周期</h4><p><img src="/imgForArc/2021/10/image-20211026172350684.png" alt="image-20211026172350684"></p>
+<h4 id="3-1-4-操作数类型和存储方式"><a href="#3-1-4-操作数类型和存储方式" class="headerlink" title="3-1-4 操作数类型和存储方式"></a>3-1-4 操作数类型和存储方式</h4><p>操作数是指令处理的对象，与高级语言数据类型对应。</p>
+<ul>
+<li>地址（指针）<ul>
+<li>视作无符号数，用来参加运算/确定主（虚）存</li>
+</ul>
+</li>
+<li>数值数据<ul>
+<li>定点数（整数）：一般用二进制补码表示</li>
+<li>浮点数（实数）：大多数机器用IEEE</li>
+</ul>
+</li>
+<li>位、位串、字符和字符串<ul>
+<li>文本、声音、图像</li>
+</ul>
+</li>
+<li>逻辑（bool）数据<ul>
+<li>按位操作</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-5-★寻址方式"><a href="#3-1-5-★寻址方式" class="headerlink" title="3-1-5 ★寻址方式"></a>3-1-5 ★寻址方式</h4><p>根据地址找到指令或操作数的方法。地址码编码由操作数的寻址方式决定。</p>
+<p>编码原则：</p>
+<ul>
+<li>指令地址码尽量短</li>
+<li>操作数存放位置灵活，空间应尽量大<ul>
+<li>利于编译器优化，产生高效代码</li>
+</ul>
+</li>
+<li>地址计算过程尽量简单</li>
+</ul>
+<h5 id="①-指令寻址"><a href="#①-指令寻址" class="headerlink" title="① 指令寻址"></a>① 指令寻址</h5><ul>
+<li>正常：PC增值</li>
+<li>跳转（jump / branch / call / return）：同操作数的寻址</li>
+</ul>
+<h5 id="②-操作数寻址"><a href="#②-操作数寻址" class="headerlink" title="② 操作数寻址"></a>② 操作数寻址</h5><ul>
+<li>操作数来源：寄存器、外设端口、主（虚）存、栈顶</li>
+<li>操作数结构：位 / 字节 / 半字 / 字 / 双字 / 一维表 /二维表 / ……</li>
+</ul>
+<p>通常寻址方式特指操作数的寻址方式。</p>
+<h5 id="③-方式的确定"><a href="#③-方式的确定" class="headerlink" title="③ 方式的确定"></a>③ 方式的确定</h5><ul>
+<li>无专门的寻址方式位（由操作码确定寻址方式）<ul>
+<li>如MIPS指令，一条指令中最多仅有一个主（虚）存地址，且仅有一到两种寻址方式，Load/store型机器指令属于这种情况。</li>
+</ul>
+</li>
+<li>有专门的寻址方式位<ul>
+<li>如x86指令，一条指令中有多个操作数，且寻址方式各不相同，需要各自说明寻址方式，每个操作数都有专门的寻址方式位</li>
+</ul>
+</li>
+</ul>
+<h5 id="④-基本寻址方式"><a href="#④-基本寻址方式" class="headerlink" title="④ 基本寻址方式"></a>④ 基本寻址方式</h5><p>A：地址字段值    R：寄存器编号    EA：有效地址    (X)：X中的内容</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>算法</th>
+<th>主要优点</th>
+<th>主要缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>立即</td>
+<td>操作数=A</td>
+<td>指令执行速度快</td>
+<td>操作数幅值有限</td>
+</tr>
+<tr>
+<td>直接</td>
+<td>EA=A</td>
+<td>有效地址计算简单</td>
+<td>地址范围有限</td>
+</tr>
+<tr>
+<td>间接</td>
+<td>EA=(A)</td>
+<td>有效地址范围大</td>
+<td>多次存储器访问</td>
+</tr>
+<tr>
+<td>寄存器</td>
+<td>操作数=(R)</td>
+<td>指令执行快，指令短</td>
+<td>地址范围有限</td>
+</tr>
+<tr>
+<td>寄间接</td>
+<td>EA=(R)</td>
+<td>地址范围大</td>
+<td>外存储器访问</td>
+</tr>
+<tr>
+<td>偏移</td>
+<td>EA=A+(R)</td>
+<td>灵活</td>
+<td>复杂</td>
+</tr>
+<tr>
+<td>堆栈</td>
+<td>EA=栈顶</td>
+<td>指令短</td>
+<td>应用有限</td>
+</tr>
+</tbody></table>
+<h5 id="⑤-★偏移寻址方式-EA-A-R"><a href="#⑤-★偏移寻址方式-EA-A-R" class="headerlink" title="⑤ ★偏移寻址方式   EA=A+(R)"></a>⑤ ★偏移寻址方式   EA=A+(R)</h5><p>R可以为 PC、B、I。（ B：基址寄存器    I：变址寄存器）</p>
+<ul>
+<li>相对寻址 EA = A + (PC)<ul>
+<li>相对于当前指令处位移量为A的单元</li>
+<li>指令地址码给出一个偏移量（带符号数）A</li>
+<li>基准地址隐含由PC给出</li>
+<li>用来实现<u>程序（公共子程序）的浮动</u> 或 <u>指定转移目标地址</u></li>
+</ul>
+</li>
+<li>基址寻址 EA = A + (B)<ul>
+<li>相对于基址(B)处位移量为A的单元</li>
+<li>指令地址码给出一个偏移量A</li>
+<li>基准地址明显或隐含由基址寄存器B给出</li>
+<li>用来实现<u>多道程序重定位</u> 或 <u>过程调用中参数的访问</u></li>
+</ul>
+</li>
+<li>变址寻址 EA = A + (I)<ul>
+<li>相对于首址A位移量为(I)的单元</li>
+<li>指令地址码给出一个基准地址A</li>
+<li><u>循环重复操作</u>提供一种高效机制，实现对线性表的操作</li>
+</ul>
+</li>
+</ul>
+<h5 id="⑥-指令格式"><a href="#⑥-指令格式" class="headerlink" title="⑥ 指令格式"></a>⑥ 指令格式</h5><h3 id="3-2-程序的机器级表示"><a href="#3-2-程序的机器级表示" class="headerlink" title="3-2 程序的机器级表示"></a>3-2 程序的机器级表示</h3><p>【未完  学半道发现不考】</p>
+
+      
+    </div>
+    
+    
+    <div class="article-category">
+      
+        <b>Categories:</b>
+        <a class="article-category-link" href="/categories/Computer-Science/">Computer Science</a>
+      
+      
+      
+    </div>
+    
+    
+  </div>
+</article>
+
+  
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2021/28/2021-10-28-%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          系统分析与设计方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/2021-10-05-%E3%80%8A%E9%95%BF%E6%B4%A5%E6%B9%96%E3%80%8B%E9%87%8C%E7%9A%84%E4%BC%A0%E6%89%BF/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          《长津湖》里的传承
+        
+      </div>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+    </div>
+  </div>
+  
+
+
+
+
+<div id="settings-container">
+  <div id="dark-mode">dark</div>
+  <div id="sans-font">sans</div>
+</div>
+<script type="text/javascript">
+let d=document,r=d.documentElement.style,f=r.setProperty.bind(r),l=localStorage,s=l.getItem('s')||(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),n=l.getItem('n'),m=d.getElementById("dark-mode"),b=()=>{f('--bg-color','#fafafa');f('--code-bg-color','#f4f4f4');f('--text-color','#212121');f('--secondary-color','#808080');f('--tertiary-color','#b0b0b0');f('--link-color','#b5c8cf');f('--link-hover-color','#618794');f('--link-bg-color','#dae4e7');f('--selection-color','#dae4e7');m.innerHTML="dark"},c=()=>{f('--bg-color','#212121');f('--code-bg-color','#292929');f('--text-color','#fff');f('--secondary-color','#c0c0c0');f('--tertiary-color','#6e6e6e');f('--link-color','#4d6b75');f('--link-hover-color','#96b1bb');f('--link-bg-color','#5d828e');f('--selection-color','#acc1c9');m.innerHTML="light"},o=d.getElementById("sans-font"),e=()=>{f('--body-stack','"Lora", "Georgia", "Times New Roman", serif');o.innerHTML="sans"},g=()=>{f('--body-stack','"Lato", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "Verdana", sans-serif');o.innerHTML="serif"};m.onclick=()=>{if(s==2){s=1;l.setItem('s',s);c()}else{s=2;l.setItem('s',s);b()}};o.onclick=()=>{if(n==2){n=1;l.setItem('n',n);g()}else{n=2;l.setItem('n',n);e()}};if(!s){s=2;l.setItem('s',2)};if(s==1){c()};if(!n){n=2;l.setItem('n',2)};if(n==1){g()};
+</script>
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-195210058-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
